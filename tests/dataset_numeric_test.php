@@ -1,6 +1,6 @@
 <?php
 /**
- * ezcGraphNumericDataSetTest 
+ * NumericDataSetTest 
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,13 +27,19 @@
 
 require_once dirname( __FILE__ ) . '/test_case.php';
 
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Axis\ChartElementNumericAxis;
+use Ezc\Graph\Datasets\NumericDataSet;
+
+
+
 /**
  * Tests for ezcGraph class.
  * 
  * @package Graph
  * @subpackage Tests
  */
-class ezcGraphNumericDataSetTest extends ezcGraphTestCase
+class NumericDataSetTest extends ezcGraphTestCase
 {
     protected $basePath;
 
@@ -41,7 +47,7 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
 
 	public static function suite()
 	{
-		return new PHPUnit_Framework_TestSuite( "ezcGraphNumericDataSetTest" );
+		return new PHPUnit_Framework_TestSuite( "NumericDataSetTest" );
 	}
 
     public function setUp()
@@ -63,25 +69,25 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
 
     public function testNumericDataSetPropertyResolution()
     {
-        $dataset = new ezcGraphNumericDataSet();
+        $dataset = new NumericDataSet();
 
         $this->assertSame(
             100,
             $dataset->resolution,
-            'Wrong default value for property resolution in class ezcGraphNumericDataSet'
+            'Wrong default value for property resolution in class NumericDataSet'
         );
 
         $dataset->resolution = 5;
         $this->assertSame(
             5,
             $dataset->resolution,
-            'Setting property value did not work for property resolution in class ezcGraphNumericDataSet'
+            'Setting property value did not work for property resolution in class NumericDataSet'
         );
 
         $this->assertSame(
             6,
             count( $dataset ),
-            'Setting property value did not work for property resolution in class ezcGraphNumericDataSet'
+            'Setting property value did not work for property resolution in class NumericDataSet'
         );
 
         try
@@ -98,19 +104,19 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
 
     public function testNumericDataSetPropertyStart()
     {
-        $dataset = new ezcGraphNumericDataSet();
+        $dataset = new NumericDataSet();
 
         $this->assertSame(
             null,
             $dataset->start,
-            'Wrong default value for property start in class ezcGraphNumericDataSet'
+            'Wrong default value for property start in class NumericDataSet'
         );
 
         $dataset->start = -32.4;
         $this->assertSame(
             -32.4,
             $dataset->start,
-            'Setting property value did not work for property start in class ezcGraphNumericDataSet'
+            'Setting property value did not work for property start in class NumericDataSet'
         );
 
         try
@@ -127,19 +133,19 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
 
     public function testNumericDataSetPropertyEnd()
     {
-        $dataset = new ezcGraphNumericDataSet();
+        $dataset = new NumericDataSet();
 
         $this->assertSame(
             null,
             $dataset->end,
-            'Wrong default value for property end in class ezcGraphNumericDataSet'
+            'Wrong default value for property end in class NumericDataSet'
         );
 
         $dataset->end = -32.4;
         $this->assertSame(
             -32.4,
             $dataset->end,
-            'Setting property value did not work for property end in class ezcGraphNumericDataSet'
+            'Setting property value did not work for property end in class NumericDataSet'
         );
 
         try
@@ -156,19 +162,19 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
 
     public function testNumericDataSetPropertyCallback()
     {
-        $dataset = new ezcGraphNumericDataSet();
+        $dataset = new NumericDataSet();
 
         $this->assertSame(
             null,
             $dataset->callback,
-            'Wrong default value for property callback in class ezcGraphNumericDataSet'
+            'Wrong default value for property callback in class NumericDataSet'
         );
 
         $dataset->callback = 'sin';
         $this->assertSame(
             'sin',
             $dataset->callback,
-            'Setting property value did not work for property callback in class ezcGraphNumericDataSet'
+            'Setting property value did not work for property callback in class NumericDataSet'
         );
 
         // Use random default enabled public static method
@@ -176,7 +182,7 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
         $this->assertSame(
             array( 'Reflection', 'export' ),
             $dataset->callback,
-            'Setting property value did not work for property callback in class ezcGraphNumericDataSet'
+            'Setting property value did not work for property callback in class NumericDataSet'
         );
 
         // Use random default enabled public method
@@ -185,7 +191,7 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
         $this->assertSame(
             array( $reflection, 'isInternal' ),
             $dataset->callback,
-            'Setting property value did not work for property callback in class ezcGraphNumericDataSet'
+            'Setting property value did not work for property callback in class NumericDataSet'
         );
 
         try
@@ -202,7 +208,7 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
 
     public function testIterateOverAverageDataset()
     {
-        $numericDataSet = new ezcGraphNumericDataSet( -1, 1, 'sin' );
+        $numericDataSet = new NumericDataSet( -1, 1, 'sin' );
 
         $stepSize = 2 / 100;
         $start = -1 - $stepSize;
@@ -219,7 +225,7 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
 
     public function testIterateOverAverageDataset2()
     {
-        $numericDataSet = new ezcGraphNumericDataSet( 
+        $numericDataSet = new NumericDataSet( 
             -90, 
             90, 
             create_function( 
@@ -246,8 +252,8 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['Sinus'] = new ezcGraphNumericDataSet( 
+        $chart = new LineChart();
+        $chart->data['Sinus'] = new NumericDataSet( 
             -180, 
             180, 
             create_function( 
@@ -255,7 +261,7 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
                 'return 10 * sin( deg2rad( $x ) );'
             )
         );
-        $chart->data['Cosinus'] = new ezcGraphNumericDataSet( 
+        $chart->data['Cosinus'] = new NumericDataSet( 
             -180, 
             180, 
             create_function( 
@@ -263,7 +269,7 @@ class ezcGraphNumericDataSetTest extends ezcGraphTestCase
                 'return 5 * cos( deg2rad( $x ) );'
             )
         );
-        $chart->xAxis = new ezcGraphChartElementNumericAxis();
+        $chart->xAxis = new ChartElementNumericAxis();
 
         $chart->render( 500, 200, $filename );
 

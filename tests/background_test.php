@@ -27,6 +27,14 @@
 
 require_once dirname( __FILE__ ) . '/test_case.php';
 
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer3d;
+
+
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -68,7 +76,7 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         try 
         {
-            $pieChart = new ezcGraphPieChart();
+            $pieChart = new PieChart();
             $pieChart->background->image = $this->basePath . $this->testFiles['invalid'];
         } 
         catch ( ezcGraphInvalidImageFileException $e ) 
@@ -83,7 +91,7 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         try 
         {
-            $pieChart = new ezcGraphPieChart();
+            $pieChart = new PieChart();
             $pieChart->background->image = $this->basePath . $this->testFiles['nonexistant'];
         } 
         catch ( ezcBaseFileNotFoundException $e ) 
@@ -96,40 +104,40 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
 
     public function testSetOptionsBackground()
     {
-        $pieChart = new ezcGraphPieChart();
+        $pieChart = new PieChart();
         $pieChart->background->color = '#FF0000';
 
         $this->assertEquals( 
-            ezcGraphColor::fromHex( 'FF0000' ),
+            Color::fromHex( 'FF0000' ),
             $pieChart->background->color
         );
     }
 
     public function testSetOptionsBorder()
     {
-        $pieChart = new ezcGraphPieChart();
+        $pieChart = new PieChart();
         $pieChart->background->border = '#FF0000';
 
         $this->assertEquals( 
-            ezcGraphColor::fromHex( 'FF0000' ),
+            Color::fromHex( 'FF0000' ),
             $pieChart->background->border
         );
     }
 
     public function testSetOptionsBorderLineChart()
     {
-        $lineChart = new ezcGraphLineChart();
+        $lineChart = new LineChart();
         $lineChart->background = '#FF0000';
 
         $this->assertEquals( 
-            ezcGraphColor::fromHex( 'FF0000' ),
+            Color::fromHex( 'FF0000' ),
             $lineChart->background->color
         );
     }
 
     public function testSetOptionsBorderWidth()
     {
-        $pieChart = new ezcGraphPieChart();
+        $pieChart = new PieChart();
         $pieChart->background->borderWidth = 3;
 
         $this->assertSame( 3, $pieChart->background->borderWidth );
@@ -139,8 +147,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -164,8 +172,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -189,8 +197,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -215,8 +223,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -241,8 +249,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -268,8 +276,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -294,8 +302,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -320,8 +328,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -334,7 +342,7 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
         $chart->background->position = ezcGraph::BOTTOM | ezcGraph::CENTER;
 
         $chart->driver = new ezcGraphSvgDriver();
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->renderer = new Renderer3d();
         $chart->render( 500, 200, $filename );
 
         $this->compare(
@@ -347,8 +355,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -362,7 +370,7 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
         $chart->background->position = ezcGraph::BOTTOM;
 
         $chart->driver = new ezcGraphSvgDriver();
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->renderer = new Renderer3d();
         $chart->render( 500, 200, $filename );
 
         $this->compare(
@@ -375,8 +383,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -398,8 +406,8 @@ class ezcGraphBackgroundTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,

@@ -25,6 +25,11 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+
+namespace Ezc\Graph\Tests;
+
+use Ezc\Graph\Structs\Coordinate;
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -121,11 +126,11 @@ class ezcGraphTransformationTest extends ezcTestCase
     {
         $transformation = new ezcGraphTranslation( 5, 5 );
 
-        $testCoordinate = new ezcGraphCoordinate( 0, 0 );
+        $testCoordinate = new Coordinate( 0, 0 );
         $testCoordinate = $transformation->transformCoordinate( $testCoordinate );
 
         $this->assertEquals(
-            new ezcGraphCoordinate( 5, 5 ),
+            new Coordinate( 5, 5 ),
             $testCoordinate,
             'Transformation of coordinate has wrong result.',
             .0001
@@ -157,7 +162,7 @@ class ezcGraphTransformationTest extends ezcTestCase
         $transformation = new ezcGraphRotation( 90 );
 
         $this->assertEquals(
-            new ezcGraphCoordinate( 0, 0 ),
+            new Coordinate( 0, 0 ),
             $transformation->getCenter()
         );
     }
@@ -174,7 +179,7 @@ class ezcGraphTransformationTest extends ezcTestCase
 
     public function testCreateTranslatedRotation()
     {
-        $transformation = new ezcGraphRotation( 90, new ezcGraphCoordinate( 10, 10 ) );
+        $transformation = new ezcGraphRotation( 90, new Coordinate( 10, 10 ) );
 
         $matrix = new ezcGraphMatrix( 3, 3,
             array(
@@ -184,11 +189,11 @@ class ezcGraphTransformationTest extends ezcTestCase
             )
         );
 
-        $testCoordinate = new ezcGraphCoordinate( 0, 0 );
+        $testCoordinate = new Coordinate( 0, 0 );
         $testCoordinate = $transformation->transformCoordinate( $testCoordinate );
 
         $this->assertEquals(
-            new ezcGraphCoordinate( 20, 0 ),
+            new Coordinate( 20, 0 ),
             $testCoordinate,
             'Transformation matrices are not aequivalent',
             .0001

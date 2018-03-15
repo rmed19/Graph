@@ -7,12 +7,12 @@ function __autoload( $className )
 }
 
 // Create the graph
-$graph = new ezcGraphPieChart();
+$graph = new \Ezc\Graph\Charts\PieChart();
 
-$graph->palette = new ezcGraphPaletteEzRed();
+$graph->palette = new \Ezc\Graph\Palette\EzRed();
 
 // Add the data and hilight norwegian data set
-$graph->data['articles'] = new ezcGraphArrayDataSet( array(
+$graph->data['articles'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'English' => 1300000,
     'Germany' => 452000,
     'Netherlands' => 217000,
@@ -27,7 +27,7 @@ $graph->title = 'Wikipedia articles by country';
 $graph->options->label = '%2$d (%3$.1f%%)';
 
 // Use 3d renderer, and beautify it
-$graph->renderer = new ezcGraphRenderer3d();
+$graph->renderer = new \Ezc\Graph\Renderer\Renderer3d();
 
 $graph->renderer->options->pieChartShadowSize = 12;
 $graph->renderer->options->pieChartGleam = .5;

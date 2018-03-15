@@ -1,4 +1,13 @@
 <?php
+
+use Ezc\Graph\Axis\ChartElementNumericAxis;
+use Ezc\Graph\Options\FontOptions;
+use Ezc\Graph\Element\ChartElementBackground;
+use Ezc\Graph\Element\ChartElementLegend;
+use Ezc\Graph\Element\ChartElementText;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Renderer\AxisBoxedLabelRenderer;
+
 /**
  * ezcGraphElementOptionsTest 
  * 
@@ -42,37 +51,37 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyTitle()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             false,
             $options->title,
-            'Wrong default value for property title in class ezcGraphChartElementBackground'
+            'Wrong default value for property title in class ChartElementBackground'
         );
 
         $options->title = 'Title';
         $this->assertSame(
             'Title',
             $options->title,
-            'Setting property value did not work for property title in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property title in class ChartElementBackground'
         );
     }
 
     public function testChartElementPropertyBackground()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             false,
             $options->background,
-            'Wrong default value for property background in class ezcGraphChartElementBackground'
+            'Wrong default value for property background in class ChartElementBackground'
         );
 
-        $options->background = $color = ezcGraphColor::fromHex( '#FFFFFF' );
+        $options->background = $color = Color::fromHex( '#FFFFFF' );
         $this->assertSame(
             $color,
             $options->background,
-            'Setting property value did not work for property background in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property background in class ChartElementBackground'
         );
 
         try
@@ -89,30 +98,30 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyBoundings()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             'ezcGraphBoundings',
             get_class( $options->boundings ),
-            'Wrong default value for property boundings in class ezcGraphChartElementBackground'
+            'Wrong default value for property boundings in class ChartElementBackground'
         );
     }
 
     public function testChartElementPropertyBorder()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             false,
             $options->border,
-            'Wrong default value for property border in class ezcGraphChartElementBackground'
+            'Wrong default value for property border in class ChartElementBackground'
         );
 
-        $options->border = $color = ezcGraphColor::fromHex( '#FFFFFF' );
+        $options->border = $color = Color::fromHex( '#FFFFFF' );
         $this->assertSame(
             $color,
             $options->border,
-            'Setting property value did not work for property border in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property border in class ChartElementBackground'
         );
 
         try
@@ -129,19 +138,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyPadding()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             0,
             $options->padding,
-            'Wrong default value for property padding in class ezcGraphChartElementBackground'
+            'Wrong default value for property padding in class ChartElementBackground'
         );
 
         $options->padding = 1;
         $this->assertSame(
             1,
             $options->padding,
-            'Setting property value did not work for property padding in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property padding in class ChartElementBackground'
         );
 
         try
@@ -158,19 +167,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyMargin()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             0,
             $options->margin,
-            'Wrong default value for property margin in class ezcGraphChartElementBackground'
+            'Wrong default value for property margin in class ChartElementBackground'
         );
 
         $options->margin = 1;
         $this->assertSame(
             1,
             $options->margin,
-            'Setting property value did not work for property margin in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property margin in class ChartElementBackground'
         );
 
         try
@@ -187,19 +196,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyBorderWidth()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             0,
             $options->borderWidth,
-            'Wrong default value for property borderWidth in class ezcGraphChartElementBackground'
+            'Wrong default value for property borderWidth in class ChartElementBackground'
         );
 
         $options->borderWidth = 1;
         $this->assertSame(
             1,
             $options->borderWidth,
-            'Setting property value did not work for property borderWidth in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property borderWidth in class ChartElementBackground'
         );
 
         try
@@ -216,19 +225,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyPosition()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             ezcGraph::LEFT,
             $options->position,
-            'Wrong default value for property position in class ezcGraphChartElementBackground'
+            'Wrong default value for property position in class ChartElementBackground'
         );
 
         $options->position = ezcGraph::RIGHT;
         $this->assertSame(
             ezcGraph::RIGHT,
             $options->position,
-            'Setting property value did not work for property position in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property position in class ChartElementBackground'
         );
 
         try
@@ -245,19 +254,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyMaxTitleHeight()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             16,
             $options->maxTitleHeight,
-            'Wrong default value for property maxTitleHeight in class ezcGraphChartElementBackground'
+            'Wrong default value for property maxTitleHeight in class ChartElementBackground'
         );
 
         $options->maxTitleHeight = 20;
         $this->assertSame(
             20,
             $options->maxTitleHeight,
-            'Setting property value did not work for property maxTitleHeight in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property maxTitleHeight in class ChartElementBackground'
         );
 
         try
@@ -274,19 +283,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyPortraitTitleSize()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             .15,
             $options->portraitTitleSize,
-            'Wrong default value for property portraitTitleSize in class ezcGraphChartElementBackground'
+            'Wrong default value for property portraitTitleSize in class ChartElementBackground'
         );
 
         $options->portraitTitleSize = .5;
         $this->assertSame(
             .5,
             $options->portraitTitleSize,
-            'Setting property value did not work for property portraitTitleSize in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property portraitTitleSize in class ChartElementBackground'
         );
 
         try
@@ -303,19 +312,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyLandscapeTitleSize()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             .2,
             $options->landscapeTitleSize,
-            'Wrong default value for property landscapeTitleSize in class ezcGraphChartElementBackground'
+            'Wrong default value for property landscapeTitleSize in class ChartElementBackground'
         );
 
         $options->landscapeTitleSize = .5;
         $this->assertSame(
             .5,
             $options->landscapeTitleSize,
-            'Setting property value did not work for property landscapeTitleSize in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property landscapeTitleSize in class ChartElementBackground'
         );
 
         try
@@ -332,22 +341,22 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyFont()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
-            'ezcGraphFontOptions',
+            'FontOptions',
             get_class( $options->font ),
-            'Wrong default value for property font in class ezcGraphChartElementBackground'
+            'Wrong default value for property font in class ChartElementBackground'
         );
 
-        $fontOptions = new ezcGraphFontOptions();
+        $fontOptions = new FontOptions();
         $fontOptions->path = dirname( __FILE__ ) . '/data/font2.ttf';
 
         $options->font = $fontOptions;
         $this->assertSame(
             $fontOptions,
             $options->font,
-            'Setting property value did not work for property font in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property font in class ChartElementBackground'
         );
 
         try
@@ -364,30 +373,30 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementPropertyFontCloned()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             false,
             $options->fontCloned,
-            'Wrong default value for property fontCloned in class ezcGraphChartElementBackground'
+            'Wrong default value for property fontCloned in class ChartElementBackground'
         );
     }
 
     public function testChartElementBackgroundPropertyImage()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             false,
             $options->image,
-            'Wrong default value for property image in class ezcGraphChartElementBackground'
+            'Wrong default value for property image in class ChartElementBackground'
         );
 
         $options->image = $file = dirname( __FILE__ ) . '/data/gif.gif';
         $this->assertSame(
             $file,
             $options->image,
-            'Setting property value did not work for property image in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property image in class ChartElementBackground'
         );
 
         try
@@ -404,19 +413,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementBackgroundPropertyRepeat()
     {
-        $options = new ezcGraphChartElementBackground();
+        $options = new ChartElementBackground();
 
         $this->assertSame(
             ezcGraph::NO_REPEAT,
             $options->repeat,
-            'Wrong default value for property repeat in class ezcGraphChartElementBackground'
+            'Wrong default value for property repeat in class ChartElementBackground'
         );
 
         $options->repeat = ezcGraph::VERTICAL;
         $this->assertSame(
             ezcGraph::VERTICAL,
             $options->repeat,
-            'Setting property value did not work for property repeat in class ezcGraphChartElementBackground'
+            'Setting property value did not work for property repeat in class ChartElementBackground'
         );
 
         try
@@ -433,19 +442,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementLegendPropertyPadding()
     {
-        $options = new ezcGraphChartElementLegend();
+        $options = new ChartElementLegend();
 
         $this->assertSame(
             0,
             $options->padding,
-            'Wrong default value for property padding in class ezcGraphChartElementLegend'
+            'Wrong default value for property padding in class ChartElementLegend'
         );
 
         $options->padding = 1;
         $this->assertSame(
             1,
             $options->padding,
-            'Setting property value did not work for property padding in class ezcGraphChartElementLegend'
+            'Setting property value did not work for property padding in class ChartElementLegend'
         );
 
         try
@@ -462,19 +471,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementLegendPropertyPortraitSize()
     {
-        $options = new ezcGraphChartElementLegend();
+        $options = new ChartElementLegend();
 
         $this->assertSame(
             .2,
             $options->portraitSize,
-            'Wrong default value for property portraitSize in class ezcGraphChartElementLegend'
+            'Wrong default value for property portraitSize in class ChartElementLegend'
         );
 
         $options->portraitSize = .5;
         $this->assertSame(
             .5,
             $options->portraitSize,
-            'Setting property value did not work for property portraitSize in class ezcGraphChartElementLegend'
+            'Setting property value did not work for property portraitSize in class ChartElementLegend'
         );
 
         try
@@ -491,19 +500,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementLegendPropertyLandscapeSize()
     {
-        $options = new ezcGraphChartElementLegend();
+        $options = new ChartElementLegend();
 
         $this->assertSame(
             .1,
             $options->landscapeSize,
-            'Wrong default value for property landscapeSize in class ezcGraphChartElementLegend'
+            'Wrong default value for property landscapeSize in class ChartElementLegend'
         );
 
         $options->landscapeSize = .5;
         $this->assertSame(
             .5,
             $options->landscapeSize,
-            'Setting property value did not work for property landscapeSize in class ezcGraphChartElementLegend'
+            'Setting property value did not work for property landscapeSize in class ChartElementLegend'
         );
 
         try
@@ -520,19 +529,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementLegendPropertySymbolSize()
     {
-        $options = new ezcGraphChartElementLegend();
+        $options = new ChartElementLegend();
 
         $this->assertSame(
             14,
             $options->symbolSize,
-            'Wrong default value for property symbolSize in class ezcGraphChartElementLegend'
+            'Wrong default value for property symbolSize in class ChartElementLegend'
         );
 
         $options->symbolSize = 20;
         $this->assertSame(
             20,
             $options->symbolSize,
-            'Setting property value did not work for property symbolSize in class ezcGraphChartElementLegend'
+            'Setting property value did not work for property symbolSize in class ChartElementLegend'
         );
 
         try
@@ -549,19 +558,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementLegendPropertyMinimumSymbolSize()
     {
-        $options = new ezcGraphChartElementLegend();
+        $options = new ChartElementLegend();
 
         $this->assertSame(
             .05,
             $options->minimumSymbolSize,
-            'Wrong default value for property minimumSymbolSize in class ezcGraphChartElementLegend'
+            'Wrong default value for property minimumSymbolSize in class ChartElementLegend'
         );
 
         $options->minimumSymbolSize = .1;
         $this->assertSame(
             .1,
             $options->minimumSymbolSize,
-            'Setting property value did not work for property minimumSymbolSize in class ezcGraphChartElementLegend'
+            'Setting property value did not work for property minimumSymbolSize in class ChartElementLegend'
         );
 
         try
@@ -578,19 +587,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementLegendPropertySpacing()
     {
-        $options = new ezcGraphChartElementLegend();
+        $options = new ChartElementLegend();
 
         $this->assertSame(
             2,
             $options->spacing,
-            'Wrong default value for property spacing in class ezcGraphChartElementLegend'
+            'Wrong default value for property spacing in class ChartElementLegend'
         );
 
         $options->spacing = 5;
         $this->assertSame(
             5,
             $options->spacing,
-            'Setting property value did not work for property spacing in class ezcGraphChartElementLegend'
+            'Setting property value did not work for property spacing in class ChartElementLegend'
         );
 
         try
@@ -607,37 +616,37 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyNullPosition()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             false,
             $options->nullPosition,
-            'Wrong default value for property nullPosition in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property nullPosition in class ChartElementNumericAxis'
         );
 
         $options->nullPosition = .5;
         $this->assertSame(
             .5,
             $options->nullPosition,
-            'Setting property value did not work for property nullPosition in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property nullPosition in class ChartElementNumericAxis'
         );
     }
 
     public function testChartElementAxisPropertyAxisSpace()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             .1,
             $options->axisSpace,
-            'Wrong default value for property axisSpace in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property axisSpace in class ChartElementNumericAxis'
         );
 
         $options->axisSpace = .2;
         $this->assertSame(
             .2,
             $options->axisSpace,
-            'Setting property value did not work for property axisSpace in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property axisSpace in class ChartElementNumericAxis'
         );
 
         try
@@ -655,26 +664,27 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
     /* Disabled for now.
     public function testChartElementAxisPropertyOuterAxisSpace()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new \Ezc\Graph\Axis\ChartElementNumericAxis();
 
         $this->assertSame(
             null,
             $options->outerAxisSpace,
-            'Wrong default value for property outerAxisSpace in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property outerAxisSpace in class Ezc\Graph\Axis\ChartElementNumericAxis'
         );
 
         $options->outerAxisSpace = .2;
         $this->assertSame(
             .2,
             $options->outerAxisSpace,
-            'Setting property value did not work for property outerAxisSpace in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property outerAxisSpace in class Ezc\Graph\Axis\ChartElementNumericAxis'
         );
 
         $options->outerAxisSpace = null;
         $this->assertSame(
             null,
             $options->outerAxisSpace,
-            'Setting property value did not work for property outerAxisSpace in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property outerAxisSpace in class 
+    Ezc\Graph\Axis\ChartElementNumericAxis'
         );
 
         try
@@ -691,19 +701,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyMajorGrid()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             false,
             $options->majorGrid,
-            'Wrong default value for property majorGrid in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property majorGrid in class ChartElementNumericAxis'
         );
 
-        $options->majorGrid = $color = ezcGraphColor::fromHex( '#FFFFFF' );
+        $options->majorGrid = $color = Color::fromHex( '#FFFFFF' );
         $this->assertSame(
             $color,
             $options->majorGrid,
-            'Setting property value did not work for property majorGrid in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property majorGrid in class ChartElementNumericAxis'
         );
 
         try
@@ -720,19 +730,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyMinorGrid()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             false,
             $options->minorGrid,
-            'Wrong default value for property minorGrid in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property minorGrid in class ChartElementNumericAxis'
         );
 
-        $options->minorGrid = $color = ezcGraphColor::fromHex( '#FFFFFF' );
+        $options->minorGrid = $color = Color::fromHex( '#FFFFFF' );
         $this->assertSame(
             $color,
             $options->minorGrid,
-            'Setting property value did not work for property minorGrid in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property minorGrid in class ChartElementNumericAxis'
         );
 
         try
@@ -749,19 +759,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyMajorStep()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             null,
             $options->majorStep,
-            'Wrong default value for property majorStep in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property majorStep in class ChartElementNumericAxis'
         );
 
         $options->majorStep = 1.;
         $this->assertSame(
             1.,
             $options->majorStep,
-            'Setting property value did not work for property majorStep in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property majorStep in class ChartElementNumericAxis'
         );
 
         try
@@ -778,19 +788,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyMinorStep()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             null,
             $options->minorStep,
-            'Wrong default value for property minorStep in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property minorStep in class ChartElementNumericAxis'
         );
 
         $options->minorStep = 1.;
         $this->assertSame(
             1.,
             $options->minorStep,
-            'Setting property value did not work for property minorStep in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property minorStep in class ChartElementNumericAxis'
         );
 
         try
@@ -807,55 +817,55 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyFormatString()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             '%s',
             $options->formatString,
-            'Wrong default value for property formatString in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property formatString in class ChartElementNumericAxis'
         );
 
         $options->formatString = '[%s]';
         $this->assertSame(
             '[%s]',
             $options->formatString,
-            'Setting property value did not work for property formatString in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property formatString in class ChartElementNumericAxis'
         );
     }
 
     public function testChartElementAxisPropertyLabel()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             false,
             $options->label,
-            'Wrong default value for property label in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property label in class ChartElementNumericAxis'
         );
 
         $options->label = 'Axis';
         $this->assertSame(
             'Axis',
             $options->label,
-            'Setting property value did not work for property label in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property label in class ChartElementNumericAxis'
         );
     }
 
     public function testChartElementAxisPropertyLabelSize()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             14,
             $options->labelSize,
-            'Wrong default value for property labelSize in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property labelSize in class ChartElementNumericAxis'
         );
 
         $options->labelSize = 20;
         $this->assertSame(
             20,
             $options->labelSize,
-            'Setting property value did not work for property labelSize in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property labelSize in class ChartElementNumericAxis'
         );
 
         try
@@ -872,19 +882,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyLabelMargin()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             2,
             $options->labelMargin,
-            'Wrong default value for property labelMargin in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property labelMargin in class ChartElementNumericAxis'
         );
 
         $options->labelMargin = 1;
         $this->assertSame(
             1,
             $options->labelMargin,
-            'Setting property value did not work for property labelMargin in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property labelMargin in class ChartElementNumericAxis'
         );
 
         try
@@ -901,19 +911,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyMinArrowHeadSize()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             4,
             $options->minArrowHeadSize,
-            'Wrong default value for property minArrowHeadSize in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property minArrowHeadSize in class ChartElementNumericAxis'
         );
 
         $options->minArrowHeadSize = 10;
         $this->assertSame(
             10,
             $options->minArrowHeadSize,
-            'Setting property value did not work for property minArrowHeadSize in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property minArrowHeadSize in class ChartElementNumericAxis'
         );
 
         try
@@ -930,19 +940,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyMaxArrowHeadSize()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             8,
             $options->maxArrowHeadSize,
-            'Wrong default value for property maxArrowHeadSize in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property maxArrowHeadSize in class ChartElementNumericAxis'
         );
 
         $options->maxArrowHeadSize = 10;
         $this->assertSame(
             10,
             $options->maxArrowHeadSize,
-            'Setting property value did not work for property maxArrowHeadSize in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property maxArrowHeadSize in class ChartElementNumericAxis'
         );
 
         try
@@ -959,19 +969,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyAxisLabelRenderer()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             'ezcGraphAxisExactLabelRenderer',
             get_class( $options->axisLabelRenderer ),
-            'Wrong default value for property axisLabelRenderer in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property axisLabelRenderer in class ChartElementNumericAxis'
         );
 
-        $options->axisLabelRenderer = $axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
+        $options->axisLabelRenderer = $axisLabelRenderer = new AxisBoxedLabelRenderer();
         $this->assertSame(
             $axisLabelRenderer,
             $options->axisLabelRenderer,
-            'Setting property value did not work for property axisLabelRenderer in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property axisLabelRenderer in class ChartElementNumericAxis'
         );
 
         try
@@ -988,26 +998,26 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyLabelCallback()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             null,
             $options->labelCallback,
-            'Wrong default value for property labelCallback in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property labelCallback in class ChartElementNumericAxis'
         );
 
         $options->labelCallback = 'printf';
         $this->assertSame(
             'printf',
             $options->labelCallback,
-            'Setting property value did not work for property labelCallback in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property labelCallback in class ChartElementNumericAxis'
         );
 
         $options->labelCallback = array( $this, __METHOD__ );
         $this->assertSame(
             array( $this, __METHOD__ ),
             $options->labelCallback,
-            'Setting property value did not work for property labelCallback in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property labelCallback in class ChartElementNumericAxis'
         );
 
         try
@@ -1024,19 +1034,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementAxisPropertyLabelRotation()
     {
-        $options = new ezcGraphChartElementNumericAxis();
+        $options = new ChartElementNumericAxis();
 
         $this->assertSame(
             0.,
             $options->labelRotation,
-            'Wrong default value for property labelRotation in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property labelRotation in class ChartElementNumericAxis'
         );
 
         $options->labelRotation = 450;
         $this->assertSame(
             90.,
             $options->labelRotation,
-            'Setting property value did not work for property labelRotation in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property labelRotation in class ChartElementNumericAxis'
         );
 
         try
@@ -1050,19 +1060,19 @@ class ezcGraphElementOptionsTest extends ezcTestImageCase
 
     public function testChartElementTextPropertyMaxHeight()
     {
-        $options = new ezcGraphChartElementText();
+        $options = new ChartElementText();
 
         $this->assertSame(
             0.1,
             $options->maxHeight,
-            'Wrong default value for property maxHeight in class ezcGraphChartElementText'
+            'Wrong default value for property maxHeight in class ChartElementText'
         );
 
         $options->maxHeight = .2;
         $this->assertSame(
             .2,
             $options->maxHeight,
-            'Setting property value did not work for property maxHeight in class ezcGraphChartElementText'
+            'Setting property value did not work for property maxHeight in class ChartElementText'
         );
 
         try

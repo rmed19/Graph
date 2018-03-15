@@ -27,6 +27,16 @@
 
 require_once dirname( __FILE__ ) . '/test_case.php';
 
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Interfaces\AbstractAxisLabelRenderer;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\AxisRotatedLabelRenderer;
+use Ezc\Graph\Renderer\AxisExactLabelRenderer;
+use Ezc\Graph\Renderer\AxisCenteredLabelRenderer;
+use Ezc\Graph\Renderer\AxisBoxedLabelRenderer;
+use Ezc\Graph\Palette\Black;
+
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -65,10 +75,10 @@ class ezcGraphAxisSpaceTest extends ezcGraphTestCase
     public static function getAxisConfiguration()
     {
         $axisLabelRenderer = array(
-            new ezcGraphAxisCenteredLabelRenderer(),
-            new ezcGraphAxisExactLabelRenderer(),
-            new ezcGraphAxisBoxedLabelRenderer(),
-            new ezcGraphAxisRotatedLabelRenderer(),
+            new AxisCenteredLabelRenderer(),
+            new AxisExactLabelRenderer(),
+            new AxisBoxedLabelRenderer(),
+            new AxisRotatedLabelRenderer(),
         );
 
         $axisSpaces = array(
@@ -139,12 +149,12 @@ class ezcGraphAxisSpaceTest extends ezcGraphTestCase
     /**
      * @dataProvider getAxisConfiguration
      */
-    public function testAxisSpaceConfiguration( ezcGraphAxisLabelRenderer $xRenderer, ezcGraphAxisLabelRenderer $yRenderer, $xSpace, $ySpace, $outerSpace, $xAlign, $yAlign )
+    public function testAxisSpaceConfiguration( AbstractAxisLabelRenderer $xRenderer, AbstractAxisLabelRenderer $yRenderer, $xSpace, $ySpace, $outerSpace, $xAlign, $yAlign )
     {
         $filename = $this->tempDir . __FUNCTION__ . '_' . self::$i . '.svg';
 
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
+        $chart = new LineChart();
+        $chart->palette = new Black();
 
         $chart->xAxis->axisLabelRenderer = $xRenderer;
         $chart->xAxis->axisSpace         = $xSpace;
@@ -156,7 +166,7 @@ class ezcGraphAxisSpaceTest extends ezcGraphTestCase
         $chart->yAxis->outerAxisSpace    = $outerSpace;
         $chart->yAxis->position          = $yAlign;
 
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 250, 'sample 2' => 250, 'sample 3' => 0, 'sample 4' => 0, 'sample 5' => 500, 'sample 6' => 500) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 250, 'sample 2' => 250, 'sample 3' => 0, 'sample 4' => 0, 'sample 5' => 500, 'sample 6' => 500) );
 
         $chart->render( 560, 250, $filename );
         $this->compare(

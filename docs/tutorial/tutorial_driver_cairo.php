@@ -2,15 +2,15 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphPieChart();
-$graph->palette = new ezcGraphPaletteEzBlue();
+$graph = new \Ezc\Graph\Charts\PieChart();
+$graph->palette = new  \Ezc\Graph\Palette\EzBlue();
 $graph->title = 'Access statistics';
 $graph->legend = false;
 
 // Set the cairo driver
 $graph->driver = new ezcGraphCairoDriver();
 
-$graph->data['Access statistics'] = new ezcGraphArrayDataSet( array(
+$graph->data['Access statistics'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'Mozilla' => 19113,
     'Explorer' => 10917,
     'Opera' => 1464,
@@ -18,7 +18,7 @@ $graph->data['Access statistics'] = new ezcGraphArrayDataSet( array(
     'Konqueror' => 474,
 ) );
 
-$graph->renderer = new ezcGraphRenderer3d();
+$graph->renderer = new \Ezc\Graph\Renderer\Renderer3d();
 
 $graph->renderer->options->pieChartGleam = .3;
 $graph->renderer->options->pieChartGleamColor = '#FFFFFF';

@@ -25,7 +25,7 @@
  */
 /**
  * Exception thrown when a date assigned to the 
- * {@link ezcGraphChartElementDateAxis} could not be parsed.
+ * {@link ChartElementDateAxis} could not be parsed.
  *
  * @package Graph
  * @version //autogentag//

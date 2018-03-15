@@ -1,6 +1,6 @@
 <?php
 /**
- * ezcGraphDriverOptionsTest 
+ * DriverOptionsTest 
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -24,6 +24,9 @@
  * @subpackage Tests
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
+use Ezc\Graph\Options\DriverOptions;
+use Ezc\Graph\Options\FlashDriverOptions;
+use Ezc\Graph\Options\FontOptions;
 
 /**
  * Tests for ezcGraph class.
@@ -31,12 +34,12 @@
  * @package Graph
  * @subpackage Tests
  */
-class ezcGraphDriverOptionsTest extends ezcTestImageCase
+class DriverOptionsTest extends ezcTestImageCase
 {
 
 	public static function suite()
 	{
-		return new PHPUnit_Framework_TestSuite( "ezcGraphDriverOptionsTest" );
+		return new PHPUnit_Framework_TestSuite( "DriverOptionsTest" );
 	}
 
     public function testDriverOptionsProperty()
@@ -49,9 +52,9 @@ class ezcGraphDriverOptionsTest extends ezcTestImageCase
             'Wrong default value for property options in class ezcGraphSvgDriver'
         );
 
-        $driver->options = new ezcGraphFlashDriverOptions();
+        $driver->options = new FlashDriverOptions();
         $this->assertEquals(
-            new ezcGraphFlashDriverOptions(),
+            new FlashDriverOptions(),
             $driver->options,
             'Setting property value did not work for property options in class ezcGraphSvgDriver'
         );
@@ -221,12 +224,12 @@ class ezcGraphDriverOptionsTest extends ezcTestImageCase
         $options = new ezcGraphSvgDriverOptions();
 
         $this->assertSame(
-            'ezcGraphFontOptions',
+            'FontOptions',
             get_class( $options->font ),
             'Wrong default value for property font in class ezcGraphSvgDriverOptions'
         );
 
-        $fontOptions = new ezcGraphFontOptions();
+        $fontOptions = new FontOptions();
         $fontOptions->path = dirname( __FILE__ ) . '/data/font2.ttf';
 
         $options->font = $fontOptions;
@@ -255,14 +258,14 @@ class ezcGraphDriverOptionsTest extends ezcTestImageCase
         $this->assertSame(
             true,
             $options->autoShortenString,
-            'Wrong default value for property autoShortenString in class ezcGraphDriverOptions'
+            'Wrong default value for property autoShortenString in class DriverOptions'
         );
 
         $options->autoShortenString = false;
         $this->assertSame(
             false,
             $options->autoShortenString,
-            'Setting property value did not work for property autoShortenString in class ezcGraphDriverOptions'
+            'Setting property value did not work for property autoShortenString in class DriverOptions'
         );
 
         try
@@ -284,14 +287,14 @@ class ezcGraphDriverOptionsTest extends ezcTestImageCase
         $this->assertSame(
             '..',
             $options->autoShortenStringPostFix,
-            'Wrong default value for property autoShortenStringPostFix in class ezcGraphDriverOptions'
+            'Wrong default value for property autoShortenStringPostFix in class DriverOptions'
         );
 
         $options->autoShortenStringPostFix = ' ...';
         $this->assertSame(
             ' ...',
             $options->autoShortenStringPostFix,
-            'Setting property value did not work for property autoShortenStringPostFix in class ezcGraphDriverOptions'
+            'Setting property value did not work for property autoShortenStringPostFix in class DriverOptions'
         );
     }
 

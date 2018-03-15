@@ -27,6 +27,13 @@
 
 require_once dirname( __FILE__ ) . '/test_case.php';
 
+use Ezc\Graph\Axis\ChartElementLogarithmicalAxis;
+
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Axis\ChartElementNumericAxis;
+use Ezc\Graph\Datasets\ArrayDataSet;
+
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -63,19 +70,19 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testChartElementLogarithmicalAxisPropertyMin()
     {
-        $options = new ezcGraphChartElementLogarithmicalAxis();
+        $options = new ChartElementLogarithmicalAxis();
 
         $this->assertSame(
             null,
             $options->min,
-            'Wrong default value for property min in class ezcGraphChartElementLogarithmicalAxis'
+            'Wrong default value for property min in class ChartElementLogarithmicalAxis'
         );
 
         $options->min = 1;
         $this->assertSame(
             1.,
             $options->min,
-            'Setting property value did not work for property min in class ezcGraphChartElementLogarithmicalAxis'
+            'Setting property value did not work for property min in class ChartElementLogarithmicalAxis'
         );
 
         try
@@ -92,19 +99,19 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testChartElementLogarithmicalAxisPropertyMax()
     {
-        $options = new ezcGraphChartElementLogarithmicalAxis();
+        $options = new ChartElementLogarithmicalAxis();
 
         $this->assertSame(
             null,
             $options->max,
-            'Wrong default value for property max in class ezcGraphChartElementLogarithmicalAxis'
+            'Wrong default value for property max in class ChartElementLogarithmicalAxis'
         );
 
         $options->max = 1;
         $this->assertSame(
             1.,
             $options->max,
-            'Setting property value did not work for property max in class ezcGraphChartElementLogarithmicalAxis'
+            'Setting property value did not work for property max in class ChartElementLogarithmicalAxis'
         );
 
         try
@@ -121,19 +128,19 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testChartElementLogarithmicalAxisPropertyBase()
     {
-        $options = new ezcGraphChartElementLogarithmicalAxis();
+        $options = new ChartElementLogarithmicalAxis();
 
         $this->assertSame(
             10,
             $options->base,
-            'Wrong default value for property base in class ezcGraphChartElementLogarithmicalAxis'
+            'Wrong default value for property base in class ChartElementLogarithmicalAxis'
         );
 
         $options->base = M_E;
         $this->assertSame(
             M_E,
             $options->base,
-            'Setting property value did not work for property base in class ezcGraphChartElementLogarithmicalAxis'
+            'Setting property value did not work for property base in class ChartElementLogarithmicalAxis'
         );
 
         try
@@ -150,25 +157,25 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testChartElementLogarithmicalAxisPropertyFormatString()
     {
-        $options = new ezcGraphChartElementLogarithmicalAxis();
+        $options = new ChartElementLogarithmicalAxis();
 
         $this->assertSame(
             '%1$d^%2$d',
             $options->logarithmicalFormatString,
-            'Wrong default value for property logarithmicalFormatString in class ezcGraphChartElementLogarithmicalAxis'
+            'Wrong default value for property logarithmicalFormatString in class ChartElementLogarithmicalAxis'
         );
 
         $options->logarithmicalFormatString = '%2$.2f^%1$d';
         $this->assertSame(
             '%2$.2f^%1$d',
             $options->logarithmicalFormatString,
-            'Setting property value did not work for property logarithmicalFormatString in class ezcGraphChartElementLogarithmicalAxis'
+            'Setting property value did not work for property logarithmicalFormatString in class ChartElementLogarithmicalAxis'
         );
     }
 
     public function testManualScaling()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->yAxis->min = -5;
         $chart->yAxis->max = 5;
         $chart->yAxis->majorStep = 2;
@@ -197,9 +204,9 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingMultiple()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( .003, 12, 43, 1023, .02, 1.5 ) );
+        $chart = new LineChart();
+        $chart->yAxis = new ChartElementLogarithmicalAxis();
+        $chart->data['sample'] = new ArrayDataSet( array( .003, 12, 43, 1023, .02, 1.5 ) );
         $chart->render( 500, 300 );
 
         $this->assertEquals(
@@ -229,12 +236,12 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingException()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
+        $chart = new LineChart();
+        $chart->yAxis = new ChartElementLogarithmicalAxis();
 
         try
         {
-            $chart->data['sample'] = new ezcGraphArrayDataSet( array( .003, 12, 43, 1023, .02, -1.5 ) );
+            $chart->data['sample'] = new ArrayDataSet( array( .003, 12, 43, 1023, .02, -1.5 ) );
             $chart->render( 500, 300 );
         }
         catch ( ezcGraphOutOfLogithmicalBoundingsException $e )
@@ -247,10 +254,10 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingValues()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
+        $chart = new LineChart();
+        $chart->yAxis = new ChartElementLogarithmicalAxis();
 
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 9823 ) );
+        $chart->data['sample'] = new ArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 9823 ) );
         $chart->render( 500, 300 );
 
         $this->assertEquals(
@@ -317,11 +324,11 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingValuesBase2()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
+        $chart = new LineChart();
+        $chart->yAxis = new ChartElementLogarithmicalAxis();
         $chart->yAxis->base = 2;
 
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 3823 ) );
+        $chart->data['sample'] = new ArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 3823 ) );
         $chart->render( 500, 300 );
 
         $this->assertEquals(
@@ -390,14 +397,14 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->palette = new ezcGraphPaletteEz();
         $chart->title = 'Function x^2 with logarithmical axis scaling';
         $chart->legend = false;
         
-        $chart->xAxis = new ezcGraphChartElementNumericAxis();
+        $chart->xAxis = new ChartElementNumericAxis();
 
-        $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
+        $chart->yAxis = new ChartElementLogarithmicalAxis();
         $chart->yAxis->logarithmicalFormatString = '^%2$d';
         $chart->yAxis->label = 'Base 10';
 
@@ -407,7 +414,7 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
             $values[$x] = $x * $x + .01;
         }
 
-        $chart->data['x^2'] = new ezcGraphArrayDataSet( $values );
+        $chart->data['x^2'] = new ArrayDataSet( $values );
         $chart->data['x^2']->symbol = ezcGraph::NO_SYMBOL;
 
         $chart->render( 400, 200, $filename );
@@ -422,9 +429,9 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
     {
         try
         {
-            $chart = new ezcGraphLineChart();
-            $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
-            $chart->data['sample'] = new ezcGraphArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 9823 ) );
+            $chart = new LineChart();
+            $chart->yAxis = new ChartElementLogarithmicalAxis();
+            $chart->data['sample'] = new ArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 9823 ) );
             $chart->render( 500, 200 );
         }
         catch ( ezcGraphFontRenderingException $e )
@@ -452,15 +459,15 @@ class ezcGraphLogarithmicalAxisTest extends ezcGraphTestCase
     {
         try
         {
-            $chart = new ezcGraphLineChart();
+            $chart = new LineChart();
 
-            $chart->yAxis = new ezcGraphChartElementLogarithmicalAxis();
+            $chart->yAxis = new ChartElementLogarithmicalAxis();
             $chart->yAxis->labelCallback = create_function(
                 '$label',
                 'return "*$label*";'
             );
 
-            $chart->data['sample'] = new ezcGraphArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 9823 ) );
+            $chart->data['sample'] = new ArrayDataSet( array( .03, 12, 43, 1023, .02, 1.5, 9823 ) );
 
             $chart->render( 500, 200 );
         }

@@ -33,7 +33,7 @@ class ezcGraphPaletteEzRed extends ezcGraphPalette
     /**
      * Axiscolor 
      * 
-     * @var ezcGraphColor
+     * @var \Ezc\Graph\Colors\Color
      */
     protected $axisColor = '#2E3436';
 
@@ -69,14 +69,14 @@ class ezcGraphPaletteEzRed extends ezcGraphPalette
     /**
      * Fontcolor 
      * 
-     * @var ezcGraphColor
+     * @var \Ezc\Graph\Colors\Color
      */
     protected $fontColor = '#2E3436';
 
     /**
      * Backgroundcolor for chart
      * 
-     * @var ezcGraphColor
+     * @var \Ezc\Graph\Colors\Color
      */
     protected $chartBackground = '#FFFFFF';
 

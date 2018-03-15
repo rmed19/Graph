@@ -1,31 +1,12 @@
 <?php
-/**
- * ezcGraphDateAxisTest 
- * 
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *
- * @package Graph
- * @version //autogen//
- * @subpackage Tests
- * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
- */
 
 require_once dirname( __FILE__ ) . '/test_case.php';
+
+use Ezc\Graph\Axis\ChartElementDateAxis;
+
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Datasets\ArrayDataSet;
+
 
 /**
  * Tests for ezcGraph class.
@@ -56,8 +37,8 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
         $this->tempDir = $this->createTempDir( __CLASS__ . sprintf( '_%03d_', ++$i ) ) . '/';
         $this->basePath = dirname( __FILE__ ) . '/data/';
 
-        $this->chart = new ezcGraphLineChart();
-        $this->chart->xAxis = new ezcGraphChartElementDateAxis();
+        $this->chart = new LineChart();
+        $this->chart->xAxis = new ChartElementDateAxis();
     }
 
     public function tearDown()
@@ -76,7 +57,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
         $this->chart->xAxis->endDate = 100;
         $this->chart->xAxis->interval = 10;
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
+        $this->chart->data['some data'] = new ArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
 
         try
         {
@@ -111,7 +92,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
         $this->chart->xAxis->startDate = 0;
         $this->chart->xAxis->endDate = 100;
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
+        $this->chart->data['some data'] = new ArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
 
         try
         {
@@ -145,7 +126,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         $this->chart->xAxis->interval = 10;
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
+        $this->chart->data['some data'] = new ArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
 
         try
         {
@@ -177,7 +158,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingSingle1()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
+        $this->chart->data['some data'] = new ArrayDataSet( array( 10 => 12, 37 => 235, 43 => 17, 114 => 39 ) );
         try
         {
             $this->chart->render( 500, 200 );
@@ -208,7 +189,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingSingle2()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 30010 => 12, 30037 => 235, 30043 => 17, 30114 => 39 ) );
+        $this->chart->data['some data'] = new ArrayDataSet( array( 30010 => 12, 30037 => 235, 30043 => 17, 30114 => 39 ) );
         try
         {
             $this->chart->render( 500, 200 );
@@ -239,7 +220,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingSingle3()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             mktime( 10, 13, 57, 5, 7, 2006 ) => 324,
             mktime( 10, 46, 13, 5, 7, 2006 ) => 324,
             mktime( 11, 15, 45, 5, 7, 2006 ) => 324,
@@ -275,7 +256,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingSingle4()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             mktime( 10, 13, 57, 5, 7, 2006 ) => 324,
             mktime( 17, 46, 13, 5, 7, 2006 ) => 324,
             mktime( 11, 15, 45, 5, 8, 2006 ) => 324,
@@ -312,7 +293,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testAutomagicScalingSingle5()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             mktime( 1, 0, 0, 1, 1, 2001 ) => 324,
             mktime( 1, 0, 0, 1, 1, 2002 ) => 324,
             mktime( 1, 0, 0, 1, 1, 2003 ) => 324,
@@ -348,7 +329,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testPositionLeft()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             mktime( 10, 13, 57, 5, 7, 2006 ) => 324,
             mktime( 17, 46, 13, 5, 7, 2006 ) => 324,
             mktime( 11, 15, 45, 5, 8, 2006 ) => 324,
@@ -396,7 +377,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testPositionRight()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             mktime( 10, 13, 57, 5, 7, 2006 ) => 324,
             mktime( 17, 46, 13, 5, 7, 2006 ) => 324,
             mktime( 11, 15, 45, 5, 8, 2006 ) => 324,
@@ -444,7 +425,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testStrToTimeLabelConvertion()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             '1.1.2001' => 324,
             '1.1.2002' => 324,
             '1.1.2003' => 324,
@@ -481,7 +462,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testRenderedLabels()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             '1.1.2001' => 324,
             '1.1.2002' => 324,
             '1.1.2003' => 324,
@@ -515,7 +496,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
 
     public function testRenderedLabelsWithLabelFormattingCallback()
     {
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             '1.1.2001' => 324,
             '1.1.2002' => 324,
             '1.1.2003' => 324,
@@ -555,8 +536,8 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $chart = new LineChart();
+        $chart->data['some data'] = new ArrayDataSet( array( 
             '1.1.2001' => 12,
             '1.1.2002' => 324,
             '1.1.2003' => 238,
@@ -576,7 +557,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             '231.1' => 12,
             '651.2' => 324,
             '3241.3' => 238,
@@ -596,7 +577,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             strtotime( '2006-10-16' ) => 7.78507871321,
             strtotime( '2006-10-30' ) => 7.52224503765,
             strtotime( '2006-11-20' ) => 7.29226557153,
@@ -620,7 +601,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             strtotime( '2006-10-16' ) => 7.78507871321,
             strtotime( '2006-10-30' ) => 7.52224503765,
             strtotime( '2006-11-20' ) => 7.29226557153,
@@ -644,7 +625,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             strtotime( '2006-10-16' ) => 7.78507871321,
             strtotime( '2006-10-30' ) => 7.52224503765,
             strtotime( '2006-11-20' ) => 7.29226557153,
@@ -668,7 +649,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+        $this->chart->data['some data'] = new ArrayDataSet( array( 
             strtotime( '2006-10-16' ) => 7.78507871321,
             strtotime( '2006-10-30' ) => 7.52224503765,
             strtotime( '2006-11-20' ) => 7.29226557153,
@@ -693,7 +674,7 @@ class ezcGraphDateAxisTest extends ezcGraphTestCase
     {
         try
         {
-            $this->chart->data['some data'] = new ezcGraphArrayDataSet( array( 
+            $this->chart->data['some data'] = new ArrayDataSet( array( 
                 'invalid time' => 7.78507871321,
             ) );
 

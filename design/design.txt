@@ -30,7 +30,7 @@ ezcGraphDataset
 
 ezcGraphChart
 	Abstract class, which handles the global charts options like background
-	colors or images. Aggregates ezcGraphChartElement for configurable sub
+	colors or images. Aggregates Ezc\Graph\Interfaces\AbstractChartElement for configurable sub
 	elements.
 
 ezcGraphChartPie
@@ -41,11 +41,11 @@ ezcGraphChartLine
 	Extends ezcGraphChart for line charts. Additionally contains two objects
 	to represent and configure the axes.
 
-ezcGraphChartElement
+Ezc\Graph\Interfaces\AbstractChartElement
 	Abstract class to define the interface how to access the configuration
 	directives of different chart elements like axes and legend.
 
-ezcGraphChartElementLegend
+Ezc\Graph\Element\ChartElementLegend
 	Offers configuration options for the charts legend like background color,
 	position and size.
 
@@ -65,7 +65,7 @@ ezcGraphRenderer3D
 	Creates image primitives for the chart elements considered as three
 	dimensional.
 
-ezcGraphDriver
+Ezc\Graph\Interfaces\AbstractDriver
 	Offers methods to draw image primitives like textboxes, arcs, rectangles,
 	polygons and lines. Needs to be extended for each output format.
 
@@ -96,28 +96,28 @@ The following example shows how to use the class: ::
 
 	<?php
 
-	$pie = new ezcGraphPieChart();
+	$pie = new \Ezc\Graph\Charts\PieChart();
 	$pie->options->backgroundImage = 'background.png';
 	$pie->options->border->color = '#ff0000';
 	$pie->title = 'Apple Pie';
 
-	$pie->data['humanoids'] = new ezcGraphArrayDataSet(
+	$pie->data['humanoids'] = new \Ezc\Graph\Datasets\ArrayDataSet(
 		array( 'monkey' => 54, 'ape' => 37, 'human' => 9 ) // adds a new data set
 	);
 	$pie->data['humanoids']->color['monkey'] = 'blueish'; // setting datapoint color
 	$pie->data['humanoids']->highlight( 'monkey' );       // chart type dependent
 
 
-	$line = new ezcGraphLineChart();
+	$line = new \Ezc\Graph\Axis\LineChart();
 	$line->options->backgroundColor = 'pink';
 
-	$line->data['income'] = new ezcGraphArrayDataSet(
+	$line->data['income'] = new \Ezc\Graph\Datasets\ArrayDataSet(
 		array( 1990 => 5, 5.1, 5.4, 5.3, 6.9 )
 	);
 	$line->data['income']->color = 'blue';
 	$line->data['income']->symbol = ezcGraph::diamond;
 
-	$line->data['incomeWithTax'] = new ezcGraphArrayDataSet( 
+	$line->data['incomeWithTax'] = new \Ezc\Graph\Datasets\ArrayDataSet(
 		array( 1990 => 4.9, 5.0, 5.2, 5.1, 6.4 ) 
 	);
 	$line->data['incomeWithTax']->color = 'red';

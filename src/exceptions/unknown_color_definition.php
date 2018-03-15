@@ -25,7 +25,7 @@
  */
 /**
  * Exception thrown, when a given value could not be interpreted as a color by
- * {@link ezcGraphColor}.
+ * {@link \Ezc\Graph\Colors\Color}.
  *
  * @package Graph
  * @version //autogentag//

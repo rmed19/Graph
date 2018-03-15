@@ -25,7 +25,14 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+namespace Ezc\Graph\Tests;
+
 require_once dirname( __FILE__ ) . '/test_case.php';
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer3d;
+use Ezc\Graph\Structs\Coordinate;
 
 /**
  * Tests for ezcGraph class.
@@ -79,9 +86,9 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 45 ),
-            new ezcGraphCoordinate( 134, 12 ),
-            ezcGraphColor::fromHex( '#3465A4' )
+            new Coordinate( 12, 45 ),
+            new Coordinate( 134, 12 ),
+            Color::fromHex( '#3465A4' )
         );
 
         $this->assertEquals(
@@ -104,9 +111,9 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     public function testGetResource()
     {
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 45 ),
-            new ezcGraphCoordinate( 134, 12 ),
-            ezcGraphColor::fromHex( '#3465A4' )
+            new Coordinate( 12, 45 ),
+            new Coordinate( 134, 12 ),
+            Color::fromHex( '#3465A4' )
         );
 
         ob_start();
@@ -125,9 +132,9 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 45 ),
-            new ezcGraphCoordinate( 134, 12 ),
-            ezcGraphColor::fromHex( '#3465A4' )
+            new Coordinate( 12, 45 ),
+            new Coordinate( 134, 12 ),
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -144,11 +151,11 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $return = $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             true
         );
 
@@ -172,11 +179,11 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
             ),
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -194,23 +201,23 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 24.79289, 28.078128 ),
-                new ezcGraphCoordinate( 11.29289, 41.578128 ),
-                new ezcGraphCoordinate( 30.15439, 22.13813 ),
-                new ezcGraphCoordinate( 43.65439, 8.63813 ),
+                new Coordinate( 24.79289, 28.078128 ),
+                new Coordinate( 11.29289, 41.578128 ),
+                new Coordinate( 30.15439, 22.13813 ),
+                new Coordinate( 43.65439, 8.63813 ),
             ),
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 24.79289, 28.078128 ),
-                new ezcGraphCoordinate( 11.29289, 41.578128 ),
-                new ezcGraphCoordinate( 30.15439, 22.13813 ),
-                new ezcGraphCoordinate( 43.65439, 8.63813 ),
+                new Coordinate( 24.79289, 28.078128 ),
+                new Coordinate( 11.29289, 41.578128 ),
+                new Coordinate( 30.15439, 22.13813 ),
+                new Coordinate( 43.65439, 8.63813 ),
             ),
-            ezcGraphColor::fromHex( '#3465A480' )
+            Color::fromHex( '#3465A480' )
         );
 
         $this->driver->render( $filename );
@@ -227,11 +234,11 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 12, 71 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 45, 12 ),
+                new Coordinate( 12, 71 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 45, 12 ),
             ),
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -249,13 +256,13 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
-                new ezcGraphCoordinate( 3, 45 ),
-                new ezcGraphCoordinate( 60, 32 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
+                new Coordinate( 3, 45 ),
+                new Coordinate( 60, 32 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             true
         );
 
@@ -272,12 +279,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $return = $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             12.5,
             25,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -307,12 +314,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
             while ( $position < 360 )
             {
                 $this->driver->drawCircleSector(
-                    new ezcGraphCoordinate( 100, 50 ),
+                    new Coordinate( 100, 50 ),
                     $radius,
                     $radius / 2,
                     $position,
                     $position += $angle,
-                    ezcGraphColor::fromHex( '#3465A480' ),
+                    Color::fromHex( '#3465A480' ),
                     false
                 );
     
@@ -336,12 +343,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             10,
             10.2,
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -358,12 +365,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             10,
             10.72,
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -380,12 +387,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             10,
             10.8,
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -402,12 +409,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             0,
             359.2,
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -424,12 +431,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             0,
             359.8,
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -447,11 +454,11 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 122, 33.8 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 122, 33.8 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -469,12 +476,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 10, 15 ),
-                new ezcGraphCoordinate( 10, 50 ),
-                new ezcGraphCoordinate( 10, 55 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 10, 15 ),
+                new Coordinate( 10, 50 ),
+                new Coordinate( 10, 55 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -491,12 +498,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             12.5,
             45,
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -513,12 +520,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             25,
             273,
-            ezcGraphColor::fromHex( '#3465A480' ),
+            Color::fromHex( '#3465A480' ),
             false
         );
 
@@ -535,12 +542,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             25,
             12.5,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -556,12 +563,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             25,
             273,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -577,13 +584,13 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $return = $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             80,
             10,
             12.5,
             55,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -605,13 +612,13 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             80,
             10,
             12.5,
             55,
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -628,13 +635,13 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             80,
             10,
             55,
             12.5,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -650,13 +657,13 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             80,
             10,
             25,
             300,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -672,10 +679,10 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $return = $this->driver->drawCircle(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -697,10 +704,10 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
         $this->driver->drawCircle(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -718,7 +725,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $return = $this->driver->drawImage(
             $this->basePath . $this->testFiles['jpeg'],
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             100,
             50
         );
@@ -743,7 +750,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawImage(
             $this->basePath . $this->testFiles['png'],
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             100,
             50
         );
@@ -762,7 +769,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawImage(
             $this->basePath . $this->testFiles['gif'],
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             100,
             50
         );
@@ -781,17 +788,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -817,7 +824,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT,
@@ -838,11 +845,11 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT,
-            new ezcGraphRotation( 45, new ezcGraphCoordinate( 100, 50 ) )
+            new ezcGraphRotation( 45, new Coordinate( 100, 50 ) )
         );
 
         $this->driver->render( $filename );
@@ -859,11 +866,11 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT,
-            new ezcGraphRotation( 340, new ezcGraphCoordinate( 200, 100 ) )
+            new ezcGraphRotation( 340, new Coordinate( 200, 100 ) )
         );
 
         $this->driver->render( $filename );
@@ -880,17 +887,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -910,17 +917,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -940,17 +947,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             "New\nLine",
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -970,17 +977,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 20, 20 ),
-                new ezcGraphCoordinate( 110, 20 ),
-                new ezcGraphCoordinate( 110, 30 ),
-                new ezcGraphCoordinate( 20, 30 ),
+                new Coordinate( 20, 20 ),
+                new Coordinate( 110, 20 ),
+                new Coordinate( 110, 30 ),
+                new Coordinate( 20, 30 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'sample 4',
-            new ezcGraphCoordinate( 21, 21 ),
+            new Coordinate( 21, 21 ),
             88,
             8,
             ezcGraph::RIGHT
@@ -1000,17 +1007,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT
@@ -1030,17 +1037,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT
@@ -1060,17 +1067,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER
@@ -1090,17 +1097,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER
@@ -1120,17 +1127,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT | ezcGraph::BOTTOM
@@ -1150,17 +1157,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT | ezcGraph::MIDDLE
@@ -1180,17 +1187,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER | ezcGraph::MIDDLE
@@ -1210,17 +1217,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER | ezcGraph::BOTTOM
@@ -1240,17 +1247,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array(
-                new ezcGraphCoordinate( 47, 54 ),
-                new ezcGraphCoordinate( 47, 84 ),
-                new ezcGraphCoordinate( 99, 84 ),
-                new ezcGraphCoordinate( 99, 54 ),
+                new Coordinate( 47, 54 ),
+                new Coordinate( 47, 84 ),
+                new Coordinate( 99, 84 ),
+                new Coordinate( 99, 54 ),
             ),
-            ezcGraphColor::fromHex( '#DDDDDD' ),
+            Color::fromHex( '#DDDDDD' ),
             true
         );
         $this->driver->drawTextBox(
             'Safari (13.8%)',
-            new ezcGraphCoordinate( 47, 54 ),
+            new Coordinate( 47, 54 ),
             52,
             30,
             ezcGraph::LEFT
@@ -1270,17 +1277,17 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawPolygon(
             array(
-                new ezcGraphCoordinate( 47, 54 ),
-                new ezcGraphCoordinate( 47, 84 ),
-                new ezcGraphCoordinate( 99, 84 ),
-                new ezcGraphCoordinate( 99, 54 ),
+                new Coordinate( 47, 54 ),
+                new Coordinate( 47, 84 ),
+                new Coordinate( 99, 84 ),
+                new Coordinate( 99, 54 ),
             ),
-            ezcGraphColor::fromHex( '#DDDDDD' ),
+            Color::fromHex( '#DDDDDD' ),
             true
         );
         $this->driver->drawTextBox(
             'ÄÖÜäöüß',
-            new ezcGraphCoordinate( 47, 54 ),
+            new Coordinate( 47, 54 ),
             52,
             30,
             ezcGraph::LEFT
@@ -1298,8 +1305,8 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -1310,7 +1317,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $chart->driver = new ezcGraphSvgDriver();
         $chart->driver->options->templateDocument = dirname( __FILE__ ) . '/data/template.svg';
 
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->renderer = new Renderer3d();
         $chart->render( 500, 300, $filename );
 
         $this->compare( 
@@ -1323,8 +1330,8 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -1335,9 +1342,9 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $chart->driver = new ezcGraphSvgDriver();
         $chart->driver->options->templateDocument = dirname( __FILE__ ) . '/data/template.svg';
         $chart->driver->options->insertIntoGroup = 'graph_root_node';
-        $chart->driver->options->graphOffset = new ezcGraphCoordinate( 50, 70 );
+        $chart->driver->options->graphOffset = new Coordinate( 50, 70 );
 
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->renderer = new Renderer3d();
         $chart->render( 500, 300, $filename );
 
         $this->compare( 
@@ -1348,8 +1355,8 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
     public function testDrawChartInTemplateUnknownGroup()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -1377,8 +1384,8 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -1389,7 +1396,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $chart->driver = new ezcGraphSvgDriver();
         $chart->driver->options->idPrefix = 'customPrefix';
 
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->renderer = new Renderer3d();
         $chart->render( 500, 300, $filename );
 
         $this->compare( 
@@ -1402,12 +1409,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->textShadow = true;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1425,13 +1432,13 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->textShadow = true;
         $this->driver->options->font->textShadowColor = '#888888';
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1449,12 +1456,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = false;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1472,12 +1479,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
         $this->driver->options->font->minimizeBorder = false;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1495,14 +1502,14 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::TOP
@@ -1520,14 +1527,14 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::TOP,
@@ -1546,14 +1553,14 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER | ezcGraph::MIDDLE
@@ -1571,14 +1578,14 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT | ezcGraph::BOTTOM
@@ -1604,11 +1611,11 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $return = $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -1892,12 +1899,12 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         $options = new ezcGraphSvgDriverOptions();
 
         $this->assertEquals(
-            new ezcGraphCoordinate( 0, 0 ),
+            new Coordinate( 0, 0 ),
             $options->graphOffset,
             'Wrong default value for property graphOffset in class ezcGraphSvgDriverOptions'
         );
 
-        $options->graphOffset = $coord = new ezcGraphCoordinate( 10, 10 );
+        $options->graphOffset = $coord = new Coordinate( 10, 10 );
         $this->assertSame(
             $coord,
             $options->graphOffset,
@@ -1958,9 +1965,9 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->palette = new ezcGraphPaletteEz();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -1970,7 +1977,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $chart->data['sample']->highlight['Safari'] = true;
 
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->renderer = new Renderer3d();
 
         $chart->renderer->options->pieChartShadowSize = 10;
         $chart->renderer->options->pieChartGleam = .5;
@@ -1994,7 +2001,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
         {
             $this->driver->drawTextBox(
                 'Test string',
-                new ezcGraphCoordinate( 10, 10 ),
+                new Coordinate( 10, 10 ),
                 1,
                 6,
                 ezcGraph::LEFT
@@ -2016,7 +2023,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawTextBox(
             'Teststring foo',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             4,
             6,
             ezcGraph::LEFT
@@ -2036,7 +2043,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawTextBox(
             'Teststring foo',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             8,
             6,
             ezcGraph::LEFT
@@ -2056,7 +2063,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawTextBox(
             'Teststring foo',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             24,
             6,
             ezcGraph::LEFT
@@ -2076,7 +2083,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawTextBox(
             'Teststring foo',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             40,
             6,
             ezcGraph::LEFT
@@ -2096,7 +2103,7 @@ class ezcGraphSvgDriverTest extends ezcGraphTestCase
 
         $this->driver->drawTextBox(
             'foo bar foo bar foo bar foo bar',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             60,
             6,
             ezcGraph::LEFT

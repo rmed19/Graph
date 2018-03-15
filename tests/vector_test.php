@@ -25,6 +25,11 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+
+namespace Ezc\Graph\Tests;
+
+use Ezc\Graph\Structs\Coordinate;
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -55,7 +60,7 @@ class ezcGraphVectorTest extends ezcTestCase
 
     public function testCreateVectorFromCoordinate()
     {
-        $vector = ezcGraphVector::fromCoordinate( new ezcGraphCoordinate( 1, 2 ) );
+        $vector = ezcGraphVector::fromCoordinate( new Coordinate( 1, 2 ) );
 
         $this->assertEquals(
             1,
@@ -181,7 +186,7 @@ class ezcGraphVectorTest extends ezcTestCase
     public function testVectorMultiplyCoordinate()
     {
         $vector = new ezcGraphVector( 1, 2 );
-        $result = $vector->mul( new ezcGraphCoordinate( 3, 2 ) );
+        $result = $vector->mul( new Coordinate( 3, 2 ) );
 
         $this->assertEquals(
             $result,
@@ -203,7 +208,7 @@ class ezcGraphVectorTest extends ezcTestCase
     public function testVectorAngleCoordinate()
     {
         $vector = new ezcGraphVector( 1, 2 );
-        $result = $vector->angle( new ezcGraphCoordinate( 3, 2 ) );
+        $result = $vector->angle( new Coordinate( 3, 2 ) );
 
         $this->assertEquals(
             $result,
@@ -267,7 +272,7 @@ class ezcGraphVectorTest extends ezcTestCase
     public function testVectorAddCoordinate()
     {
         $vector = new ezcGraphVector( 1, 2 );
-        $result = $vector->add( new ezcGraphCoordinate( 3, 2 ) );
+        $result = $vector->add( new Coordinate( 3, 2 ) );
 
         $this->assertEquals(
             $vector,
@@ -295,7 +300,7 @@ class ezcGraphVectorTest extends ezcTestCase
     public function testVectorSubCoordinate()
     {
         $vector = new ezcGraphVector( 1, 2 );
-        $result = $vector->sub( new ezcGraphCoordinate( 3, 2 ) );
+        $result = $vector->sub( new Coordinate( 3, 2 ) );
 
         $this->assertEquals(
             $vector,
@@ -330,7 +335,7 @@ class ezcGraphVectorTest extends ezcTestCase
     {
         $vector = new ezcGraphVector( 0, 0 );
 
-        $result = $vector->transform( new ezcGraphRotation( -90, new ezcGraphCoordinate( 15, 15 ) ) );
+        $result = $vector->transform( new ezcGraphRotation( -90, new Coordinate( 15, 15 ) ) );
 
         $this->assertEquals(
             $vector,

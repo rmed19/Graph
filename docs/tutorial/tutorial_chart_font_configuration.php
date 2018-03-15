@@ -2,8 +2,8 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphPieChart();
-$graph->palette = new ezcGraphPaletteEzBlue();
+$graph = new \Ezc\Graph\Charts\PieChart();
+$graph->palette = new \Ezc\Graph\Palette\EzBlue();
 $graph->title = 'Access statistics';
 
 // Set the maximum font size to 8 for all chart elements
@@ -16,7 +16,7 @@ $graph->title->font->maxFontSize = 14;
 // which now has its own font configuration.
 $graph->options->font->name = 'serif';
 
-$graph->data['Access statistics'] = new ezcGraphArrayDataSet( array(
+$graph->data['Access statistics'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'Mozilla' => 19113,
     'Explorer' => 10917,
     'Opera' => 1464,

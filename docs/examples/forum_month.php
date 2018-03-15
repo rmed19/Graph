@@ -10,12 +10,12 @@ function __autoload( $className )
 require dirname( __FILE__ ) . '/ez_red.php';
 
 // Create the graph
-$graph = new ezcGraphPieChart();
+$graph = new \Ezc\Graph\Charts\PieChart();
 $graph->palette = new ezcGraphPaletteEzRed();
 $graph->legend = false;
 
 // Add the data and hilight norwegian data set
-$graph->data['week'] = new ezcGraphArrayDataSet( array(
+$graph->data['week'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'Claudia Kosny' => 128,
     'Kristof Coomans' => 70,
     'Xavier Dutoit' => 64,
@@ -31,7 +31,7 @@ $graph->data['week'] = new ezcGraphArrayDataSet( array(
 $graph->title = '10 most active users on forum in last month';
 
 // Use 3d renderer, and beautify it
-$graph->renderer = new ezcGraphRenderer3d();
+$graph->renderer = new \Ezc\Graph\Renderer\Renderer3d();
 $graph->renderer->options->pieChartShadowSize = 12;
 $graph->renderer->options->pieChartGleam = .5;
 $graph->renderer->options->dataBorder = false;

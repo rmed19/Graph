@@ -3,14 +3,14 @@
 require_once 'tutorial_autoload.php';
 $wikidata = include 'tutorial_wikipedia_data.php';
 
-$graph = new ezcGraphBarChart();
-$graph->palette = new ezcGraphPaletteBlack();
+$graph = new \Ezc\Graph\Charts\BarChart();
+$graph->palette = new \Ezc\Graph\Palette\Black();
 $graph->title = 'Wikipedia articles';
 
 // Add data
 foreach ( $wikidata as $language => $data )
 {
-    $graph->data[$language] = new ezcGraphArrayDataSet( $data );
+    $graph->data[$language] = new \Ezc\Graph\Datasets\ArrayDataSet( $data );
 }
 $graph->data['German']->displayType = ezcGraph::LINE;
 

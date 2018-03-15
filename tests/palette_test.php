@@ -25,6 +25,14 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+namespace Ezc\Graph\Tests;
+
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Palette\Black;
+use Ezc\Graph\Palette\Tango;
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -40,7 +48,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testDefaultPalette()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertTrue(
             $chart->palette instanceof ezcGraphPalette,
@@ -48,15 +56,15 @@ class ezcGraphPaletteTest extends ezcTestCase
         );
         
         $this->assertTrue(
-            $chart->palette instanceof ezcGraphPaletteTango,
+            $chart->palette instanceof Tango,
             'Default pallete should be tango.'
         );
     }
 
     public function testChangePalette()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
+        $chart = new LineChart();
+        $chart->palette = new Black();
 
         $this->assertTrue(
             $chart->palette instanceof ezcGraphPalette,
@@ -64,7 +72,7 @@ class ezcGraphPaletteTest extends ezcTestCase
         );
         
         $this->assertTrue(
-            $chart->palette instanceof ezcGraphPaletteBlack,
+            $chart->palette instanceof Black,
             'Default pallete should be tango.'
         );
     }
@@ -73,7 +81,7 @@ class ezcGraphPaletteTest extends ezcTestCase
     {
         try
         {
-            $chart = new ezcGraphLineChart();
+            $chart = new LineChart();
             // Silenced, because this throws an E_WARNING in devel mode,
             // caused by the non existing class ezcGraphPaletteUndefined
             @$chart->palette = 'Undefined';
@@ -88,10 +96,10 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testChartBackgroundColor()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#EEEEEC' ),
+            Color::fromHex( '#EEEEEC' ),
             $chart->palette->chartBackground,
             'Background color not properly set.'
         );
@@ -99,10 +107,10 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testElementBackgroundColor()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#000000FF' ),
+            Color::fromHex( '#000000FF' ),
             $chart->palette->elementBackground,
             'Background color not properly set.'
         );
@@ -110,10 +118,10 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testAxisColor()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#2E3436' ),
+            Color::fromHex( '#2E3436' ),
             $chart->palette->axisColor,
             'Axis color not properly set.'
         );
@@ -121,58 +129,58 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testDataSetColor()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#4E9A06' ),
+            Color::fromHex( '#4E9A06' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#CC0000' ),
+            Color::fromHex( '#CC0000' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#EDD400' ),
+            Color::fromHex( '#EDD400' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#75505B' ),
+            Color::fromHex( '#75505B' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#F57900' ),
+            Color::fromHex( '#F57900' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#204A87' ),
+            Color::fromHex( '#204A87' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#C17D11' ),
+            Color::fromHex( '#C17D11' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             $chart->palette->dataSetColor,
             'DataSet color not properly set.'
         );
@@ -180,7 +188,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testDataSetSymbol()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
             ezcGraph::NO_SYMBOL,
@@ -197,7 +205,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testFontName()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
             'sans-serif',
@@ -208,10 +216,10 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testFontColor()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#2E3436' ),
+            Color::fromHex( '#2E3436' ),
             $chart->palette->fontColor,
             'Font color not properly set.'
         );
@@ -219,10 +227,10 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testChartBorderColor()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#000000FF' ),
+            Color::fromHex( '#000000FF' ),
             $chart->palette->chartBorderColor,
             'Border color not properly set.'
         );
@@ -230,7 +238,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testChartBorderWidth()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
             0,
@@ -241,10 +249,10 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testElementBorderColor()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#000000FF' ),
+            Color::fromHex( '#000000FF' ),
             $chart->palette->elementBorderColor,
             'Border color not properly set.'
         );
@@ -252,7 +260,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testElementBorderWidth()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
             0,
@@ -263,7 +271,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testPadding()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
             1,
@@ -274,7 +282,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testMargin()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertEquals(
             0,
@@ -285,18 +293,18 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testDataSetAutomaticColorization()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-        $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
+        $chart = new LineChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['spending'] = new ArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             $chart->data['income']->color->default,
             'Wrong automatic color set.'
         );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#4E9A06' ),
+            Color::fromHex( '#4E9A06' ),
             $chart->data['spending']->color->default,
             'Wrong automatic color set.'
         );
@@ -304,12 +312,12 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testChartBackground()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-        $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
+        $chart = new LineChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['spending'] = new ArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#EEEEEC' ),
+            Color::fromHex( '#EEEEEC' ),
             $chart->background->background,
             'Chart background not set from pallet.'
         );
@@ -317,12 +325,12 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testChartElementBorder()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-        $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
+        $chart = new LineChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['spending'] = new ArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#000000FF' ),
+            Color::fromHex( '#000000FF' ),
             $chart->legend->border,
             'Chart background not set from pallet.'
         );
@@ -330,9 +338,9 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testChartElementBorderWidth()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-        $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
+        $chart = new LineChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['spending'] = new ArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
 
         $this->assertEquals(
             0,
@@ -343,12 +351,12 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testChartElementAxisColor()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-        $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
+        $chart = new LineChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['spending'] = new ArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#2E3436' ),
+            Color::fromHex( '#2E3436' ),
             $chart->xAxis->border,
             'Chart background not set from pallet.'
         );
@@ -356,15 +364,15 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testModifyPaletteColorProperty()
     {
-        $palette = new ezcGraphPaletteTango();
+        $palette = new Tango();
 
         $palette->axisColor = '#FFFFFF';
         $palette->majorGridColor = array( 255, 255, 255, 255 );
-        $palette->minorGridColor = ezcGraphColor::fromHex( '#00000000' );
+        $palette->minorGridColor = Color::fromHex( '#00000000' );
 
         $this->assertEquals(
             $palette->axisColor,
-            ezcGraphColor::fromHex( '#FFFFFF' )
+            Color::fromHex( '#FFFFFF' )
         );
 
         try
@@ -381,7 +389,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testModifyPaletteDatasetColorArray()
     {
-        $palette = new ezcGraphPaletteTango();
+        $palette = new Tango();
 
         $palette->dataSetColor = array(
             '#ABCDEF',
@@ -390,7 +398,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
         $this->assertEquals(
             $palette->dataSetColor,
-            ezcGraphColor::fromHex( '#ABCDEF' )
+            Color::fromHex( '#ABCDEF' )
         );
 
         try
@@ -407,7 +415,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testModifyPaletteDatasetSymbolArray()
     {
-        $palette = new ezcGraphPaletteTango();
+        $palette = new Tango();
 
         $palette->dataSetSymbol = array(
             ezcGraph::BULLET,
@@ -433,7 +441,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testPalettePropertyChartBorderWidth()
     {
-        $options = new ezcGraphPaletteTango();
+        $options = new Tango();
 
         $this->assertSame(
             0,
@@ -462,7 +470,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testPalettePropertyElementBorderWidth()
     {
-        $options = new ezcGraphPaletteTango();
+        $options = new Tango();
 
         $this->assertSame(
             0,
@@ -491,7 +499,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testPalettePropertyPadding()
     {
-        $options = new ezcGraphPaletteTango();
+        $options = new Tango();
 
         $this->assertSame(
             1,
@@ -520,7 +528,7 @@ class ezcGraphPaletteTest extends ezcTestCase
 
     public function testPalettePropertyMargin()
     {
-        $options = new ezcGraphPaletteTango();
+        $options = new Tango();
 
         $this->assertSame(
             0,

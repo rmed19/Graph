@@ -3,20 +3,20 @@
 require_once 'tutorial_autoload.php';
 $wikidata = include 'tutorial_wikipedia_data.php';
 
-$graph = new ezcGraphBarChart();
+$graph = new \Ezc\Graph\Charts\BarChart();
 $graph->palette = new ezcGraphPaletteEz();
 $graph->title = 'Wikipedia articles';
 
 // Add data
 foreach ( $wikidata as $language => $data )
 {
-    $graph->data[$language] = new ezcGraphArrayDataSet( $data );
+    $graph->data[$language] = new \Ezc\Graph\Datasets\ArrayDataSet( $data );
 }
 $graph->data['English']->symbol = ezcGraph::NO_SYMBOL;
 $graph->data['German']->symbol = ezcGraph::BULLET;
 $graph->data['Norwegian']->symbol = ezcGraph::DIAMOND;
 
-$graph->renderer = new ezcGraphRenderer3d();
+$graph->renderer = new \Ezc\Graph\Renderer\Renderer3d();
 
 $graph->renderer->options->legendSymbolGleam = .5;
 $graph->renderer->options->barChartGleam = .5;

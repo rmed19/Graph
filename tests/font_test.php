@@ -25,7 +25,17 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+
+namespace Ezc\Graph\Tests;
+
 require_once dirname( __FILE__ ) . '/test_case.php';
+
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Options\FontOptions;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Structs\Coordinate;
 
 /**
  * Tests for ezcGraph class.
@@ -64,11 +74,11 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testSetGeneralFont()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->options->font->path = $this->basePath . 'font.ttf';
         
         $this->assertTrue(
-            $chart->options->font instanceof ezcGraphFontOptions,
+            $chart->options->font instanceof FontOptions,
             'No fontOptions object was created.'
         );
 
@@ -87,11 +97,11 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testGetGeneralFontForElement()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->options->font->path = $this->basePath . 'font.ttf';
         
         $this->assertTrue(
-            $chart->legend->font instanceof ezcGraphFontOptions,
+            $chart->legend->font instanceof FontOptions,
             'No fontOptions object was created.'
         );
 
@@ -104,7 +114,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testSetFontForElement()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->options->font->path = $this->basePath . 'font.ttf';
         $chart->legend->font->path = $this->basePath . 'font2.ttf';
 
@@ -121,7 +131,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
         );
         
         $this->assertTrue(
-            $chart->legend->font instanceof ezcGraphFontOptions,
+            $chart->legend->font instanceof FontOptions,
             'No fontOptions object was created.'
         );
 
@@ -134,8 +144,8 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testSetFontForElementWithRendering()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart = new LineChart();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         $chart->options->font->path = $this->basePath . 'font.ttf';
         $chart->legend->font->path = $this->basePath . 'font2.ttf';
         $chart->render( 500, 200 );
@@ -153,7 +163,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
         );
         
         $this->assertTrue(
-            $chart->legend->font instanceof ezcGraphFontOptions,
+            $chart->legend->font instanceof FontOptions,
             'No fontOptions object was created.'
         );
 
@@ -166,7 +176,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testTTFFontType()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->options->font->path = $this->basePath . 'font.ttf';
         
         $this->assertSame( 
@@ -178,7 +188,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testPSFontType()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->options->font->path = $this->basePath . 'ps_font.pfb';
         
         $this->assertSame( 
@@ -190,7 +200,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testUnknownFontType()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         try
         {
@@ -206,19 +216,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyName()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             'sans-serif',
             $options->name,
-            'Wrong default value for property name in class ezcGraphFontOptions'
+            'Wrong default value for property name in class FontOptions'
         );
 
         $options->name = 'serif';
         $this->assertSame(
             'serif',
             $options->name,
-            'Setting property value did not work for property name in class ezcGraphFontOptions'
+            'Setting property value did not work for property name in class FontOptions'
         );
 
         try
@@ -235,7 +245,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyPath()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         try
         {
@@ -262,7 +272,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
         $this->assertSame(
             $file,
             $options->path,
-            'Setting property value did not work for property path in class ezcGraphFontOptions'
+            'Setting property value did not work for property path in class FontOptions'
         );
 
         try
@@ -279,19 +289,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyType()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             ezcGraph::TTF_FONT,
             $options->type,
-            'Wrong default value for property type in class ezcGraphFontOptions'
+            'Wrong default value for property type in class FontOptions'
         );
 
         $options->type = ezcGraph::PS_FONT;
         $this->assertSame(
             ezcGraph::PS_FONT,
             $options->type,
-            'Setting property value did not work for property type in class ezcGraphFontOptions'
+            'Setting property value did not work for property type in class FontOptions'
         );
 
         try
@@ -308,19 +318,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyMinFontSize()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             6,
             $options->minFontSize,
-            'Wrong default value for property minFontSize in class ezcGraphFontOptions'
+            'Wrong default value for property minFontSize in class FontOptions'
         );
 
         $options->minFontSize = 8;
         $this->assertSame(
             8.,
             $options->minFontSize,
-            'Setting property value did not work for property minFontSize in class ezcGraphFontOptions'
+            'Setting property value did not work for property minFontSize in class FontOptions'
         );
 
         try
@@ -337,19 +347,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyMaxFontSize()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             96,
             $options->maxFontSize,
-            'Wrong default value for property maxFontSize in class ezcGraphFontOptions'
+            'Wrong default value for property maxFontSize in class FontOptions'
         );
 
         $options->maxFontSize = 12;
         $this->assertSame(
             12.,
             $options->maxFontSize,
-            'Setting property value did not work for property maxFontSize in class ezcGraphFontOptions'
+            'Setting property value did not work for property maxFontSize in class FontOptions'
         );
 
         try
@@ -366,12 +376,12 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyMaxFontSizeLowerThenMinFonSize()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             96,
             $options->maxFontSize,
-            'Wrong default value for property maxFontSize in class ezcGraphFontOptions'
+            'Wrong default value for property maxFontSize in class FontOptions'
         );
 
         try
@@ -388,37 +398,37 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyMinimalUsedFont()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             96,
             $options->minimalUsedFont,
-            'Wrong default value for property minimalUsedFont in class ezcGraphFontOptions'
+            'Wrong default value for property minimalUsedFont in class FontOptions'
         );
 
         $options->minimalUsedFont = 24;
         $this->assertSame(
             24.,
             $options->minimalUsedFont,
-            'Setting property value did not work for property minimalUsedFont in class ezcGraphFontOptions'
+            'Setting property value did not work for property minimalUsedFont in class FontOptions'
         );
 
         $options->minimalUsedFont = 36.;
         $this->assertSame(
             24.,
             $options->minimalUsedFont,
-            'Setting property value did not work for property minimalUsedFont in class ezcGraphFontOptions'
+            'Setting property value did not work for property minimalUsedFont in class FontOptions'
         );
     }
 
     public function testFontOptionsPropertyMinFontSizeGreaterThenMaxFonSize()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             6,
             $options->minFontSize,
-            'Wrong default value for property minFontSize in class ezcGraphFontOptions'
+            'Wrong default value for property minFontSize in class FontOptions'
         );
 
         try
@@ -435,19 +445,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyColor()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#000000' ),
+            Color::fromHex( '#000000' ),
             $options->color,
-            'Wrong default value for property color in class ezcGraphFontOptions'
+            'Wrong default value for property color in class FontOptions'
         );
 
-        $options->color = $color = ezcGraphColor::fromHex( '#FFFFFF' );
+        $options->color = $color = Color::fromHex( '#FFFFFF' );
         $this->assertSame(
             $color,
             $options->color,
-            'Setting property value did not work for property color in class ezcGraphFontOptions'
+            'Setting property value did not work for property color in class FontOptions'
         );
 
         try
@@ -464,19 +474,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyBackground()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             false,
             $options->background,
-            'Wrong default value for property background in class ezcGraphFontOptions'
+            'Wrong default value for property background in class FontOptions'
         );
 
-        $options->background = $color = ezcGraphColor::fromHex( '#FFFFFF' );
+        $options->background = $color = Color::fromHex( '#FFFFFF' );
         $this->assertSame(
             $color,
             $options->background,
-            'Setting property value did not work for property background in class ezcGraphFontOptions'
+            'Setting property value did not work for property background in class FontOptions'
         );
 
         try
@@ -493,19 +503,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyBorder()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             false,
             $options->border,
-            'Wrong default value for property border in class ezcGraphFontOptions'
+            'Wrong default value for property border in class FontOptions'
         );
 
-        $options->border = $color = ezcGraphColor::fromHex( '#FFFFFF' );
+        $options->border = $color = Color::fromHex( '#FFFFFF' );
         $this->assertSame(
             $color,
             $options->border,
-            'Setting property value did not work for property border in class ezcGraphFontOptions'
+            'Setting property value did not work for property border in class FontOptions'
         );
 
         try
@@ -522,19 +532,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyBorderWidth()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             1,
             $options->borderWidth,
-            'Wrong default value for property borderWidth in class ezcGraphFontOptions'
+            'Wrong default value for property borderWidth in class FontOptions'
         );
 
         $options->borderWidth = 2;
         $this->assertSame(
             2,
             $options->borderWidth,
-            'Setting property value did not work for property borderWidth in class ezcGraphFontOptions'
+            'Setting property value did not work for property borderWidth in class FontOptions'
         );
 
         try
@@ -551,19 +561,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyPadding()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             0,
             $options->padding,
-            'Wrong default value for property padding in class ezcGraphFontOptions'
+            'Wrong default value for property padding in class FontOptions'
         );
 
         $options->padding = 1;
         $this->assertSame(
             1,
             $options->padding,
-            'Setting property value did not work for property padding in class ezcGraphFontOptions'
+            'Setting property value did not work for property padding in class FontOptions'
         );
 
         try
@@ -580,19 +590,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyMinimizeBorder()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             true,
             $options->minimizeBorder,
-            'Wrong default value for property minimizeBorder in class ezcGraphFontOptions'
+            'Wrong default value for property minimizeBorder in class FontOptions'
         );
 
         $options->minimizeBorder = false;
         $this->assertSame(
             false,
             $options->minimizeBorder,
-            'Setting property value did not work for property minimizeBorder in class ezcGraphFontOptions'
+            'Setting property value did not work for property minimizeBorder in class FontOptions'
         );
 
         try
@@ -609,19 +619,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyTextShadow()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             false,
             $options->textShadow,
-            'Wrong default value for property textShadow in class ezcGraphFontOptions'
+            'Wrong default value for property textShadow in class FontOptions'
         );
 
         $options->textShadow = true;
         $this->assertSame(
             true,
             $options->textShadow,
-            'Setting property value did not work for property textShadow in class ezcGraphFontOptions'
+            'Setting property value did not work for property textShadow in class FontOptions'
         );
 
         try
@@ -638,19 +648,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyTextShadowOffset()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertSame(
             1,
             $options->textShadowOffset,
-            'Wrong default value for property textShadowOffset in class ezcGraphFontOptions'
+            'Wrong default value for property textShadowOffset in class FontOptions'
         );
 
         $options->textShadowOffset = 2;
         $this->assertSame(
             2,
             $options->textShadowOffset,
-            'Setting property value did not work for property textShadowOffset in class ezcGraphFontOptions'
+            'Setting property value did not work for property textShadowOffset in class FontOptions'
         );
 
         try
@@ -667,19 +677,19 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testFontOptionsPropertyTextShadowColor()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#FFFFFF' ),
+            Color::fromHex( '#FFFFFF' ),
             $options->textShadowColor,
-            'Wrong default value for property textShadowColor in class ezcGraphFontOptions'
+            'Wrong default value for property textShadowColor in class FontOptions'
         );
 
-        $options->textShadowColor = $color = ezcGraphColor::fromHex( '#CCCCCC' );
+        $options->textShadowColor = $color = Color::fromHex( '#CCCCCC' );
         $this->assertSame(
             $color,
             $options->textShadowColor,
-            'Setting property value did not work for property textShadowColor in class ezcGraphFontOptions'
+            'Setting property value did not work for property textShadowColor in class FontOptions'
         );
 
         try
@@ -696,7 +706,7 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
     public function testPropertyNotFoundException()
     {
-        $options = new ezcGraphFontOptions();
+        $options = new FontOptions();
 
         try
         {
@@ -720,17 +730,17 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
         $driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $driver->drawTextBox(
             'öäüÖÄÜß',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -757,17 +767,17 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
         $driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $driver->drawTextBox(
             iconv( 'UTF-8', 'ISO-8859-15', 'öäüÖÄÜß' ),
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -792,17 +802,17 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
         $driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $return = $driver->drawTextBox(
             'öäüÖÄÜß',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -829,17 +839,17 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
         $driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $return = $driver->drawTextBox(
             iconv( 'UTF-8', 'ISO-8859-15', 'öäüÖÄÜß' ),
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -868,17 +878,17 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
         $driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $driver->drawTextBox(
             'öäüÖÄÜß',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -908,17 +918,17 @@ class ezcGraphFontTest extends ezcGraphTestCase
 
         $driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 10, 10 ),
-                new ezcGraphCoordinate( 160, 10 ),
-                new ezcGraphCoordinate( 160, 80 ),
-                new ezcGraphCoordinate( 10, 80 ),
+                new Coordinate( 10, 10 ),
+                new Coordinate( 160, 10 ),
+                new Coordinate( 160, 80 ),
+                new Coordinate( 10, 80 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $driver->drawTextBox(
             iconv( 'UTF-8', 'ISO-8859-15', 'öäüÖÄÜß' ),
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT

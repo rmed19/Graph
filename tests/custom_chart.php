@@ -24,21 +24,28 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+namespace Ezc\Graph\Tests;
 
-class ezcCustomTestChart extends ezcGraphPieChart
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Palette\EzBlue;
+use Ezc\Graph\Renderer\Renderer3d;
+
+
+class ezcCustomTestChart extends PieChart
 {
     public function __construct( array $options = array() )
     {
         parent::__construct( $options );
 
         $this->driver = new ezcGraphSvgDriver();
-        $this->renderer = new ezcGraphRenderer3d();
+        $this->renderer = new Renderer3d();
 
-        $this->palette = new ezcGraphPaletteEzBlue();
+        $this->palette = new EzBlue();
 
         $this->title = 'Test chart';
 
-        $this->data['testdata'] = new ezcGraphArrayDataSet( array(
+        $this->data['testdata'] = new ArrayDataSet( array(
             'foo' => 123,
             'bar' => 43,
             'blubb' => 453,

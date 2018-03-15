@@ -40,23 +40,35 @@
             "name": "Michael Maclean"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/rmed19/Base.git"
+        }
+    ],
     "autoload": {
-        "classmap": [
-            "src"
-        ]
+        "psr-4": {
+            "Ezc\\Graph\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ezc\\Graph\\Tests\\": "tests/"
+        }
     },
     "description": "A component for creating pie charts, line graphs and other kinds of diagrams.",
     "homepage": "https://github.com/zetacomponents",
     "license": "Apache-2.0",
     "name": "zetacomponents/graph",
     "type": "library",
-        "require": {
-            "zetacomponents/base": "~1.8"
-        },
-        "require-dev": {
-            "zetacomponents/unit-test": "*"
-        },
-        "suggest": {
-            "ext-gd": "Used by the GD driver, one of the choices for generating bitmap images."
-        }
+    "require": {
+        "zetacomponents/base": "dev-master"
+    },
+    "require-dev": {
+        "zetacomponents/unit-test": "*"
+    },
+    "suggest": {
+        "ext-gd": "Used by the GD driver, one of the choices for generating bitmap images."
+    },
+    "minimum-stability" : "dev"
 }

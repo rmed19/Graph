@@ -27,6 +27,13 @@
 
 require_once dirname( __FILE__ ) . '/test_case.php';
 
+use Ezc\Graph\Charts\BarChart;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer3d;
+use Ezc\Graph\Renderer\AxisRotatedBoxedLabelRenderer;
+use Ezc\Graph\Renderer\AxisNoLabelRenderer;
+use Ezc\Graph\Palette\Black;
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -75,11 +82,11 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphBarChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart = new BarChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
 
-        $chart->data['Line 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 100, 'sample 2' => 0, 'sample 3' => 500, 'sample 4' => 250, 'sample 5' => 500) );
+        $chart->data['Line 1'] = new ArrayDataSet( array( 'sample 1' => 100, 'sample 2' => 0, 'sample 3' => 500, 'sample 4' => 250, 'sample 5' => 500) );
 
         $chart->render( 500, 200, $filename );
 
@@ -93,16 +100,16 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphBarChart();
+        $chart = new BarChart();
 
-        $chart->data['Line 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['Line 2'] = new ezcGraphArrayDataSet( array( 'sample 1' => 543, 'sample 2' => 234, 'sample 3' => 298, 'sample 4' => 5, 'sample 5' => 613) );
+        $chart->data['Line 1'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['Line 2'] = new ArrayDataSet( array( 'sample 1' => 543, 'sample 2' => 234, 'sample 3' => 298, 'sample 4' => 5, 'sample 5' => 613) );
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->xAxis->axisSpace = .25;
         $chart->xAxis->axisLabelRenderer->angle = -45;
 
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->yAxis->axisLabelRenderer->angle = -45;
 
         $chart->render( 500, 200, $filename );
@@ -120,13 +127,13 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
         $labelCount = 30;
         $data = $this->getRandomData( $labelCount, 500, 2000, 23 );
 
-        $chart = new ezcGraphBarChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new BarChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 31;
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->xAxis->axisLabelRenderer->angle = 45;
 
         $chart->render( 500, 200, $filename );
@@ -144,13 +151,13 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
         $labelCount = 20;
         $data = $this->getRandomData( $labelCount, 500, 2000, 23 );
 
-        $chart = new ezcGraphBarChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new BarChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 21;
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->xAxis->axisLabelRenderer->angle = 0;
 
         $chart->render( 500, 200, $filename );
@@ -168,13 +175,13 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
         $labelCount = 10;
         $data = $this->getRandomData( $labelCount, 500, 2000, 23 );
 
-        $chart = new ezcGraphBarChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new BarChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 11;
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->xAxis->axisLabelRenderer->angle = 75;
 
         $chart->render( 500, 200, $filename );
@@ -192,16 +199,16 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
         $labelCount = 30;
         $data = $this->getRandomData( $labelCount, 500, 2000, 23 );
 
-        $chart = new ezcGraphBarChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new BarChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 31;
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->xAxis->axisLabelRenderer->angle = 45;
 
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart->renderer = new Renderer3d();
         $chart->render( 500, 200, $filename );
 
         $this->compare(
@@ -214,13 +221,13 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphBarChart();
+        $chart = new BarChart();
 
-        $chart->data['Line 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['Line 2'] = new ezcGraphArrayDataSet( array( 'sample 1' => 543, 'sample 2' => 234, 'sample 3' => 298, 'sample 4' => 5, 'sample 5' => 613) );
+        $chart->data['Line 1'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['Line 2'] = new ArrayDataSet( array( 'sample 1' => 543, 'sample 2' => 234, 'sample 3' => 298, 'sample 4' => 5, 'sample 5' => 613) );
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
 
         $chart->render( 500, 200, $filename );
 
@@ -251,18 +258,18 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
         $labelCount = 20;
         $data = $this->getRandomData( $labelCount, 500, 2000, 23 );
 
-        $chart = new ezcGraphBarChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new BarChart();
+        $chart->palette = new Black();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 21;
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->xAxis->axisLabelRenderer->angle = 45;
         $chart->xAxis->axisSpace = 0.1;
 
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->yAxis->axisSpace = 0.05;
 
         $chart->render( 500, 200, $filename );
@@ -280,18 +287,18 @@ class ezcGraphAxisRotatedBoxedRendererTest extends ezcGraphTestCase
         $labelCount = 20;
         $data = $this->getRandomData( $labelCount, 500, 2000, 23 );
 
-        $chart = new ezcGraphBarChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new BarChart();
+        $chart->palette = new Black();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 21;
 
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisRotatedBoxedLabelRenderer();
+        $chart->xAxis->axisLabelRenderer = new AxisRotatedBoxedLabelRenderer();
         $chart->xAxis->axisLabelRenderer->angle = 45;
         $chart->xAxis->axisSpace = 0.1;
 
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->yAxis->axisSpace = 0;
 
         $chart->render( 500, 200, $filename );

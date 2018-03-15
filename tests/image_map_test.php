@@ -25,7 +25,19 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+
+namespace Ezc\Graph\Tests;
+
 require_once dirname( __FILE__ ) . '/test_case.php';
+
+use Ezc\Graph\Charts\BarChart;
+
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer3d;
+use Ezc\Graph\Palette\Black;
+use Ezc\Graph\Structs\Coordinate;
 
 /**
  * Tests for ezcGraph class.
@@ -69,12 +81,12 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
+        $chart = new LineChart();
+        $chart->palette = new Black();
 
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['moreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['evenMoreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['moreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['evenMoreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
 
         $chart->data['sampleData']->url = 'http://example.com/';
 
@@ -104,11 +116,11 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->palette = new ezcGraphPaletteBlack();
+        $chart = new PieChart();
+        $chart->palette = new Black();
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -142,14 +154,14 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->driver = new ezcGraphGdDriver();
         $chart->options->font->path = dirname( __FILE__ ) . '/data/font.ttf';
-        $chart->palette = new ezcGraphPaletteBlack();
+        $chart->palette = new Black();
 
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['moreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['evenMoreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['moreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['evenMoreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
 
         $chart->data['sampleData']->url = 'http://example.com/';
 
@@ -164,8 +176,8 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
 
         $this->assertSame( 36, count( $reference['data']['sampleData']['sample 2'][0] ), 'Point array with 36 elements expected.' );
         $this->assertTrue(
-            $reference['data']['sampleData']['sample 2'][0][5] instanceof ezcGraphCoordinate,
-            'Expected ezcGraphCoordinate objects.'
+            $reference['data']['sampleData']['sample 2'][0][5] instanceof Coordinate,
+            'Expected Coordinate objects.'
         );
 
         // Check legend references
@@ -174,13 +186,13 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
 
         $this->assertSame( 36, count( $reference['legend']['moreData']['symbol'] ), 'Point array with 36 elements expected.' );
         $this->assertTrue(
-            $reference['legend']['moreData']['symbol'][5] instanceof ezcGraphCoordinate,
-            'Expected ezcGraphCoordinate objects.'
+            $reference['legend']['moreData']['symbol'][5] instanceof Coordinate,
+            'Expected Coordinate objects.'
         );
         $this->assertSame( 4, count( $reference['legend']['moreData']['text'] ), 'Point array with 36 elements expected.' );
         $this->assertTrue(
-            $reference['legend']['moreData']['text'][2] instanceof ezcGraphCoordinate,
-            'Expected ezcGraphCoordinate objects.'
+            $reference['legend']['moreData']['text'][2] instanceof Coordinate,
+            'Expected Coordinate objects.'
         );
         
         // Check for legend URLs
@@ -193,13 +205,13 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->renderer = new Renderer3d();
 
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['moreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['evenMoreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['moreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['evenMoreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
 
         $chart->data['sampleData']->url = 'http://example.com/';
 
@@ -229,13 +241,13 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphBarChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart = new BarChart();
+        $chart->palette = new Black();
+        $chart->renderer = new Renderer3d();
 
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['moreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
-        $chart->data['evenMoreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['moreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['evenMoreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
 
         $chart->data['sampleData']->url = 'http://example.com/sampleData';
         $chart->data['sampleData']->symbol = ezcGraph::DIAMOND;
@@ -296,11 +308,11 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart = new PieChart();
+        $chart->palette = new Black();
+        $chart->renderer = new Renderer3d();
 
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -334,10 +346,10 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->renderer->options->pieChartGleam = .5;
 
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -373,11 +385,11 @@ class ezcGraphImageMapTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->renderer = new ezcGraphRenderer3d();
+        $chart = new PieChart();
+        $chart->renderer = new Renderer3d();
         $chart->renderer->options->pieChartGleam = .5;
 
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,

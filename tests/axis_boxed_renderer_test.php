@@ -25,6 +25,17 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+namespace Ezc\Graph\Tests;
+
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer2d;
+use Ezc\Graph\Renderer\AxisNoLabelRenderer;
+use Ezc\Graph\Renderer\AxisBoxedLabelRenderer;
+use Ezc\Graph\Palette\Black;
+use Ezc\Graph\Structs\Coordinate;
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -54,13 +65,13 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisGrid()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawGridLine',
         ) );
 
@@ -68,17 +79,17 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 204., 20. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 204., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 204., 20. ), 1. ),
+                $this->equalTo( new Coordinate( 204., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
         $mockedRenderer
             ->expects( $this->at( 4 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 460., 20. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 460., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 460., 20. ), 1. ),
+                $this->equalTo( new Coordinate( 460., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -88,14 +99,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisGridZeroAxisSpace()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->yAxis->axisSpace = 0;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawGridLine',
         ) );
 
@@ -103,17 +114,17 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 180., 20. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 180., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 180., 20. ), 1. ),
+                $this->equalTo( new Coordinate( 180., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
         $mockedRenderer
             ->expects( $this->at( 4 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 500., 20. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 500., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 500., 20. ), 1. ),
+                $this->equalTo( new Coordinate( 500., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -123,14 +134,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisOuterGrid()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->xAxis->axisLabelRenderer->outerGrid = true;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawGridLine',
         ) );
 
@@ -138,17 +149,17 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 204., 0. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 204., 200. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 204., 0. ), 1. ),
+                $this->equalTo( new Coordinate( 204., 200. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
         $mockedRenderer
             ->expects( $this->at( 4 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 460., 0. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 460., 200. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 460., 0. ), 1. ),
+                $this->equalTo( new Coordinate( 460., 200. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -158,13 +169,13 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisSteps()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawStepLine',
         ) );
 
@@ -172,17 +183,17 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawStepLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 204., 177. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 204., 183. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#EEEEEC' ) )
+                $this->equalTo( new Coordinate( 204., 177. ), 1. ),
+                $this->equalTo( new Coordinate( 204., 183. ), 1. ),
+                $this->equalTo( Color::fromHex( '#EEEEEC' ) )
             );
         $mockedRenderer
             ->expects( $this->at( 4 ) )
             ->method( 'drawStepLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 460., 177. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 460., 183. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#EEEEEC' ) )
+                $this->equalTo( new Coordinate( 460., 177. ), 1. ),
+                $this->equalTo( new Coordinate( 460., 183. ), 1. ),
+                $this->equalTo( Color::fromHex( '#EEEEEC' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -192,14 +203,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisNoOuterSteps()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->xAxis->axisLabelRenderer->outerStep = false;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawStepLine',
         ) );
 
@@ -207,17 +218,17 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawStepLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 204., 177. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 204., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#EEEEEC' ) )
+                $this->equalTo( new Coordinate( 204., 177. ), 1. ),
+                $this->equalTo( new Coordinate( 204., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#EEEEEC' ) )
             );
         $mockedRenderer
             ->expects( $this->at( 4 ) )
             ->method( 'drawStepLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 460., 177. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 460., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#EEEEEC' ) )
+                $this->equalTo( new Coordinate( 460., 177. ), 1. ),
+                $this->equalTo( new Coordinate( 460., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#EEEEEC' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -227,15 +238,15 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisNoInnerSteps()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->xAxis->axisLabelRenderer->innerStep = false;
         $chart->xAxis->axisLabelRenderer->outerStep = true;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawStepLine',
         ) );
 
@@ -243,17 +254,17 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawStepLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 204., 180. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 204., 183. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#EEEEEC' ) )
+                $this->equalTo( new Coordinate( 204., 180. ), 1. ),
+                $this->equalTo( new Coordinate( 204., 183. ), 1. ),
+                $this->equalTo( Color::fromHex( '#EEEEEC' ) )
             );
         $mockedRenderer
             ->expects( $this->at( 4 ) )
             ->method( 'drawStepLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 460., 180. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 460., 183. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#EEEEEC' ) )
+                $this->equalTo( new Coordinate( 460., 180. ), 1. ),
+                $this->equalTo( new Coordinate( 460., 183. ), 1. ),
+                $this->equalTo( Color::fromHex( '#EEEEEC' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -263,16 +274,16 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisNoSteps()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->xAxis->axisLabelRenderer->innerStep = false;
         $chart->xAxis->axisLabelRenderer->outerStep = false;
         $chart->yAxis->axisLabelRenderer->innerStep = false;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawStepLine',
         ) );
 
@@ -287,13 +298,13 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderTextBoxes()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -321,14 +332,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisGridFromRight()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
         $chart->xAxis->position = ezcGraph::RIGHT;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawGridLine',
         ) );
 
@@ -336,17 +347,17 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 396., 20. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 396., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 396., 20. ), 1. ),
+                $this->equalTo( new Coordinate( 396., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
         $mockedRenderer
             ->expects( $this->at( 4 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 140., 20. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 140., 180. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 140., 20. ), 1. ),
+                $this->equalTo( new Coordinate( 140., 180. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -356,14 +367,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisGridFromTop()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
         $chart->yAxis->position = ezcGraph::TOP;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawGridLine',
         ) );
 
@@ -371,9 +382,9 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 140., 52. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 460., 52. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 140., 52. ), 1. ),
+                $this->equalTo( new Coordinate( 460., 52. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -383,14 +394,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderAxisGridFromBottom()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
         $chart->yAxis->position = ezcGraph::BOTTOM;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawGridLine',
         ) );
 
@@ -398,9 +409,9 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
             ->expects( $this->at( 0 ) )
             ->method( 'drawGridLine' )
             ->with(
-                $this->equalTo( new ezcGraphCoordinate( 140., 148. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( 460., 148. ), 1. ),
-                $this->equalTo( ezcGraphColor::fromHex( '#888A85' ) )
+                $this->equalTo( new Coordinate( 140., 148. ), 1. ),
+                $this->equalTo( new Coordinate( 460., 148. ), 1. ),
+                $this->equalTo( Color::fromHex( '#888A85' ) )
             );
 
         $chart->renderer = $mockedRenderer;
@@ -410,14 +421,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderTextBoxesFromRight()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
         $chart->xAxis->position = ezcGraph::RIGHT;
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->yAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -445,14 +456,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderTextBoxesFromTop()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
         $chart->yAxis->position = ezcGraph::TOP;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -480,14 +491,14 @@ class ezcGraphAxisBoxedRendererTest extends ezcTestCase
 
     public function testRenderTextBoxesFromBottom()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->palette = new ezcGraphPaletteBlack();
-        $chart->xAxis->axisLabelRenderer = new ezcGraphAxisNoLabelRenderer();
-        $chart->yAxis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
+        $chart = new LineChart();
+        $chart->palette = new Black();
+        $chart->xAxis->axisLabelRenderer = new AxisNoLabelRenderer();
+        $chart->yAxis->axisLabelRenderer = new AxisBoxedLabelRenderer();
         $chart->yAxis->position = ezcGraph::BOTTOM;
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1) );
         
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 

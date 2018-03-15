@@ -7,13 +7,13 @@ function __autoload( $className )
 }
 
 // Create the graph
-$graph = new ezcGraphBarChart();
-$graph->palette = new ezcGraphPaletteEzBlue();
+$graph = new \Ezc\Graph\Charts\BarChart();
+$graph->palette = new \Ezc\Graph\Palette\EzBlue();
 $graph->xAxis->majorGrid = '#888888';
 $graph->yAxis->majorGrid = '#888888';
 
 // Add the data and hilight norwegian data set
-$graph->data['Posts'] = new ezcGraphArrayDataSet( array(
+$graph->data['Posts'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'May 2006' => 1164,
     'Jun 2006' => 965,
     'Jul 2006' => 1014,
@@ -22,7 +22,7 @@ $graph->data['Posts'] = new ezcGraphArrayDataSet( array(
     'Oct 2006' => 771,
 ) );
 
-$graph->data['per day'] = new ezcGraphArrayDataSet( array(
+$graph->data['per day'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'May 2006' => 38,
     'Jun 2006' => 32,
     'Jul 2006' => 33,
@@ -35,7 +35,7 @@ $graph->data['per day'] = new ezcGraphArrayDataSet( array(
 $graph->title = 'Forum posts in last months';
 
 // Use 3d renderer, and beautify it
-$graph->renderer = new ezcGraphRenderer3d();
+$graph->renderer = new \Ezc\Graph\Renderer\Renderer3d();
 
 $graph->renderer->options->barChartGleam = .5;
 $graph->renderer->options->legendSymbolGleam = .5;

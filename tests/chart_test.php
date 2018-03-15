@@ -28,6 +28,15 @@
 require_once dirname( __FILE__ ) . '/test_case.php';
 require_once dirname( __FILE__ ) . '/custom_chart.php';
 
+use Ezc\Graph\Charts\BarChart;
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Element\ChartElementText;
+use Ezc\Graph\Axis\ChartElementNumericAxis;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer2d;
+
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -70,7 +79,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
 
     public function testSetTitle()
     {
-        $pieChart = new ezcGraphPieChart();
+        $pieChart = new PieChart();
         $pieChart->title = 'Test title';
 
         $this->assertSame(
@@ -79,7 +88,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
         );
 
         $this->assertTrue(
-            $pieChart->title instanceof ezcGraphChartElementText
+            $pieChart->title instanceof ChartElementText
         );
     }
 
@@ -87,7 +96,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         try
         {
-            $pieChart = new ezcGraphPieChart();
+            $pieChart = new PieChart();
             $pieChart->options->unknown = 'unknown';
         }
         catch ( ezcBasePropertyNotFoundException $e )
@@ -100,8 +109,8 @@ class ezcGraphChartTest extends ezcGraphTestCase
 
     public function testSetRenderer()
     {
-        $pieChart = new ezcGraphPieChart();
-        $renderer = $pieChart->renderer = new ezcGraphRenderer2d();
+        $pieChart = new PieChart();
+        $renderer = $pieChart->renderer = new Renderer2d();
 
         $this->assertSame(
             $renderer,
@@ -113,7 +122,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         try
         {
-            $pieChart = new ezcGraphPieChart();
+            $pieChart = new PieChart();
             $pieChart->renderer = 'invalid';
         }
         catch ( ezcBaseValueException $e )
@@ -128,7 +137,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         try
         {
-            $pieChart = new ezcGraphPieChart();
+            $pieChart = new PieChart();
             //Read
             $pieChart->unknownElement;
         }
@@ -148,7 +157,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
             $this->markTestSkipped( 'This test needs ext/gd with native ttf support or FreeType 2 support.' );
         }
 
-        $pieChart = new ezcGraphPieChart();
+        $pieChart = new PieChart();
         $driver = $pieChart->driver = new ezcGraphGdDriver();
 
         $this->assertSame(
@@ -161,7 +170,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         try
         {
-            $pieChart = new ezcGraphPieChart();
+            $pieChart = new PieChart();
             $pieChart->driver = 'invalid';
         }
         catch ( ezcBaseValueException $e )
@@ -176,7 +185,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         try
         {
-            $pieChart = new ezcGraphPieChart();
+            $pieChart = new PieChart();
             $pieChart->render( 400, 200 );
         }
         catch ( ezcGraphNoDataException $e )
@@ -191,7 +200,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         try
         {
-            $barChart = new ezcGraphBarChart();
+            $barChart = new BarChart();
             $barChart->render( 400, 200 );
         }
         catch ( ezcGraphNoDataException $e )
@@ -206,8 +215,8 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $barChart = new ezcGraphBarChart();
-        $barChart->data['test'] = new ezcGraphArrayDataSet(
+        $barChart = new BarChart();
+        $barChart->data['test'] = new ArrayDataSet(
             array( 23 )
         );
         $barChart->render( 400, 200, $filename );
@@ -222,11 +231,11 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $barChart = new ezcGraphBarChart();
-        $barChart->data['test'] = new ezcGraphArrayDataSet(
+        $barChart = new BarChart();
+        $barChart->data['test'] = new ArrayDataSet(
             array( 23 )
         );
-        $barChart->data['test 2'] = new ezcGraphArrayDataSet(
+        $barChart->data['test 2'] = new ArrayDataSet(
             array( 5 )
         );
         $barChart->render( 400, 200, $filename );
@@ -241,10 +250,10 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $barChart = new ezcGraphBarChart();
-        $barChart->xAxis = new ezcGraphChartElementNumericAxis();
+        $barChart = new BarChart();
+        $barChart->xAxis = new ChartElementNumericAxis();
 
-        $barChart->data['test'] = new ezcGraphArrayDataSet(
+        $barChart->data['test'] = new ArrayDataSet(
             array( 23 )
         );
         $barChart->render( 400, 200, $filename );
@@ -259,9 +268,9 @@ class ezcGraphChartTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $barChart = new ezcGraphLineChart();
+        $barChart = new LineChart();
 
-        $barChart->data['test'] = new ezcGraphArrayDataSet(
+        $barChart->data['test'] = new ArrayDataSet(
             array( 5, 23, 42 )
         );
         $color = $barChart->data['test']->color->default;
@@ -273,7 +282,7 @@ class ezcGraphChartTest extends ezcGraphTestCase
         );
 
         // Render a second time with a new dataset, and expect the same result
-        $barChart->data['test'] = new ezcGraphArrayDataSet(
+        $barChart->data['test'] = new ArrayDataSet(
             array( 5, 23, 42 )
         );
         $barChart->data['test']->color = $color;

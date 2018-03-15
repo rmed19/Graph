@@ -1,6 +1,6 @@
 <?php
 /**
- * ezcGraphOdometerChartTest 
+ * OdometerChartTest 
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -25,7 +25,19 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+namespace Ezc\Graph\Tests;
+
+
 require_once dirname( __FILE__ ) . '/test_case.php';
+use Ezc\Graph\Axis\ChartElementLabeledAxis;
+use Ezc\Graph\Options\OdometerChartOptions;
+use Ezc\Graph\Charts\OdometerChart;
+use Ezc\Graph\Axis\ChartElementNumericAxis;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer3d;
+use Ezc\Graph\Renderer\Renderer2d;
+use Ezc\Graph\Structs\Coordinate;
 
 /**
  * Tests for ezcGraph class.
@@ -33,7 +45,7 @@ require_once dirname( __FILE__ ) . '/test_case.php';
  * @package Graph
  * @subpackage Tests
  */
-class ezcGraphOdometerChartTest extends ezcGraphTestCase
+class OdometerChartTest extends ezcGraphTestCase
 {
     protected $basePath;
 
@@ -41,7 +53,7 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
 	public static function suite()
 	{
-		return new PHPUnit_Framework_TestSuite( "ezcGraphOdometerChartTest" );
+		return new PHPUnit_Framework_TestSuite( "OdometerChartTest" );
 	}
 
     public function setUp()
@@ -67,19 +79,19 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testOdometerChartOptionsPropertyBorderColor()
     {
-        $options = new ezcGraphOdometerChartOptions();
+        $options = new OdometerChartOptions();
 
         $this->assertEquals(
-            ezcGraphColor::create( '#000000' ),
+            Color::create( '#000000' ),
             $options->borderColor,
-            'Wrong default value for property borderColor in class ezcGraphOdometerChartOptions'
+            'Wrong default value for property borderColor in class OdometerChartOptions'
         );
 
         $options->borderColor = '#FF0000';
         $this->assertEquals(
-            ezcGraphColor::create( '#FF0000' ),
+            Color::create( '#FF0000' ),
             $options->borderColor,
-            'Setting property value did not work for property borderColor in class ezcGraphOdometerChartOptions'
+            'Setting property value did not work for property borderColor in class OdometerChartOptions'
         );
 
         try
@@ -96,19 +108,19 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testOdometerChartOptionsPropertyBorderWidth()
     {
-        $options = new ezcGraphOdometerChartOptions();
+        $options = new OdometerChartOptions();
 
         $this->assertEquals(
             0,
             $options->borderWidth,
-            'Wrong default value for property borderWidth in class ezcGraphOdometerChartOptions'
+            'Wrong default value for property borderWidth in class OdometerChartOptions'
         );
 
         $options->borderWidth = 4;
         $this->assertEquals(
             4,
             $options->borderWidth,
-            'Setting property value did not work for property borderWidth in class ezcGraphOdometerChartOptions'
+            'Setting property value did not work for property borderWidth in class OdometerChartOptions'
         );
 
         try
@@ -125,19 +137,19 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testOdometerChartOptionsPropertyStartColor()
     {
-        $options = new ezcGraphOdometerChartOptions();
+        $options = new OdometerChartOptions();
 
         $this->assertEquals(
-            ezcGraphColor::create( '#4e9a06A0' ),
+            Color::create( '#4e9a06A0' ),
             $options->startColor,
-            'Wrong default value for property startColor in class ezcGraphOdometerChartOptions'
+            'Wrong default value for property startColor in class OdometerChartOptions'
         );
 
         $options->startColor = '#00FF00';
         $this->assertEquals(
-            ezcGraphColor::create( '#00FF00' ),
+            Color::create( '#00FF00' ),
             $options->startColor,
-            'Setting property value did not work for property startColor in class ezcGraphOdometerChartOptions'
+            'Setting property value did not work for property startColor in class OdometerChartOptions'
         );
 
         try
@@ -154,19 +166,19 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testOdometerChartOptionsPropertyEndColor()
     {
-        $options = new ezcGraphOdometerChartOptions();
+        $options = new OdometerChartOptions();
 
         $this->assertEquals(
-            ezcGraphColor::create( '#A40000A0' ),
+            Color::create( '#A40000A0' ),
             $options->endColor,
-            'Wrong default value for property endColor in class ezcGraphOdometerChartOptions'
+            'Wrong default value for property endColor in class OdometerChartOptions'
         );
 
         $options->endColor = '#FF0000';
         $this->assertEquals(
-            ezcGraphColor::create( '#FF0000' ),
+            Color::create( '#FF0000' ),
             $options->endColor,
-            'Setting property value did not work for property endColor in class ezcGraphOdometerChartOptions'
+            'Setting property value did not work for property endColor in class OdometerChartOptions'
         );
 
         try
@@ -183,19 +195,19 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testOdometerChartOptionsPropertyMarkerWidth()
     {
-        $options = new ezcGraphOdometerChartOptions();
+        $options = new OdometerChartOptions();
 
         $this->assertEquals(
             2,
             $options->markerWidth,
-            'Wrong default value for property markerWidth in class ezcGraphOdometerChartOptions'
+            'Wrong default value for property markerWidth in class OdometerChartOptions'
         );
 
         $options->markerWidth = 4;
         $this->assertEquals(
             4,
             $options->markerWidth,
-            'Setting property value did not work for property markerWidth in class ezcGraphOdometerChartOptions'
+            'Setting property value did not work for property markerWidth in class OdometerChartOptions'
         );
 
         try
@@ -212,19 +224,19 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testOdometerChartOptionsPropertyOdometerHeight()
     {
-        $options = new ezcGraphOdometerChartOptions();
+        $options = new OdometerChartOptions();
 
         $this->assertEquals(
             .5,
             $options->odometerHeight,
-            'Wrong default value for property odometerHeight in class ezcGraphOdometerChartOptions'
+            'Wrong default value for property odometerHeight in class OdometerChartOptions'
         );
 
         $options->odometerHeight = .3;
         $this->assertEquals(
             .3,
             $options->odometerHeight,
-            'Setting property value did not work for property odometerHeight in class ezcGraphOdometerChartOptions'
+            'Setting property value did not work for property odometerHeight in class OdometerChartOptions'
         );
 
         try
@@ -241,17 +253,17 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testOdometerChartPropertyAxis()
     {
-        $chart = new ezcGraphOdometerChart();
+        $chart = new OdometerChart();
 
         $this->assertTrue(
-            $chart->axis instanceof ezcGraphChartElementNumericAxis,
-            'Wrong default value for property axis in class ezcGraphOdometerChart'
+            $chart->axis instanceof ChartElementNumericAxis,
+            'Wrong default value for property axis in class OdometerChart'
         );
 
-        $chart->axis = new ezcGraphChartElementLabeledAxis();
+        $chart->axis = new ChartElementLabeledAxis();
         $this->assertTrue(
-            $chart->axis instanceof ezcGraphChartElementLabeledAxis,
-            'Setting property value did not work for property axis in class ezcGraphOdometerChart'
+            $chart->axis instanceof ChartElementLabeledAxis,
+            'Setting property value did not work for property axis in class OdometerChart'
         );
 
         try
@@ -268,10 +280,10 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testRenderOdometer()
     {
-        $chart = new ezcGraphOdometerChart();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1 ) );
+        $chart = new OdometerChart();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1 ) );
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawOdometer',
         ) );
 
@@ -294,10 +306,10 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testRenderOdometerMarker()
     {
-        $chart = new ezcGraphOdometerChart();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
+        $chart = new OdometerChart();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawOdometerMarker',
         ) );
 
@@ -306,9 +318,9 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
             ->method( 'drawOdometerMarker' )
             ->with(
                 $this->equalTo( new ezcGraphBoundings( 25., 50., 475., 150. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( .585, .0 ), .001 ),
+                $this->equalTo( new Coordinate( .585, .0 ), .001 ),
                 $this->equalTo( ezcGraph::NO_SYMBOL ),
-                $this->equalTo( ezcGraphColor::create( '#3465A4' ) ),
+                $this->equalTo( Color::create( '#3465A4' ) ),
                 $this->equalTo( 2 )
             );
 
@@ -317,9 +329,9 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
             ->method( 'drawOdometerMarker' )
             ->with(
                 $this->equalTo( new ezcGraphBoundings( 25., 50., 475., 150. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( .0525, .0 ), .001 ),
+                $this->equalTo( new Coordinate( .0525, .0 ), .001 ),
                 $this->equalTo( ezcGraph::NO_SYMBOL ),
-                $this->equalTo( ezcGraphColor::create( '#4E9A06' ) ),
+                $this->equalTo( Color::create( '#4E9A06' ) ),
                 $this->equalTo( 2 )
             );
 
@@ -328,9 +340,9 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
             ->method( 'drawOdometerMarker' )
             ->with(
                 $this->equalTo( new ezcGraphBoundings( 25., 50., 475., 150. ), 1. ),
-                $this->equalTo( new ezcGraphCoordinate( .81, .0 ), .001 ),
+                $this->equalTo( new Coordinate( .81, .0 ), .001 ),
                 $this->equalTo( ezcGraph::NO_SYMBOL ),
-                $this->equalTo( ezcGraphColor::create( '#CC0000' ) ),
+                $this->equalTo( Color::create( '#CC0000' ) ),
                 $this->equalTo( 2 )
             );
 
@@ -341,12 +353,12 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testAddMultipleDatasets()
     {
-        $chart = new ezcGraphOdometerChart();
+        $chart = new OdometerChart();
 
         try
         {
-            $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
-            $chart->data['moreData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
+            $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
+            $chart->data['moreData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
 
             $chart->render( 500, 200 );
         }
@@ -360,7 +372,7 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testNoDatasets()
     {
-        $chart = new ezcGraphOdometerChart();
+        $chart = new OdometerChart();
 
         try
         {
@@ -376,12 +388,12 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
 
     public function testIncompatibleRenderer()
     {
-        $chart = new ezcGraphOdometerChart();
-        $chart->data['sampleData'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
+        $chart = new OdometerChart();
+        $chart->data['sampleData'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 21, 'sample 3' => 324, 'sample 4' => 1, 'sample 5' => 120 ) );
 
         try
         {
-            $chart->renderer = new ezcGraphRenderer3d();
+            $chart->renderer = new Renderer3d();
             $chart->render( 500, 200 );
         }
         catch ( ezcBaseValueException $e )
@@ -396,9 +408,9 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphOdometerChart();
+        $chart = new OdometerChart();
 
-        $chart->data['data'] = new ezcGraphArrayDataSet(
+        $chart->data['data'] = new ArrayDataSet(
             array( 1, 7, 18 )
         );
 
@@ -414,9 +426,9 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphOdometerChart();
+        $chart = new OdometerChart();
 
-        $chart->data['data'] = new ezcGraphArrayDataSet(
+        $chart->data['data'] = new ArrayDataSet(
             array( 1, 7, 18 )
         );
 
@@ -441,9 +453,9 @@ class ezcGraphOdometerChartTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphOdometerChart();
+        $chart = new OdometerChart();
 
-        $chart->data['data'] = new ezcGraphArrayDataSet(
+        $chart->data['data'] = new ArrayDataSet(
             array( 1, 7, 18 )
         );
 

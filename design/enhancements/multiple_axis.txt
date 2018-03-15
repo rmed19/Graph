@@ -39,13 +39,13 @@ at every possible position in the chart.
 
 ::
 
-	$marker = new ezcGraphChartElementLabeledAxis();
+	$marker = new \Ezc\Graph\Axis\ChartElementLabeledAxis();
 	$marker->position = ezcGraph::LEFT;
 	$marker->chartPosition = .4;
 
 	$chart->additionalAxis[] = $marker;
 
-The property $position is already used by ezcGraphChartElement to indicate the
+The property $position is already used by Ezc\Graph\Interfaces\AbstractChartElement to indicate the
 overall position and accepts bitmasks of LEFT, RIGHT, BOTTOM and TOP. For Axis
 this indicates the base point of the axis and for additional axis it will
 define wheather the new axis is an X or Y axis in the cartesian coordinate
@@ -70,7 +70,7 @@ additional axis at any point before rendering.
 
 ::
 
-	$chart->data['foo'] = new ezcGraphArrayDataSet( ... );
+	$chart->data['foo'] = new \Ezc\Graph\Datasets\ArrayDataSet( ... );
 	$chart->data['foo']->xAxis = $marker; // See last example
 	$chart->data['foo']->yAxis = $chart->yAxis; // Redundant
 
@@ -85,7 +85,7 @@ You may of course define custom scaling, custom axis types and custom axis
 label rendering algorithms for each of the used axis.
 
 If no data set has been assigned to a axis it will not render any labels by
-using the ezcGraphAxisNoLabelRenderer. Otherwise the assigned data will be
+using the Ezc\Graph\Renderer\AxisNoLabelRenderer. Otherwise the assigned data will be
 used the common way to calculate some default step sizes.
 
 

@@ -10,12 +10,12 @@ function __autoload( $className )
 require dirname( __FILE__ ) . '/ez_green.php';
 
 // Create the graph
-$graph = new ezcGraphPieChart();
+$graph = new \Ezc\Graph\Charts\PieChart();
 $graph->palette = new ezcGraphPaletteEzGreen();
 $graph->legend = false;
 
 // Add the data and hilight norwegian data set
-$graph->data['week'] = new ezcGraphArrayDataSet( array(
+$graph->data['week'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'Lukasz Serwatka' => 1805,
     'Paul Forsyth' => 1491,
     'Paul Borgermans' => 1316,
@@ -29,7 +29,7 @@ $graph->data['week'] = new ezcGraphArrayDataSet( array(
 $graph->title = 'Alltime 10 most active users on forum';
 
 // Use 3d renderer, and beautify it
-$graph->renderer = new ezcGraphRenderer3d();
+$graph->renderer = new \Ezc\Graph\Renderer\Renderer3d();
 $graph->renderer->options->pieChartShadowSize = 12;
 $graph->renderer->options->pieChartGleam = .5;
 $graph->renderer->options->dataBorder = false;

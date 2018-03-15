@@ -22,7 +22,7 @@ position and size. The main chart elements are the same for all chart types.
 To define overall layouts for graphs, you can use palettes,
 which specify default colors, symbols, fonts and spacings.
 
-Data is provided through ezcGraphDataSet objects, which are normally created
+Data is provided through \Ezc\Graph\Datasets\AbstractDataSet objects, which are normally created
 from simple arrays. You also can perform statistical operations on data, as you
 will see later.
 
@@ -37,22 +37,22 @@ ezcGraphChart
   gives you access to all configuration settings and calls the driver and
   renderer for creating the final output.
 
-ezcGraphDataSet
+\Ezc\Graph\Datasets\AbstractDataSet
   All datasets extend this abstract class to provide the data in a general
   form accessible by the chart.
 
-ezcGraphChartElement
+Ezc\Graph\Interfaces\AbstractChartElement
   All chart elements store configuration values that define their layout. An
   element's layout definition contains background, border, margin, padding and
-  font configuration. ezcGraphChartElement is extended by other classes for the
+  font configuration. Ezc\Graph\Interfaces\AbstractChartElement is extended by other classes for the
   legend, text, background and different axis types.
 
-ezcGraphChartElementAxis
-  This class extends ezcGraphChartElement and is the base class for all axes.
+Ezc\Graph\Element\AbstractChartElementAxis
+  This class extends Ezc\Graph\Interfaces\AbstractChartElement and is the base class for all axes.
   There are different axis types for different data to be displayed, such as
   numeric axis, string labeled axis or date axis.
 
-ezcGraphAxisLabelRenderer
+Ezc\Graph\Interfaces\AbstractAxisLabelRenderer
   This class defines the rendering algorithm for labels and grids on an axis.
   The distinction between algorithms is necessary, because bar charts have
   labels placed directly below the data point, but numerical data in line
@@ -67,7 +67,7 @@ ezcGraphRenderer
   or data lines, to image primitives. You have the choice between a two- and
   three-dimensional renderer.
 
-ezcGraphDriver
+Ezc\Graph\Interfaces\AbstractDriver
   This driver renders image primitives to an image. The default driver
   will output as SVG, but you can also render JPEGs or PNGs using ext/gd.
 
@@ -98,7 +98,7 @@ Several dataset and data point presentation styles will be mentioned in this
 tutorial. One possibility is to highlight a special dataset or point. In line
 15, the data point Opera is highlighted; in the case of pie charts, this
 segment is pulled away from the center. See the renderer options class
-ezcGraphRendererOptions for more details.
+Ezc\Graph\Options\RendererOptions for more details.
 
 .. image:: img/tutorial_simple_pie.svg.png
    :alt:   Sample pie chart 
@@ -109,7 +109,7 @@ Pie chart options
 There are several pie chart specific configuration options available. In
 eZ Components, options are always accessed via public properties. For a full
 list of all available options, see the documentation for the
-ezcGraphPieChartOptions class.
+Ezc\Graph\Options\PieChartOptions class.
 
 .. include:: tutorial/tutorial_pie_options.php
    :literal:
@@ -139,7 +139,7 @@ renderer in this example.
    :literal:
 
 There are only two differences compared to the last example. In line 6, we
-instantiate a ezcGraphLineChart object instead of ezcGraphPieChart and beginning in
+instantiate a Ezc\Graph\Axis\LineChart object instead of \Ezc\Graph\Charts\PieChart and beginning in
 line 10, we assign multiple datasets from an array we included earlier in the
 script. The array in the file tutorial_wikipedia_data.php is built like this::
 
@@ -269,7 +269,7 @@ will be drawn multiple times, rotated around the center point of the chart.
 
 This again is one of the simplest ways to create a radar chart. Nearly all
 options described later are also available in radar charts. The basic
-difference is that an ezcGraphRadarChart object is created in line 6.
+difference is that an Ezc\Graph\Charts\RadarChart object is created in line 6.
 Radar charts accept multiple datasets, like bar and line charts. In line 14
 the first element of the dataset is reassigned as the last element to close
 the circle. By not reassigning this value, you can get a radar chart where
@@ -318,7 +318,7 @@ bounding.
    :literal:
 
 As you can see from the example, the odometer basically behaves like other
-chart types. First we create an object of the class ezcGraphOdometerChart, then
+chart types. First we create an object of the class Ezc\Graph\Charts\OdometerChart, then
 a title and a dataset is assigned, as per usual. Similar to pie charts, an
 odometer only accepts one dataset. A legend does not exist for odometers - and
 you may of course assign an array dataset, containing only one element.
@@ -343,7 +343,7 @@ any other axis.
 
 In this example we only assign one value, so we get one marker on the
 odometer. The we start using the configuration options for odometers, defined in
-the ezcGraphOdometerChartOptions class.
+the Ezc\Graph\Options\OdometerChartOptions class.
 
 The start and end color define the colors used for the background gradient. The
 border options define the border, which is drawn around the chart gradient.
@@ -448,7 +448,7 @@ shown in the example above.
 Chart elements
 ==============
 
-The chart elements all extend ezcGraphChartElement. Each of the elements can be
+The chart elements all extend Ezc\Graph\Interfaces\AbstractChartElement. Each of the elements can be
 configured independently. A default chart consists of the following elements:
 
 - title
@@ -657,7 +657,7 @@ As mentioned earlier in this tutorial, the axis label renderer defines where a
 label is drawn relative to the step on the axis. You already saw examples 
 for all available axis label renderers, but here is an overview:
 
-- ezcGraphAxisExactLabelRenderer
+- Ezc\Graph\Renderer\AxisExactLabelRenderer
 
   This is the default renderer for the numeric axis. The labels are drawn
   directly below the axis step. This may look strange sometimes, because it
@@ -665,7 +665,7 @@ for all available axis label renderers, but here is an overview:
   of the step; the last or first label would exceed the available 
   space for the axis, and be rendered on the other side.
 
-- ezcGraphAxisCenteredLabelRenderer
+- Ezc\Graph\Renderer\AxisCenteredLabelRenderer
 
   This renderer is the default for the labeled axis in line charts and draws the
   label centered next to the step. Therefore, this renderer omits the label for
@@ -674,7 +674,7 @@ for all available axis label renderers, but here is an overview:
   because it would interfere with the axis or the labels of the other axis, and
   thus be difficult to read.
 
-- ezcGraphAxisBoxedLabelRenderer
+- Ezc\Graph\Renderer\AxisBoxedLabelRenderer
 
   This is the default renderer for the labeled axis in bar charts. The steps
   on the axis and the grid are not drawn at the position of the label, but
@@ -685,7 +685,7 @@ Rotated labels on axis
 ~~~~~~~~~~~~~~~~~~~~~~
 
 There is one more new axis label renderer since version 1.1 of ezcGraph -
-ezcGraphAxisRotatedLabelRenderer, which enables you to render rotated labels on
+Ezc\Graph\Renderer\AxisRotatedLabelRenderer, which enables you to render rotated labels on
 an axis.
 
 .. include:: tutorial/tutorial_rotated_labels.php
@@ -693,7 +693,7 @@ an axis.
 
 In line 9, a custom renderer is defined for the labeled x axis. You can
 assign custom axis label renderers on the property $axisLabelRenderer for
-ezcGraphChartElementAxis objects.
+Ezc\Graph\Element\AbstractChartElementAxis objects.
 
 The renderer used in this example has custom properties like the rotation of
 the labels, which is set in degrees, while the rotation direction depends on
@@ -791,7 +791,7 @@ example. First, we create a normal array dataset from some randomly generated
 data in line 14. We assign this dataset to the chart to see how well the 
 polynomial fits the random data points.
 
-In line 20, we create a ezcGraphDataSetAveragePolynom dataset from the random
+In line 20, we create a Ezc\Graph\Datasets\AveragePolynom dataset from the random
 data with a maximum polynomial degree of 3 (which is also the default
 value). You can directly access the polynomial when we add the dataset to the
 graph. The string representation of the polynomial itself is also used as the

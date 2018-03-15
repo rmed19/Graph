@@ -2,12 +2,12 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphPieChart();
-$graph->palette = new ezcGraphPaletteBlack();
+$graph = new \Ezc\Graph\Charts\PieChart();
+$graph->palette = new \Ezc\Graph\Palette\Black();
 $graph->title = 'Access statistics';
 $graph->options->label = '%2$d (%3$.1f%%)';
 
-$graph->data['Access statistics'] = new ezcGraphArrayDataSet( array(
+$graph->data['Access statistics'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'Mozilla' => 19113,
     'Explorer' => 10917,
     'Opera' => 1464,
@@ -16,7 +16,7 @@ $graph->data['Access statistics'] = new ezcGraphArrayDataSet( array(
 ) );
 $graph->data['Access statistics']->highlight['Explorer'] = true;
 
-// $graph->renderer = new ezcGraphRenderer2d();
+// $graph->renderer = new \Ezc\Graph\Renderer\Renderer2d();
 
 $graph->renderer->options->moveOut = .2;
 

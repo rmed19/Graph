@@ -2,10 +2,10 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphPieChart();
+$graph = new \Ezc\Graph\Charts\PieChart();
 $graph->title = 'Access statistics';
 
-$graph->data['Access statistics'] = new ezcGraphArrayDataSet( array(
+$graph->data['Access statistics'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'Mozilla' => 19113,
     'Explorer' => 10917,
     'Opera' => 1464,

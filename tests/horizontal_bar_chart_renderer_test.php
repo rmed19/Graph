@@ -1,6 +1,6 @@
 <?php
 /**
- * ezcGraphRenderer2dTest 
+ * Renderer2dTest 
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -26,6 +26,9 @@
  */
 
 require_once dirname( __FILE__ ) . '/test_case.php';
+
+use Ezc\Graph\Charts\HorizontalBarChart;
+use Ezc\Graph\Datasets\ArrayDataSet;
 
 /**
  * Tests for ezcGraph class.
@@ -65,9 +68,9 @@ class ezcGraphHorizontalBarRendererTests extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphHorizontalBarChart();
+        $chart = new HorizontalBarChart();
 
-        $chart->data['Set 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 151, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1  ) );
+        $chart->data['Set 1'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 151, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1  ) );
 
         $chart->render( 500, 200, $filename );
 
@@ -81,10 +84,10 @@ class ezcGraphHorizontalBarRendererTests extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphHorizontalBarChart();
+        $chart = new HorizontalBarChart();
 
-        $chart->data['Set 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 151, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1  ) );
-        $chart->data['Set 2'] = new ezcGraphArrayDataSet( array( 'sample 1' => 543, 'sample 2' => 234, 'sample 3' => 298, 'sample 4' => 5,   'sample 5' => 124) );
+        $chart->data['Set 1'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => 151, 'sample 3' => 324, 'sample 4' => 120, 'sample 5' => 1  ) );
+        $chart->data['Set 2'] = new ArrayDataSet( array( 'sample 1' => 543, 'sample 2' => 234, 'sample 3' => 298, 'sample 4' => 5,   'sample 5' => 124) );
 
         $chart->render( 500, 200, $filename );
 
@@ -98,10 +101,10 @@ class ezcGraphHorizontalBarRendererTests extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphHorizontalBarChart();
+        $chart = new HorizontalBarChart();
 
-        $chart->data['Set 1'] = new ezcGraphArrayDataSet( array( 'sample 1' => 234, 'sample 2' => -151, 'sample 3' => -324, 'sample 4' => 120, 'sample 5' =>  1  ) );
-        $chart->data['Set 2'] = new ezcGraphArrayDataSet( array( 'sample 1' => 543, 'sample 2' =>  234, 'sample 3' => -298, 'sample 4' => 5,   'sample 5' => -124) );
+        $chart->data['Set 1'] = new ArrayDataSet( array( 'sample 1' => 234, 'sample 2' => -151, 'sample 3' => -324, 'sample 4' => 120, 'sample 5' =>  1  ) );
+        $chart->data['Set 2'] = new ArrayDataSet( array( 'sample 1' => 543, 'sample 2' =>  234, 'sample 3' => -298, 'sample 4' => 5,   'sample 5' => -124) );
 
         $chart->render( 500, 200, $filename );
 

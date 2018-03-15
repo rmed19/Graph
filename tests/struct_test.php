@@ -25,6 +25,12 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+namespace Ezc\Graph\Tests;
+
+use Ezc\Graph\Structs\AxisStep;
+use Ezc\Graph\Structs\Context;
+use Ezc\Graph\Structs\Coordinate;
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -40,24 +46,24 @@ class ezcGraphStructTest extends ezcTestCase
 
     public function testCreateContext()
     {
-        $context = new ezcGraphContext( 'set', 'point', 'url://' );
+        $context = new Context( 'set', 'point', 'url://' );
 
         $this->assertSame(
             'set',
             $context->dataset,
-            'Wrong value when reading public property dataset in ezcGraphContext.'
+            'Wrong value when reading public property dataset in Context.'
         );
 
         $this->assertSame(
             'point',
             $context->datapoint,
-            'Wrong value when reading public property datapoint in ezcGraphContext.'
+            'Wrong value when reading public property datapoint in Context.'
         );
 
         $this->assertSame(
             'url://',
             $context->url,
-            'Wrong value when reading public property url in ezcGraphContext.'
+            'Wrong value when reading public property url in Context.'
         );
 
         $context->dataset = 'set 2';
@@ -67,25 +73,25 @@ class ezcGraphStructTest extends ezcTestCase
         $this->assertSame(
             'set 2',
             $context->dataset,
-            'Wrong value when reading public property dataset in ezcGraphContext.'
+            'Wrong value when reading public property dataset in Context.'
         );
 
         $this->assertSame(
             'point 2',
             $context->datapoint,
-            'Wrong value when reading public property datapoint in ezcGraphContext.'
+            'Wrong value when reading public property datapoint in Context.'
         );
 
         $this->assertSame(
             'url://2',
             $context->url,
-            'Wrong value when reading public property url in ezcGraphContext.'
+            'Wrong value when reading public property url in Context.'
         );
     }
 
     public function testContextUnknowPropertySet()
     {
-        $context = new ezcGraphContext( 'set', 'point' );
+        $context = new Context( 'set', 'point' );
 
         try
         {
@@ -101,7 +107,7 @@ class ezcGraphStructTest extends ezcTestCase
 
     public function testContextUnknowPropertyGet()
     {
-        $context = new ezcGraphContext( 'set', 'point' );
+        $context = new Context( 'set', 'point' );
 
         try
         {
@@ -117,7 +123,7 @@ class ezcGraphStructTest extends ezcTestCase
 
     public function testContextSetState()
     {
-        $context = new ezcGraphContext();
+        $context = new Context();
 
         $context->__set_state(
         array(
@@ -128,19 +134,19 @@ class ezcGraphStructTest extends ezcTestCase
         $this->assertSame(
             'set',
             $context->dataset,
-            'Wrong value when reading public property dataset in ezcGraphContext.'
+            'Wrong value when reading public property dataset in Context.'
         );
 
         $this->assertSame(
             'point',
             $context->datapoint,
-            'Wrong value when reading public property datapoint in ezcGraphContext.'
+            'Wrong value when reading public property datapoint in Context.'
         );
     }
 
     public function testContextSetStateWithURL()
     {
-        $context = new ezcGraphContext();
+        $context = new Context();
 
         $context->__set_state(
         array(
@@ -152,36 +158,36 @@ class ezcGraphStructTest extends ezcTestCase
         $this->assertSame(
             'set',
             $context->dataset,
-            'Wrong value when reading public property dataset in ezcGraphContext.'
+            'Wrong value when reading public property dataset in Context.'
         );
 
         $this->assertSame(
             'point',
             $context->datapoint,
-            'Wrong value when reading public property datapoint in ezcGraphContext.'
+            'Wrong value when reading public property datapoint in Context.'
         );
 
         $this->assertSame(
             'url://',
             $context->url,
-            'Wrong value when reading public property url in ezcGraphContext.'
+            'Wrong value when reading public property url in Context.'
         );
     }
 
     public function testCreateCoordinate()
     {
-        $context = new ezcGraphCoordinate( 23, 42 );
+        $context = new Coordinate( 23, 42 );
 
         $this->assertSame(
             23,
             $context->x,
-            'Wrong value when reading public property x in ezcGraphCoordinate.'
+            'Wrong value when reading public property x in Coordinate.'
         );
 
         $this->assertSame(
             42,
             $context->y,
-            'Wrong value when reading public property y in ezcGraphCoordinate.'
+            'Wrong value when reading public property y in Coordinate.'
         );
 
         $context->x = 5;
@@ -190,19 +196,19 @@ class ezcGraphStructTest extends ezcTestCase
         $this->assertSame(
             5,
             $context->x,
-            'Wrong value when reading public property x in ezcGraphCoordinate.'
+            'Wrong value when reading public property x in Coordinate.'
         );
 
         $this->assertSame(
             12,
             $context->y,
-            'Wrong value when reading public property y in ezcGraphCoordinate.'
+            'Wrong value when reading public property y in Coordinate.'
         );
     }
 
     public function testCoordinateUnknowPropertySet()
     {
-        $context = new ezcGraphCoordinate( 23, 42 );
+        $context = new Coordinate( 23, 42 );
 
         try
         {
@@ -218,7 +224,7 @@ class ezcGraphStructTest extends ezcTestCase
 
     public function testCoordinateUnknowPropertyGet()
     {
-        $context = new ezcGraphCoordinate( 23, 42 );
+        $context = new Coordinate( 23, 42 );
 
         try
         {
@@ -234,7 +240,7 @@ class ezcGraphStructTest extends ezcTestCase
 
     public function testCoordinateSetState()
     {
-        $context = new ezcGraphCoordinate( 0, 0 );
+        $context = new Coordinate( 0, 0 );
 
         $context->__set_state(
         array(
@@ -245,30 +251,30 @@ class ezcGraphStructTest extends ezcTestCase
         $this->assertSame(
             23,
             $context->x,
-            'Wrong value when reading public property x in ezcGraphCoordinate.'
+            'Wrong value when reading public property x in Coordinate.'
         );
 
         $this->assertSame(
             42,
             $context->y,
-            'Wrong value when reading public property y in ezcGraphCoordinate.'
+            'Wrong value when reading public property y in Coordinate.'
         );
     }
 
     public function testCoordinateToString()
     {
-        $coordinate = new ezcGraphCoordinate( 2, 5 );
+        $coordinate = new Coordinate( 2, 5 );
 
         $this->assertSame(
             '( 2.00, 5.00 )',
             $coordinate->__toString(),
-            'Wrong value when converting ezcGraphCoordinate to string.'
+            'Wrong value when converting Coordinate to string.'
         );
     }
 
     public function testStepSetState()
     {
-        $step = new ezcGraphAxisStep();
+        $step = new AxisStep();
 
         $step->__set_state(
         array(
@@ -283,37 +289,37 @@ class ezcGraphStructTest extends ezcTestCase
         $this->assertSame(
             .4,
             $step->position,
-            'Wrong value when reading public property position in ezcGraphContext.'
+            'Wrong value when reading public property position in Context.'
         );
 
         $this->assertSame(
             .2,
             $step->width,
-            'Wrong value when reading public property width in ezcGraphContext.'
+            'Wrong value when reading public property width in Context.'
         );
 
         $this->assertSame(
             'Label',
             $step->label,
-            'Wrong value when reading public property label in ezcGraphContext.'
+            'Wrong value when reading public property label in Context.'
         );
 
         $this->assertSame(
             array(),
             $step->childs,
-            'Wrong value when reading public property childs in ezcGraphContext.'
+            'Wrong value when reading public property childs in Context.'
         );
 
         $this->assertSame(
             true,
             $step->isZero,
-            'Wrong value when reading public property isZero in ezcGraphContext.'
+            'Wrong value when reading public property isZero in Context.'
         );
 
         $this->assertSame(
             false,
             $step->isLast,
-            'Wrong value when reading public property isLast in ezcGraphContext.'
+            'Wrong value when reading public property isLast in Context.'
         );
     }
 }

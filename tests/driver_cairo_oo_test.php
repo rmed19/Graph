@@ -25,6 +25,14 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+
+namespace Ezc\Graph\Tests;
+
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Colors\LinearGradient;
+use Ezc\Graph\Colors\RadialGradient;
+use Ezc\Graph\Structs\Coordinate;
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -81,9 +89,9 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 45 ),
-            new ezcGraphCoordinate( 134, 12 ),
-            ezcGraphColor::fromHex( '#3465A4' )
+            new Coordinate( 12, 45 ),
+            new Coordinate( 134, 12 ),
+            Color::fromHex( '#3465A4' )
         );
 
         $this->assertEquals(
@@ -108,9 +116,9 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     public function testGetResource()
     {
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 45 ),
-            new ezcGraphCoordinate( 134, 12 ),
-            ezcGraphColor::fromHex( '#3465A4' )
+            new Coordinate( 12, 45 ),
+            new Coordinate( 134, 12 ),
+            Color::fromHex( '#3465A4' )
         );
 
         ob_start();
@@ -128,9 +136,9 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 45 ),
-            new ezcGraphCoordinate( 134, 12 ),
-            ezcGraphColor::fromHex( '#3465A4' )
+            new Coordinate( 12, 45 ),
+            new Coordinate( 134, 12 ),
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -153,16 +161,16 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 45 ),
-            new ezcGraphCoordinate( 134, 12 ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            new Coordinate( 12, 45 ),
+            new Coordinate( 134, 12 ),
+            Color::fromHex( '#3465A4' ),
             3
         );
 
         $this->driver->drawLine(
-            new ezcGraphCoordinate( 12, 35 ),
-            new ezcGraphCoordinate( 134, 2 ),
-            ezcGraphColor::fromHex( '#3465A4' )
+            new Coordinate( 12, 35 ),
+            new Coordinate( 134, 2 ),
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -186,11 +194,11 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $return = $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             true
         );
 
@@ -211,9 +219,9 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $this->assertEquals(
             $return,
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
             ),
             'Expected point array as return value.'
         );
@@ -225,11 +233,11 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
             ),
-            ezcGraphColor::fromHex( '#3465A47F' ),
+            Color::fromHex( '#3465A47F' ),
             true
         );
 
@@ -254,11 +262,11 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -283,13 +291,13 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 45, 12 ),
-                new ezcGraphCoordinate( 122, 34 ),
-                new ezcGraphCoordinate( 12, 71 ),
-                new ezcGraphCoordinate( 3, 45 ),
-                new ezcGraphCoordinate( 60, 32 ),
+                new Coordinate( 45, 12 ),
+                new Coordinate( 122, 34 ),
+                new Coordinate( 12, 71 ),
+                new Coordinate( 3, 45 ),
+                new Coordinate( 60, 32 ),
             ),
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             true
         );
 
@@ -313,12 +321,12 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $return = $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             12.5,
             25,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -338,10 +346,10 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $this->assertEquals(
             $return,
             array(
-                new ezcGraphCoordinate( 100., 50. ),
-                new ezcGraphCoordinate( 139., 54. ),
-                new ezcGraphCoordinate( 137., 58. ),
-                new ezcGraphCoordinate( 136., 58.5 ),
+                new Coordinate( 100., 50. ),
+                new Coordinate( 139., 54. ),
+                new Coordinate( 137., 58. ),
+                new Coordinate( 136., 58.5 ),
             ),
             'Expected point array as return value.',
             1.
@@ -353,12 +361,12 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             12.5,
             45,
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -382,12 +390,12 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             25,
             12.5,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -410,12 +418,12 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawCircleSector(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
             25,
             273,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -439,13 +447,13 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->options->imageMapResolution = 90;
         $return = $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             80,
             10,
             12.5,
             55,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -465,10 +473,10 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $this->assertEquals(
             $return,
             array(
-                new ezcGraphCoordinate( 173., 59. ),
-                new ezcGraphCoordinate( 143., 83. ),
-                new ezcGraphCoordinate( 153., 83. ),
-                new ezcGraphCoordinate( 183., 59. ),
+                new Coordinate( 173., 59. ),
+                new Coordinate( 143., 83. ),
+                new Coordinate( 153., 83. ),
+                new Coordinate( 183., 59. ),
             ),
             'Expected point array as return value.',
             1.
@@ -480,13 +488,13 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             80,
             10,
             55,
             12.5,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -509,13 +517,13 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             70,
             10,
             25,
             300,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -538,13 +546,13 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawCircularArc(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             150,
             80,
             10,
             12.5,
             55,
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -569,10 +577,10 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->options->imageMapResolution = 90;
         $return = $this->driver->drawCircle(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
-            ezcGraphColor::fromHex( '#3465A4' )
+            Color::fromHex( '#3465A4' )
         );
 
         $this->driver->render( $filename );
@@ -592,10 +600,10 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $this->assertEquals(
             $return,
             array(
-                new ezcGraphCoordinate( 140., 50. ),
-                new ezcGraphCoordinate( 100., 70. ),
-                new ezcGraphCoordinate( 60., 50. ),
-                new ezcGraphCoordinate( 100., 30. ),
+                new Coordinate( 140., 50. ),
+                new Coordinate( 100., 70. ),
+                new Coordinate( 60., 50. ),
+                new Coordinate( 100., 30. ),
             ),
             'Expected point array as return value.',
             1.
@@ -607,10 +615,10 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $this->driver->drawCircle(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
-            ezcGraphColor::fromHex( '#3465A4' ),
+            Color::fromHex( '#3465A4' ),
             false
         );
 
@@ -635,7 +643,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawImage(
             $this->basePath . $this->testFiles['png'],
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             100,
             50
         );
@@ -660,15 +668,15 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $return = $this->driver->drawCircle(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
-            new ezcGraphRadialGradient(
-                new ezcGraphCoordinate( 80, 40),
+            new RadialGradient(
+                new Coordinate( 80, 40),
                 80,
                 40,
-                ezcGraphColor::fromHex( '#729FCF' ),
-                ezcGraphColor::fromHex( '#3465A4' )
+                Color::fromHex( '#729FCF' ),
+                Color::fromHex( '#3465A4' )
             )
         );
 
@@ -692,24 +700,24 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
         $return = $this->driver->drawCircle(
-            new ezcGraphCoordinate( 100, 50 ),
+            new Coordinate( 100, 50 ),
             80,
             40,
-            new ezcGraphLinearGradient(
-                $start = new ezcGraphCoordinate( 80, 40 ),
-                $end = new ezcGraphCoordinate( 130, 55 ),
-                ezcGraphColor::fromHex( '#82BFFF' ),
-                ezcGraphColor::fromHex( '#3465A4' )
+            new LinearGradient(
+                $start = new Coordinate( 80, 40 ),
+                $end = new Coordinate( 130, 55 ),
+                Color::fromHex( '#82BFFF' ),
+                Color::fromHex( '#3465A4' )
             )
         );
 
         $this->driver->drawCircle(
             $start,
-            2, 2, ezcGraphColor::fromHex( '#CC0000' )
+            2, 2, Color::fromHex( '#CC0000' )
         );
         $this->driver->drawCircle(
             $end,
-            2, 2, ezcGraphColor::fromHex( '#CC0000' )
+            2, 2, Color::fromHex( '#CC0000' )
         );
 
         $this->driver->render( $filename );
@@ -733,7 +741,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -756,10 +764,10 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         $this->assertEquals(
             $return,
             array(
-                new ezcGraphCoordinate( 10., 10. ),
-                new ezcGraphCoordinate( 160., 10. ),
-                new ezcGraphCoordinate( 160., 80. ),
-                new ezcGraphCoordinate( 10., 80. ),
+                new Coordinate( 10., 10. ),
+                new Coordinate( 160., 10. ),
+                new Coordinate( 160., 80. ),
+                new Coordinate( 10., 80. ),
             ),
             'Expected point array as return value.',
             1.
@@ -770,14 +778,14 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
         
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT,
@@ -803,18 +811,18 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
         
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT,
-            new ezcGraphRotation( 45, new ezcGraphCoordinate( 100, 50 ) )
+            new ezcGraphRotation( 45, new Coordinate( 100, 50 ) )
         );
 
         $this->driver->render( $filename );
@@ -831,18 +839,18 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
         
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $return = $this->driver->drawTextBox(
             'Short',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT,
-            new ezcGraphRotation( 340, new ezcGraphCoordinate( 200, 100 ) )
+            new ezcGraphRotation( 340, new Coordinate( 200, 100 ) )
         );
 
         $this->driver->render( $filename );
@@ -861,7 +869,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -888,7 +896,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -915,7 +923,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             "New\nLine",
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT
@@ -942,17 +950,17 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawPolygon(
             array( 
-                new ezcGraphCoordinate( 20, 20 ),
-                new ezcGraphCoordinate( 110, 20 ),
-                new ezcGraphCoordinate( 110, 30 ),
-                new ezcGraphCoordinate( 20, 30 ),
+                new Coordinate( 20, 20 ),
+                new Coordinate( 110, 20 ),
+                new Coordinate( 110, 30 ),
+                new Coordinate( 20, 30 ),
             ),
-            ezcGraphColor::fromHex( '#eeeeec' ),
+            Color::fromHex( '#eeeeec' ),
             true
         );
         $this->driver->drawTextBox(
             'sample 4',
-            new ezcGraphCoordinate( 21, 21 ),
+            new Coordinate( 21, 21 ),
             88,
             8,
             ezcGraph::RIGHT
@@ -979,7 +987,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT
@@ -1006,7 +1014,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT
@@ -1033,7 +1041,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER
@@ -1060,7 +1068,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER
@@ -1087,7 +1095,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT | ezcGraph::BOTTOM
@@ -1114,7 +1122,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT | ezcGraph::MIDDLE
@@ -1141,7 +1149,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'ThisIsAPrettyLongString',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER | ezcGraph::MIDDLE
@@ -1168,7 +1176,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'This Is A Pretty Long String',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER | ezcGraph::BOTTOM
@@ -1195,17 +1203,17 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawPolygon(
             array(
-                new ezcGraphCoordinate( 47, 54 ),
-                new ezcGraphCoordinate( 47, 84 ),
-                new ezcGraphCoordinate( 99, 84 ),
-                new ezcGraphCoordinate( 99, 54 ),
+                new Coordinate( 47, 54 ),
+                new Coordinate( 47, 84 ),
+                new Coordinate( 99, 84 ),
+                new Coordinate( 99, 54 ),
             ),
-            ezcGraphColor::fromHex( '#DDDDDD' ),
+            Color::fromHex( '#DDDDDD' ),
             true
         );
         $this->driver->drawTextBox(
             'Safari (13.8%)',
-            new ezcGraphCoordinate( 47, 54 ),
+            new Coordinate( 47, 54 ),
             52,
             30,
             ezcGraph::LEFT
@@ -1234,7 +1242,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
         {
             $this->driver->drawTextBox(
                 'This is very long text which is not supposed to fit in the bounding box.',
-                new ezcGraphCoordinate( 10, 10 ),
+                new Coordinate( 10, 10 ),
                 1,
                 20,
                 ezcGraph::LEFT
@@ -1254,12 +1262,12 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->textShadow = true;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1284,13 +1292,13 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->textShadow = true;
         $this->driver->options->font->textShadowColor = '#888888';
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1315,12 +1323,12 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = false;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1345,12 +1353,12 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
         $this->driver->options->font->minimizeBorder = false;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::MIDDLE
@@ -1375,14 +1383,14 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::TOP
@@ -1407,14 +1415,14 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::LEFT | ezcGraph::TOP,
@@ -1435,14 +1443,14 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::CENTER | ezcGraph::MIDDLE
@@ -1467,14 +1475,14 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.png';
 
-        $this->driver->options->font->border = ezcGraphColor::fromHex( '#555555' );
-        $this->driver->options->font->background = ezcGraphColor::fromHex( '#DDDDDD' );
+        $this->driver->options->font->border = Color::fromHex( '#555555' );
+        $this->driver->options->font->background = Color::fromHex( '#DDDDDD' );
         $this->driver->options->font->minimizeBorder = true;
         $this->driver->options->font->padding = 2;
 
         $this->driver->drawTextBox(
             'Some test string',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             150,
             70,
             ezcGraph::RIGHT | ezcGraph::BOTTOM
@@ -1501,7 +1509,7 @@ class ezcGraphCairoOODriverTest extends ezcTestImageCase
 
         $this->driver->drawTextBox(
             'Teststring foo',
-            new ezcGraphCoordinate( 10, 10 ),
+            new Coordinate( 10, 10 ),
             24,
             6,
             ezcGraph::LEFT

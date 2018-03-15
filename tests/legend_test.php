@@ -26,6 +26,10 @@
  */
 
 require_once dirname( __FILE__ ) . '/test_case.php';
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Element\ChartElementLegend;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
 
 /**
  * Tests for ezcGraph class.
@@ -72,38 +76,38 @@ class ezcGraphLegendTest extends ezcGraphTestCase
 
     public function testFactoryLegend()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
 
         $this->assertTrue(
-            $chart->legend instanceof ezcGraphChartElementLegend
+            $chart->legend instanceof ChartElementLegend
             );
     }
 
     public function testLegendSetBackground()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->legend->background = '#FF0000';
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#FF0000' ),
+            Color::fromHex( '#FF0000' ),
             $chart->legend->background
         );
     }
 
     public function testLegendSetBorder()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->legend->border = '#FF0000';
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#FF0000' ),
+            Color::fromHex( '#FF0000' ),
             $chart->legend->border
         );
     }
 
     public function testLegendSetBorderWidth()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->legend->borderWidth = 1;
 
         $this->assertEquals(
@@ -114,7 +118,7 @@ class ezcGraphLegendTest extends ezcGraphTestCase
 
     public function testLegendSetPosition()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         $chart->legend->position = ezcGraph::LEFT;
 
         $this->assertEquals(
@@ -127,8 +131,8 @@ class ezcGraphLegendTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -151,8 +155,8 @@ class ezcGraphLegendTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -175,8 +179,8 @@ class ezcGraphLegendTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,
@@ -199,8 +203,8 @@ class ezcGraphLegendTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphPieChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart = new PieChart();
+        $chart->data['sample'] = new ArrayDataSet( array(
             'Mozilla' => 4375,
             'IE' => 345,
             'Opera' => 1204,

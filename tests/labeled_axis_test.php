@@ -27,6 +27,12 @@
 
 require_once dirname( __FILE__ ) . '/test_case.php';
 
+use Ezc\Graph\Charts\LineChart;
+
+use Ezc\Graph\Axis\ChartElementLabeledAxis;
+use Ezc\Graph\Datasets\ArrayDataSet;
+
+
 /**
  * Tests for ezcGraph class.
  * 
@@ -77,17 +83,17 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testFactoryLabeledAxis()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
         $this->assertTrue(
-            $chart->xAxis instanceof ezcGraphChartElementLabeledAxis
+            $chart->xAxis instanceof ChartElementLabeledAxis
         );
     }
 
     public function testAutomaticLabelingSingle()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 20, 70, 12, 130 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 20, 70, 12, 130 ) );
         $chart->render( 500, 200 );
 
         $this->assertSame(
@@ -103,9 +109,9 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testAutomaticLabelingMultiple()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
-        $chart->data['sample2'] = new ezcGraphArrayDataSet( array( 2002 => 1270, 1170, 1610, 1370 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
+        $chart->data['sample2'] = new ArrayDataSet( array( 2002 => 1270, 1170, 1610, 1370 ) );
         $chart->render( 500, 200 );
 
         $this->assertSame(
@@ -123,9 +129,9 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testAutomaticLabelingMultiple2()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 1 => 1, 3 => 3, 5 => 5, 8 => 8 ) );
-        $chart->data['sample2'] = new ezcGraphArrayDataSet( array( 1, 2, 3, 4, 5, 6, 7, 8 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 1 => 1, 3 => 3, 5 => 5, 8 => 8 ) );
+        $chart->data['sample2'] = new ArrayDataSet( array( 1, 2, 3, 4, 5, 6, 7, 8 ) );
         $chart->render( 500, 200 );
 
         $this->assertEquals(
@@ -136,9 +142,9 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testAutomaticLabelingMultipleMixed()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 2001 => 1300, 2004 => 1012, 2006 => 1450 ) );
-        $chart->data['sample2'] = new ezcGraphArrayDataSet( array( 2001 => 1270, 1170, 1610, 1370, 1559 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 2001 => 1300, 2004 => 1012, 2006 => 1450 ) );
+        $chart->data['sample2'] = new ArrayDataSet( array( 2001 => 1270, 1170, 1610, 1370, 1559 ) );
         $chart->render( 500, 200 );
 
         $this->assertSame(
@@ -157,8 +163,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testPositionLeft()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
         $chart->xAxis->position = ezcGraph::LEFT;
         $chart->render( 500, 200 );
 
@@ -200,8 +206,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testPositionRight()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
         $chart->xAxis->position = ezcGraph::RIGHT;
         $chart->render( 500, 200 );
 
@@ -243,8 +249,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testPositionTop()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
         $chart->xAxis->position = ezcGraph::TOP;
         $chart->render( 500, 200 );
 
@@ -286,8 +292,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testPositionBottom()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
         $chart->xAxis->position = ezcGraph::BOTTOM;
         $chart->render( 500, 200 );
 
@@ -329,8 +335,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testAutomaticLabelingWithLotsOfLabels()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450, 341, 421, 452, 1203, 540, 1104, 1503, 1204, 1402, 652, 972, 230, 1502, 1305, 983, 872, 934, 1423 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450, 341, 421, 452, 1203, 540, 1104, 1503, 1204, 1402, 652, 972, 230, 1502, 1305, 983, 872, 934, 1423 ) );
         $chart->render( 500, 200 );
 
         $this->assertEquals(
@@ -353,8 +359,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
         $labelCount = 31;
         $data = $this->getRandomData( $labelCount, 500, 2000, 2 );
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
         $chart->render( 500, 200 );
 
         $this->assertEquals(
@@ -380,8 +386,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
         $labelCount = 32;
         $data = $this->getRandomData( $labelCount, 500, 2000, 2 );
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
         $chart->render( 500, 200 );
 
         $this->assertEquals(
@@ -406,8 +412,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
         $labelCount = 165;
         $data = $this->getRandomData( $labelCount, 500, 2000, 2 );
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
         $chart->render( 500, 200 );
 
         $this->assertEquals(
@@ -424,9 +430,9 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testProvidedLabelsIdentity()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->xAxis->provideLabels( array( 2000, 2001, 2002 ) );
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 
+        $chart->data['sample'] = new ArrayDataSet( array( 
             2000 => 42,
             2001 => 23,
             2002 => 5,
@@ -445,9 +451,9 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testProvidedLabelsReordered()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->xAxis->provideLabels( array( 2002, 2001, 2000 ) );
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 
+        $chart->data['sample'] = new ArrayDataSet( array( 
             2000 => 42,
             2001 => 23,
             2002 => 5,
@@ -466,9 +472,9 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testProvidedLabelsAdditionalLabels()
     {
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         $chart->xAxis->provideLabels( array( 2000, 2001, 2003, 2004, 2005 ) );
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 
+        $chart->data['sample'] = new ArrayDataSet( array( 
             2001 => 23,
             2002 => 5,
             2004 => 42,
@@ -490,8 +496,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testGetLabel()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
         $chart->render( 500, 200 );
 
         $this->assertSame(
@@ -503,8 +509,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testGetNonexistantLabel()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 1300, 1012, 1450 ) );
         $chart->render( 500, 200 );
 
         $this->assertSame(
@@ -521,8 +527,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
         $labelCount = 32;
         $data = $this->getRandomData( $labelCount, 500, 2000, 2 );
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         $chart->render( 500, 200, $filename );
 
@@ -534,19 +540,19 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
 
     public function testChartElementNumericAxisPropertyLabelCount()
     {
-        $options = new ezcGraphChartElementLabeledAxis();
+        $options = new ChartElementLabeledAxis();
 
         $this->assertSame(
             null,
             $options->labelCount,
-            'Wrong default value for property labelCount in class ezcGraphChartElementNumericAxis'
+            'Wrong default value for property labelCount in class ChartElementNumericAxis'
         );
 
         $options->labelCount = 10;
         $this->assertSame(
             10,
             $options->labelCount,
-            'Setting property value did not work for property labelCount in class ezcGraphChartElementNumericAxis'
+            'Setting property value did not work for property labelCount in class ChartElementNumericAxis'
         );
 
         try
@@ -568,8 +574,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
         $labelCount = 4;
         $data = $this->getRandomData( $labelCount, 500, 2000, 2 );
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 3;
@@ -589,8 +595,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
         $labelCount = 4;
         $data = $this->getRandomData( $labelCount, 500, 2000, 2 );
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 10;
@@ -610,8 +616,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
         $labelCount = 35;
         $data = $this->getRandomData( $labelCount, 500, 2000, 2 );
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $data );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( $data );
 
         // Set manual label count
         $chart->xAxis->labelCount = 7;
@@ -628,8 +634,8 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
     {
         try
         {
-            $chart = new ezcGraphLineChart();
-            $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 2001 => 1300, 2004 => 1012 ) );
+            $chart = new LineChart();
+            $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 2001 => 1300, 2004 => 1012 ) );
             $chart->render( 500, 200 );
         }
         catch ( ezcGraphFontRenderingException $e )
@@ -657,14 +663,14 @@ class ezcGraphLabeledAxisTest extends ezcGraphTestCase
     {
         try
         {
-            $chart = new ezcGraphLineChart();
+            $chart = new LineChart();
 
             $chart->xAxis->labelCallback = create_function(
                 '$label',
                 'return "*$label*";'
             );
 
-            $chart->data['sample'] = new ezcGraphArrayDataSet( array( 2000 => 1045, 2001 => 1300, 2004 => 1012 ) );
+            $chart->data['sample'] = new ArrayDataSet( array( 2000 => 1045, 2001 => 1300, 2004 => 1012 ) );
             $chart->render( 500, 200 );
         }
         catch ( ezcGraphFontRenderingException $e )

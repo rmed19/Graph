@@ -2,10 +2,10 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphOdometerChart();
+$graph = new \Ezc\Graph\Charts\OdometerChart();
 $graph->title = 'Custom odometer';
 
-$graph->data['data'] = new ezcGraphArrayDataSet(
+$graph->data['data'] = new \Ezc\Graph\Datasets\ArrayDataSet(
     array( 87 )
 );
 

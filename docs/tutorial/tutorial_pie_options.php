@@ -2,10 +2,10 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphPieChart();
+$graph = new \Ezc\Graph\Charts\PieChart();
 $graph->title = 'Elections 2005 Germany';
 
-$graph->data['2005'] = new ezcGraphArrayDataSet( array(
+$graph->data['2005'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'CDU' => 35.2,
     'SPD' => 34.2,
     'FDP' => 9.8,

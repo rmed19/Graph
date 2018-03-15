@@ -1,6 +1,6 @@
 <?php
 /**
- * ezcGraphDataSetAverageTest 
+ * DataSetAverageTest 
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,13 +27,19 @@
 
 require_once dirname( __FILE__ ) . '/test_case.php';
 
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Axis\ChartElementNumericAxis;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Datasets\AveragePolynom;
+
+
 /**
  * Tests for ezcGraph class.
  * 
  * @package Graph
  * @subpackage Tests
  */
-class ezcGraphDataSetAverageTest extends ezcGraphTestCase
+class DataSetAverageTest extends ezcGraphTestCase
 {
     protected $basePath;
 
@@ -41,7 +47,7 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
 	public static function suite()
 	{
-		return new PHPUnit_Framework_TestSuite( "ezcGraphDataSetAverageTest" );
+		return new PHPUnit_Framework_TestSuite( "DataSetAverageTest" );
 	}
 
     public function setUp()
@@ -63,9 +69,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testCreateDatasetFromDataset()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 1, 0 => 0, 1 => 1 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 1, 0 => 0, 1 => 1 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 2;
 
         $polynom = $averageDataSet->getPolynom();
@@ -78,9 +84,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testCreateDatasetFromSingleElementDataset()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( 1 => 1 ) );
+        $arrayDataSet = new ArrayDataSet( array( 1 => 1 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
 
         $polynom = $averageDataSet->getPolynom();
 
@@ -94,10 +100,10 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
 
-        $chart->data['src'] = new ezcGraphArrayDataSet( array( 1 => 1 ) );
-        $chart->data['avg'] = new ezcGraphDataSetAveragePolynom( $chart->data['src'] );
+        $chart->data['src'] = new ArrayDataSet( array( 1 => 1 ) );
+        $chart->data['avg'] = new AveragePolynom( $chart->data['src'] );
 
         $chart->render( 500, 200, $filename );
 
@@ -109,9 +115,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testCreateDatasetFromDataset2()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 2;
 
         $polynom = $averageDataSet->getPolynom();
@@ -130,7 +136,7 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
         }
 
         date_default_timezone_set( 'MET' );
-        $arrayDataSet = new ezcGraphArrayDataSet( array(
+        $arrayDataSet = new ArrayDataSet( array(
             strtotime( 'Jun 2006' ) => 1300000,
             strtotime( 'May 2006' ) => 1200000,
             strtotime( 'Apr 2006' ) => 1100000,
@@ -139,7 +145,7 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
             strtotime( 'Jan 2006' ) =>  965000,
         ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet, 2 );
+        $averageDataSet = new AveragePolynom( $arrayDataSet, 2 );
 
         $polynom = $averageDataSet->getPolynom();
 
@@ -157,7 +163,7 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
         }
 
         date_default_timezone_set( 'MET' );
-        $arrayDataSet = new ezcGraphArrayDataSet( array(
+        $arrayDataSet = new ArrayDataSet( array(
             strtotime( 'Jun 2006' ) => 1300000,
             strtotime( 'May 2006' ) => 1200000,
             strtotime( 'Apr 2006' ) => 1100000,
@@ -166,7 +172,7 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
             strtotime( 'Jan 2006' ) =>  965000,
         ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet, 2 );
+        $averageDataSet = new AveragePolynom( $arrayDataSet, 2 );
 
         $polynom = $averageDataSet->getPolynom();
 
@@ -184,9 +190,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
             $points[$x] = pow( $x - 2, 3 ) - .21 * pow( $x - 2, 2 ) + .2 * ( $x - 2 ) - 2.45;
         }
 
-        $arrayDataSet = new ezcGraphArrayDataSet( $points );
+        $arrayDataSet = new ArrayDataSet( $points );
         
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet, 3 );
+        $averageDataSet = new AveragePolynom( $arrayDataSet, 3 );
         $polynom = $averageDataSet->getPolynom();
 
         $this->assertEquals(
@@ -208,9 +214,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
             $points[$x] = pow( $x, 3 ) - .21 * pow( $x, 2 ) + .2 * $x - 2.45;
         }
 
-        $arrayDataSet = new ezcGraphArrayDataSet( $points );
+        $arrayDataSet = new ArrayDataSet( $points );
         
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet, 3 );
+        $averageDataSet = new AveragePolynom( $arrayDataSet, 3 );
         $polynom = $averageDataSet->getPolynom();
 
         $this->assertEquals(
@@ -232,9 +238,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
             $points[$x] = pow( $x, 3 ) - .21 * pow( $x, 2 ) + .2 * $x - 2.45;
         }
 
-        $arrayDataSet = new ezcGraphArrayDataSet( $points );
+        $arrayDataSet = new ArrayDataSet( $points );
         
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet, 3 );
+        $averageDataSet = new AveragePolynom( $arrayDataSet, 3 );
         $polynom = $averageDataSet->getPolynom();
 
         $this->assertEquals(
@@ -245,9 +251,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testCreateDatasetFromDatasetLowOrder()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 1;
 
         $polynom = $averageDataSet->getPolynom();
@@ -260,9 +266,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testCreateDatasetFromDatasetHighOrder()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 3;
 
         $polynom = $averageDataSet->getPolynom();
@@ -275,9 +281,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testCreateDatasetFromDatasetHighOrderConstructorParameter()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet, 3 );
+        $averageDataSet = new AveragePolynom( $arrayDataSet, 3 );
         $polynom = $averageDataSet->getPolynom();
 
         $this->assertEquals(
@@ -288,9 +294,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testIterateOverAverageDataset()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 3;
 
         $this->assertEquals(
@@ -324,9 +330,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testIterateOverAverageDataset2()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 3;
 
         $stepSize = 4 / 100;
@@ -340,9 +346,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testIterateOverAverageDataset3()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 3;
         $averageDataSet->resolution = 10;
 
@@ -359,8 +365,8 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
-        $chart->data['Statistical data'] = new ezcGraphArrayDataSet( array(
+        $chart = new LineChart();
+        $chart->data['Statistical data'] = new ArrayDataSet( array(
             '1' => 1,
             '2.5' => -2.3,
             '3.1' => 1.4,
@@ -370,12 +376,12 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
         ) );
         $chart->data['Statistical data']->symbol = ezcGraph::BULLET;
 
-        $chart->data['polynom order 0'] = new ezcGraphDataSetAveragePolynom( $chart->data['Statistical data'], 0 );
-        $chart->data['polynom order 1'] = new ezcGraphDataSetAveragePolynom( $chart->data['Statistical data'], 1 );
-        $chart->data['polynom order 3'] = new ezcGraphDataSetAveragePolynom( $chart->data['Statistical data'], 3 );
-        $chart->data['polynom order 5'] = new ezcGraphDataSetAveragePolynom( $chart->data['Statistical data'], 5 );
+        $chart->data['polynom order 0'] = new AveragePolynom( $chart->data['Statistical data'], 0 );
+        $chart->data['polynom order 1'] = new AveragePolynom( $chart->data['Statistical data'], 1 );
+        $chart->data['polynom order 3'] = new AveragePolynom( $chart->data['Statistical data'], 3 );
+        $chart->data['polynom order 5'] = new AveragePolynom( $chart->data['Statistical data'], 5 );
         
-        $chart->xAxis = new ezcGraphChartElementNumericAxis();
+        $chart->xAxis = new ChartElementNumericAxis();
 
         $chart->render( 500, 200, $filename );
 
@@ -389,9 +395,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphLineChart();
+        $chart = new LineChart();
         date_default_timezone_set( 'MET' );
-        $chart->data['Statistical data'] = new ezcGraphArrayDataSet( array(
+        $chart->data['Statistical data'] = new ArrayDataSet( array(
             'Jun 2006' => 1300000,
             'May 2006' => 1200000,
             'Apr 2006' => 1100000,
@@ -401,9 +407,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
         ) );
         $chart->data['Statistical data']->symbol = ezcGraph::BULLET;
 
-        $chart->data['polynom order 2'] = new ezcGraphDataSetAveragePolynom( $chart->data['Statistical data'], 2 );
+        $chart->data['polynom order 2'] = new AveragePolynom( $chart->data['Statistical data'], 2 );
         
-        $chart->xAxis = new ezcGraphChartElementNumericAxis();
+        $chart->xAxis = new ChartElementNumericAxis();
 
         try
         {
@@ -419,9 +425,9 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testAverageDataSetIsset()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
 
-        $averageDataSet = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $averageDataSet = new AveragePolynom( $arrayDataSet );
         $averageDataSet->polynomOrder = 3;
         $averageDataSet->resolution = 10;
 
@@ -434,20 +440,20 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testDataSetAveragePolynomPropertyPolynomOrder()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
-        $dataset = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $dataset = new AveragePolynom( $arrayDataSet );
 
         $this->assertSame(
             3,
             $dataset->polynomOrder,
-            'Wrong default value for property polynomOrder in class ezcGraphDataSetAveragePolynom'
+            'Wrong default value for property polynomOrder in class AveragePolynom'
         );
 
         $dataset->polynomOrder = 5;
         $this->assertSame(
             5,
             $dataset->polynomOrder,
-            'Setting property value did not work for property polynomOrder in class ezcGraphDataSetAveragePolynom'
+            'Setting property value did not work for property polynomOrder in class AveragePolynom'
         );
 
         try
@@ -464,20 +470,20 @@ class ezcGraphDataSetAverageTest extends ezcGraphTestCase
 
     public function testDataSetAveragePolynomPropertyResolution()
     {
-        $arrayDataSet = new ezcGraphArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
-        $dataset = new ezcGraphDataSetAveragePolynom( $arrayDataSet );
+        $arrayDataSet = new ArrayDataSet( array( -1 => 2, 1 => 2, 3 => 10 ) );
+        $dataset = new AveragePolynom( $arrayDataSet );
 
         $this->assertSame(
             100,
             $dataset->resolution,
-            'Wrong default value for property resolution in class ezcGraphDataSetAveragePolynom'
+            'Wrong default value for property resolution in class AveragePolynom'
         );
 
         $dataset->resolution = 5;
         $this->assertSame(
             5,
             $dataset->resolution,
-            'Setting property value did not work for property resolution in class ezcGraphDataSetAveragePolynom'
+            'Setting property value did not work for property resolution in class AveragePolynom'
         );
 
         try

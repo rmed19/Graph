@@ -2,12 +2,12 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphLineChart();
+$graph = new \Ezc\Graph\Charts\LineChart();
 $graph->title = 'Some random data';
 $graph->legend->position = ezcGraph::BOTTOM;
 $graph->options->fillLines = 210;
 
-$graph->xAxis = new ezcGraphChartElementNumericAxis();
+$graph->xAxis = new \Ezc\Graph\Axis\ChartElementNumericAxis();
 
 $data = array();
 for ( $i = 0; $i <= 10; $i++ )
@@ -16,12 +16,12 @@ for ( $i = 0; $i <= 10; $i++ )
 }
 
 // Add data
-$graph->data['random data'] = $dataset = new ezcGraphArrayDataSet( $data );
+$graph->data['random data'] = $dataset = new \Ezc\Graph\Datasets\ArrayDataSet( $data );
 
-$average = new ezcGraphDataSetAveragePolynom( $dataset, 3 );
+$average = new \Ezc\Graph\Datasets\AveragePolynom( $dataset, 3 );
 $graph->data[(string) $average->getPolynom()] = $average;
 
-$graph->renderer = new ezcGraphRenderer3d();
+$graph->renderer = new \Ezc\Graph\Renderer\Renderer3d();
 
 $graph->render( 400, 150, 'tutorial_line_chart_3d.svg' );
 

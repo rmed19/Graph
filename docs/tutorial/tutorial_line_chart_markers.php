@@ -3,16 +3,16 @@
 require_once 'tutorial_autoload.php';
 $wikidata = include 'tutorial_wikipedia_data.php';
 
-$graph = new ezcGraphLineChart();
+$graph = new \Ezc\Graph\Charts\LineChart();
 $graph->title = 'Wikipedia articles';
 
 // Add data
 foreach ( $wikidata as $language => $data )
 {
-    $graph->data[$language] = new ezcGraphArrayDataSet( $data );
+    $graph->data[$language] = new \Ezc\Graph\Datasets\ArrayDataSet( $data );
 }
 
-$graph->additionalAxis['border'] = $marker = new ezcGraphChartElementNumericAxis( );
+$graph->additionalAxis['border'] = $marker = new \Ezc\Graph\Axis\ChartElementNumericAxis( );
 
 $marker->position = ezcGraph::LEFT;
 $marker->chartPosition = 1 / 3;

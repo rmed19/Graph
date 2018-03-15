@@ -1,31 +1,20 @@
 <?php
-/**
- * ezcGraphRadarChartAxisTest 
- * 
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *
- * @package Graph
- * @version //autogen//
- * @subpackage Tests
- * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
- */
+
+namespace Ezc\Graph\Tests;
 
 require_once dirname( __FILE__ ) . '/test_case.php';
+
+use Ezc\Graph\Axis\ChartElementDateAxis;
+use Ezc\Graph\Axis\ChartElementLabeledAxis;
+use Ezc\Graph\Axis\ChartElementLogarithmicalAxis;
+use Ezc\Graph\Axis\ChartElementNumericAxis;
+use Ezc\Graph\Charts\RadarChart;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Palette\EzBlue;
+use Ezc\Graph\Renderer\AxisExactLabelRenderer;
+use Ezc\Graph\Renderer\AxisCenteredLabelRenderer;
+use Ezc\Graph\Renderer\AxisBoxedLabelRenderer;
+
 
 /**
  * Tests for ezcGraph class.
@@ -33,7 +22,7 @@ require_once dirname( __FILE__ ) . '/test_case.php';
  * @package Graph
  * @subpackage Tests
  */
-class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
+class RadarChartAxisTest extends ezcGraphTestCase
 {
     protected $basePath;
 
@@ -41,7 +30,7 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
 
 	public static function suite()
 	{
-		return new PHPUnit_Framework_TestSuite( "ezcGraphRadarChartAxisTest" );
+		return new PHPUnit_Framework_TestSuite( "RadarChartAxisTest" );
 	}
 
     public function setUp()
@@ -65,12 +54,12 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphRadarChart();
-        $chart->palette = new ezcGraphPaletteEzBlue();
+        $chart = new RadarChart();
+        $chart->palette = new EzBlue();
         $chart->legend = false;
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $this->getRandomData( 13 ) );
+        $chart->data['sample'] = new ArrayDataSet( $this->getRandomData( 13 ) );
 
-        $chart->axis->axisLabelRenderer = new ezcGraphAxisCenteredLabelRenderer();
+        $chart->axis->axisLabelRenderer = new AxisCenteredLabelRenderer();
 
         $chart->render( 500, 500, $filename );
 
@@ -84,12 +73,12 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphRadarChart();
-        $chart->palette = new ezcGraphPaletteEzBlue();
+        $chart = new RadarChart();
+        $chart->palette = new EzBlue();
         $chart->legend = false;
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $this->getRandomData( 13 ) );
+        $chart->data['sample'] = new ArrayDataSet( $this->getRandomData( 13 ) );
 
-        $chart->axis->axisLabelRenderer = new ezcGraphAxisBoxedLabelRenderer();
+        $chart->axis->axisLabelRenderer = new AxisBoxedLabelRenderer();
 
         $chart->render( 500, 500, $filename );
 
@@ -103,12 +92,12 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphRadarChart();
-        $chart->palette = new ezcGraphPaletteEzBlue();
+        $chart = new RadarChart();
+        $chart->palette = new EzBlue();
         $chart->legend = false;
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $this->getRandomData( 13 ) );
+        $chart->data['sample'] = new ArrayDataSet( $this->getRandomData( 13 ) );
 
-        $chart->axis->axisLabelRenderer = new ezcGraphAxisExactLabelRenderer();
+        $chart->axis->axisLabelRenderer = new AxisExactLabelRenderer();
         $chart->axis->axisLabelRenderer->showLastValue = false;
 
         $chart->render( 500, 500, $filename );
@@ -123,10 +112,10 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphRadarChart();
-        $chart->palette = new ezcGraphPaletteEzBlue();
+        $chart = new RadarChart();
+        $chart->palette = new EzBlue();
         $chart->legend = false;
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 
+        $chart->data['sample'] = new ArrayDataSet( array( 
             strtotime( '2006-10-16' ) => 7.78507871321,
             strtotime( '2006-10-30' ) => 7.52224503765,
             strtotime( '2006-11-20' ) => 7.29226557153,
@@ -136,7 +125,7 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
             strtotime( '2006-12-28' ) => 6.04517453799,
         ) );
 
-        $chart->rotationAxis = new ezcGraphChartElementDateAxis();
+        $chart->rotationAxis = new ChartElementDateAxis();
 
         $chart->render( 400, 200, $filename );
 
@@ -150,12 +139,12 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphRadarChart();
-        $chart->palette = new ezcGraphPaletteEzBlue();
+        $chart = new RadarChart();
+        $chart->palette = new EzBlue();
         $chart->legend = false;
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $this->getRandomData( 9 ) );
+        $chart->data['sample'] = new ArrayDataSet( $this->getRandomData( 9 ) );
 
-        $chart->rotationAxis = new ezcGraphChartElementNumericAxis();
+        $chart->rotationAxis = new ChartElementNumericAxis();
 
         $chart->render( 400, 200, $filename );
 
@@ -169,12 +158,12 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphRadarChart();
-        $chart->palette = new ezcGraphPaletteEzBlue();
+        $chart = new RadarChart();
+        $chart->palette = new EzBlue();
         $chart->legend = false;
-        $chart->data['sample'] = new ezcGraphArrayDataSet( $this->getRandomData( 9 ) );
+        $chart->data['sample'] = new ArrayDataSet( $this->getRandomData( 9 ) );
 
-        $chart->rotationAxis = new ezcGraphChartElementLabeledAxis();
+        $chart->rotationAxis = new ChartElementLabeledAxis();
 
         $chart->render( 400, 200, $filename );
 
@@ -188,10 +177,10 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
     {
         $filename = $this->tempDir . __FUNCTION__ . '.svg';
 
-        $chart = new ezcGraphRadarChart();
-        $chart->palette = new ezcGraphPaletteEzBlue();
+        $chart = new RadarChart();
+        $chart->palette = new EzBlue();
         $chart->legend = false;
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array(
+        $chart->data['sample'] = new ArrayDataSet( array(
             1 => 12,
             5 => 7,
             10 => 234,
@@ -201,7 +190,7 @@ class ezcGraphRadarChartAxisTest extends ezcGraphTestCase
             140596 => 1,
         ) );
 
-        $chart->rotationAxis = new ezcGraphChartElementLogarithmicalAxis();
+        $chart->rotationAxis = new ChartElementLogarithmicalAxis();
 
         $chart->render( 400, 200, $filename );
 

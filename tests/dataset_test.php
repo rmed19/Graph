@@ -1,6 +1,6 @@
 <?php
 /**
- * ezcGraphDataSetTest 
+ * AbstractDataSetTest 
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -25,46 +25,53 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Charts\PieChart;
+use Ezc\Graph\Colors\Color;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Datasets\AbstractDataSet;
+
+
 /**
  * Tests for ezcGraph class.
  * 
  * @package Graph
  * @subpackage Tests
  */
-class ezcGraphDataSetTest extends ezcTestCase
+class AbstractDataSetTest extends ezcTestCase
 {
 	public static function suite()
 	{
-		return new PHPUnit_Framework_TestSuite( "ezcGraphDataSetTest" );
+		return new PHPUnit_Framework_TestSuite( "AbstractDataSetTest" );
 	}
 
     public function testCreateDataSetFromArray()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['humanoids'] = new ezcGraphArrayDataSet( array( 'monkey' => 54, 'ape' => 37, 'human' => 9 ) );
+        $chart = new PieChart();
+        $chart->data['humanoids'] = new ArrayDataSet( array( 'monkey' => 54, 'ape' => 37, 'human' => 9 ) );
 
         $datasets = $this->readAttribute( $chart, 'data' );
         $this->assertTrue(
-            $datasets['humanoids'] instanceof ezcGraphDataSet,
-            'No ezcGraphDataSet was created.'
+            $datasets['humanoids'] instanceof AbstractDataSet,
+            'No AbstractDataSet was created.'
         );
     }
 
     public function testGetDataSet()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['humanoids'] = new ezcGraphArrayDataSet( array( 'monkey' => 54, 'ape' => 37, 'human' => 9 ) );
+        $chart = new PieChart();
+        $chart->data['humanoids'] = new ArrayDataSet( array( 'monkey' => 54, 'ape' => 37, 'human' => 9 ) );
 
         $this->assertTrue(
-            $chart->data['humanoids'] instanceof ezcGraphDataSet,
-            'No ezcGraphDataSet was created.'
+            $chart->data['humanoids'] instanceof AbstractDataSet,
+            'No AbstractDataSet was created.'
         );
     }
 
     public function testDataSetContent()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['example'] = new ezcGraphArrayDataSet( array( 'monkey' => 54, 2001 => 37 ) );
+        $chart = new PieChart();
+        $chart->data['example'] = new ArrayDataSet( array( 'monkey' => 54, 2001 => 37 ) );
 
         $data = $this->readAttribute( $chart->data['example'], 'data' );
 
@@ -80,8 +87,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetStringContent()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['example'] = new ezcGraphArrayDataSet( array( 'monkey' => 'alive', 2001 => 'year' ) );
+        $chart = new PieChart();
+        $chart->data['example'] = new ArrayDataSet( array( 'monkey' => 'alive', 2001 => 'year' ) );
 
         $data = $this->readAttribute( $chart->data['example'], 'data' );
 
@@ -97,18 +104,18 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testCreateMultipleDataSetsFromArray()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-        $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
+        $chart = new LineChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart->data['spending'] = new ArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
 
         $datasets = $this->readAttribute( $chart, 'data' );
         $this->assertTrue(
-            $datasets['income'] instanceof ezcGraphDataSet,
-            'No ezcGraphDataSet was created.'
+            $datasets['income'] instanceof AbstractDataSet,
+            'No AbstractDataSet was created.'
         );
         $this->assertTrue(
-            $datasets['spending'] instanceof ezcGraphDataSet,
-            'No second ezcGraphDataSet was created.'
+            $datasets['spending'] instanceof AbstractDataSet,
+            'No second AbstractDataSet was created.'
         );
     }
 
@@ -116,9 +123,9 @@ class ezcGraphDataSetTest extends ezcTestCase
     {
         try 
         {
-            $chart = new ezcGraphPieChart();
-            $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
-            $chart->data['spending'] = new ezcGraphArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
+            $chart = new PieChart();
+            $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+            $chart->data['spending'] = new ArrayDataSet( array( 2000 => 2347.2, 2458.3, 2569.4 ) );
         }
         catch ( ezcGraphTooManyDataSetsExceptions $e )
         {
@@ -130,8 +137,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetLabel()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         $this->assertEquals(
             'income',
@@ -141,8 +148,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetSetLabel()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->label = 'Income Label';
 
         $this->assertEquals(
@@ -153,20 +160,20 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetSetColor()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->color = '#FF0000';
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#FF0000' ),
+            Color::fromHex( '#FF0000' ),
             $chart->data['income']->color->default
         );
     }
 
     public function testDataSetSetHighlight()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight = true;
 
         $this->assertEquals(
@@ -177,8 +184,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetGetHighlight()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         $this->assertEquals(
             false,
@@ -193,8 +200,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetSetHighlightValue()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlightValue = 'Test';
         $chart->data['income']->highlightValue[2001] = 'TestString';
 
@@ -211,8 +218,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetGetHighlightValue()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         $this->assertEquals(
             false,
@@ -227,8 +234,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetSetHighlightSingle()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight[2001] = true;
 
         $this->assertEquals(
@@ -244,20 +251,20 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetSetSingleColor()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->color[2001] = '#FF0000';
 
         $this->assertEquals(
-            ezcGraphColor::fromHex( '#FF0000' ),
+            Color::fromHex( '#FF0000' ),
             $chart->data['income']->color[2001]
         );
     }
 
     public function testDataSetSetSingleSymbol()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->symbol[2001] = ezcGraph::DIAMOND;
 
         $this->assertEquals(
@@ -268,8 +275,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetPropertyValueFallback()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->symbol = ezcGraph::DIAMOND;
 
         $this->assertEquals(
@@ -282,8 +289,8 @@ class ezcGraphDataSetTest extends ezcTestCase
     {
         try
         {
-            $chart = new ezcGraphPieChart();
-            $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+            $chart = new PieChart();
+            $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
             $chart->data['income']->symbol[2006] = ezcGraph::DIAMOND;
         }
         catch ( ezcGraphNoSuchDataException $e )
@@ -296,8 +303,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetGetSingleData()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         $this->assertSame(
             2345.2,
@@ -307,8 +314,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetSetSingleData()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income'][2005] = 234.21;
 
         $this->assertSame(
@@ -324,8 +331,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testIteratorToDataSet()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( new ArrayIterator( array( 2000 => 2345.2, 2456.3, 2567.4 ) ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( new ArrayIterator( array( 2000 => 2345.2, 2456.3, 2567.4 ) ) );
         $chart->data['income'][2005] = 234.21;
 
         $this->assertSame(
@@ -341,10 +348,10 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetInvalidDataSource()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
         try
         {
-            $chart->data['income'] = new ezcGraphArrayDataSet( $chart );
+            $chart->data['income'] = new ArrayDataSet( $chart );
         }
         catch ( ezcGraphInvalidArrayDataSourceException $e )
         {
@@ -356,8 +363,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetOffsetExists()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         $this->assertSame(
             true,
@@ -372,8 +379,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetOffsetGetFailure()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         try
         {
@@ -389,7 +396,7 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetOffsetSetFailure()
     {
-        $chart = new ezcGraphPieChart();
+        $chart = new PieChart();
 
         try
         {
@@ -405,8 +412,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetOffsetUnset()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         $this->assertSame(
             true,
@@ -425,8 +432,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetOffsetUnsetFailure()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
 
         try
         {
@@ -442,8 +449,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetPropertyOffsetExists()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight[2000] = true;
 
         $this->assertSame(
@@ -459,8 +466,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetPropertyOffsetGetFailure()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight[2000] = true;
 
         try
@@ -477,8 +484,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetPropertyOffsetUnset()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight[2000] = true;
 
         $this->assertSame(
@@ -498,8 +505,8 @@ class ezcGraphDataSetTest extends ezcTestCase
 
     public function testDataSetPropertyOffsetUnsetFailure()
     {
-        $chart = new ezcGraphPieChart();
-        $chart->data['income'] = new ezcGraphArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
+        $chart = new PieChart();
+        $chart->data['income'] = new ArrayDataSet( array( 2000 => 2345.2, 2456.3, 2567.4 ) );
         $chart->data['income']->highlight[2000] = true;
 
         try

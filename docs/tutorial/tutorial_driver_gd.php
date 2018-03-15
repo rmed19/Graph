@@ -2,8 +2,8 @@
 
 require_once 'tutorial_autoload.php';
 
-$graph = new ezcGraphPieChart();
-$graph->palette = new ezcGraphPaletteEzGreen();
+$graph = new \Ezc\Graph\Charts\PieChart();
+$graph->palette = new \Ezc\Graph\Palette\EzGreen();
 $graph->title = 'Access statistics';
 $graph->legend = false;
 
@@ -20,7 +20,7 @@ $graph->driver->options->supersampling = 1;
 $graph->driver->options->jpegQuality = 100;
 $graph->driver->options->imageFormat = IMG_JPEG;
 
-$graph->data['Access statistics'] = new ezcGraphArrayDataSet( array(
+$graph->data['Access statistics'] = new \Ezc\Graph\Datasets\ArrayDataSet( array(
     'Mozilla' => 19113,
     'Explorer' => 10917,
     'Opera' => 1464,

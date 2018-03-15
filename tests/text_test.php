@@ -24,6 +24,10 @@
  * @subpackage Tests
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
+use Ezc\Graph\Charts\LineChart;
+use Ezc\Graph\Datasets\ArrayDataSet;
+use Ezc\Graph\Renderer\Renderer2d;
+
 
 /**
  * Tests for ezcGraph class.
@@ -50,12 +54,12 @@ class ezcGraphTextTest extends ezcTestCase
 
     public function testRenderTextTop()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
 
         $chart->title = 'Title of a chart';
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -76,13 +80,13 @@ class ezcGraphTextTest extends ezcTestCase
 
     public function testRenderTextBottom()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
 
         $chart->title = 'Title of a chart';
         $chart->title->position = ezcGraph::BOTTOM;
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -103,14 +107,14 @@ class ezcGraphTextTest extends ezcTestCase
 
     public function testRenderTextTopMargin()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
 
         $chart->title = 'Title of a chart';
         $chart->title->position = ezcGraph::TOP;
         $chart->title->margin = 5;
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -131,13 +135,13 @@ class ezcGraphTextTest extends ezcTestCase
 
     public function testRenderSubtitleOnly()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
 
         $chart->subtitle = 'Subtitle of a chart';
         $chart->subtitle->margin = 5;
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -158,13 +162,13 @@ class ezcGraphTextTest extends ezcTestCase
 
     public function testRenderTitleAndSubtitle()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
 
         $chart->title    = 'Title of a chart';
         $chart->subtitle = 'Subtitle of a chart';
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
@@ -193,14 +197,14 @@ class ezcGraphTextTest extends ezcTestCase
 
     public function testRenderTitleAndBottomSubtitle()
     {
-        $chart = new ezcGraphLineChart();
-        $chart->data['sample'] = new ezcGraphArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
+        $chart = new LineChart();
+        $chart->data['sample'] = new ArrayDataSet( array( 'foo' => 1, 'bar' => 10 ) );
 
         $chart->title    = 'Title of a chart';
         $chart->subtitle = 'Subtitle of a chart';
         $chart->subtitle->position = ezcGraph::BOTTOM;
 
-        $mockedRenderer = $this->getMock( 'ezcGraphRenderer2d', array(
+        $mockedRenderer = $this->getMock( Renderer2d::class, array(
             'drawText',
         ) );
 
